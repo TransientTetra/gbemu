@@ -17,7 +17,7 @@ TEST_F(MemoryTest, MemoryCreationTest)
 	Memory mem;
 }
 
-TEST_F(MemoryTest, AtTest)
+TEST_F(MemoryTest, ReadWriteFringeTest)
 {
 	Memory mem;
 	ASSERT_NO_THROW(mem.write(0, 0x69));
@@ -28,4 +28,17 @@ TEST_F(MemoryTest, AtTest)
 	ASSERT_EQ(mem.read(0xffff), 0x42);
 	ASSERT_NO_THROW(mem.write(0x10000, 0x42));
 	ASSERT_EQ(mem.read(0), 0x42);
+}
+
+TEST_F(MemoryTest, ReadWriteWholeTest)
+{
+	Memory mem;
+	for (int i = 0; i < LIBGEMU_MEMORY_SIZE; ++i)
+	{
+		ASSERT_NO_THROW(mem.write(i, i));
+	}
+	for (int i = 0; i < LIBGEMU_MEMORY_SIZE; ++i)
+	{
+		ASSERT_NO_THROW(EXPECT_EQ(mem.read(i), static_cast<Byte>(i)));
+	}
 }

@@ -4,7 +4,7 @@
 #include <libgbemu/types.hpp>
 
 #define LIBGEMU_MEMORY_SIZE 0x10000
-// GameBoy Memory Areas
+// Game Boy Memory Areas
 //	$FFFF		Interrupt Enable Flag
 //	$FF80-$FFFE 	Zero Page - 127 bytes
 //	$FF00-$FF7F 	Hardware I/O Registers

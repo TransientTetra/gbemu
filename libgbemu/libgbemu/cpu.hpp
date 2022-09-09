@@ -24,6 +24,15 @@ class CPU
 private:
 	Registers registers;
 
+	Word readAF();
+	void writeAF(const Word& data);
+	Word readBC();
+	void writeBC(const Word& data);
+	Word readDE();
+	void writeDE(const Word& data);
+	Word readHL();
+	void writeHL(const Word& data);
+
 public:
 	CPU();
 	void execute(Memory& memory);

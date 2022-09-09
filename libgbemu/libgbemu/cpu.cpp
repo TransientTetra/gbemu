@@ -6,6 +6,66 @@ CPU::CPU()
 	registers.sp = 0xfffe;
 }
 
+Word CPU::readAF()
+{
+	Word ret = 0x0000;
+	ret += registers.a;
+	ret <<= 8;
+	ret += registers.f;
+	return ret;
+}
+
+void CPU::writeAF(const Word& data)
+{
+	registers.a = data >> 8;
+	registers.f = data & 0x00ff;
+}
+
+Word CPU::readBC()
+{
+	Word ret = 0x0000;
+	ret += registers.b;
+	ret <<= 8;
+	ret += registers.c;
+	return ret;
+}
+
+void CPU::writeBC(const Word& data)
+{
+	registers.b = data >> 8;
+	registers.c = data & 0x00ff;
+}
+
+Word CPU::readDE()
+{
+	Word ret = 0x0000;
+	ret += registers.d;
+	ret <<= 8;
+	ret += registers.e;
+	return ret;
+}
+
+void CPU::writeDE(const Word& data)
+{
+	registers.d = data >> 8;
+	registers.e = data & 0x00ff;
+}
+
+Word CPU::readHL()
+{
+	Word ret = 0x0000;
+	ret += registers.h;
+	ret <<= 8;
+	ret += registers.l;
+	return ret;
+}
+
+void CPU::writeHL(const Word& data)
+{
+	registers.h = data >> 8;
+	registers.l = data & 0x00ff;
+}
+
 void CPU::execute(Memory& memory)
 {
 	const Byte& current = memory.read(registers.pc);

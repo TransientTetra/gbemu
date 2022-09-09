@@ -49,7 +49,32 @@ TEST_F(CPUTest, CPUCreationTest)
 	EXPECT_EQ(cpu.registers.sp, 0xfffe);
 }
 
-TEST_F(CPUTest, MiscTest)
+TEST_F(CPUTest, Registers16bitTest)
+{
+	CPU cpu;
+	for (Word i = 0; i < 0xffff; ++i)
+	{
+		ASSERT_NO_THROW(cpu.writeAF(i));
+		EXPECT_EQ(cpu.readAF(), i);
+	}
+	for (Word i = 0; i < 0xffff; ++i)
+	{
+		ASSERT_NO_THROW(cpu.writeBC(i));
+		EXPECT_EQ(cpu.readBC(), i);
+	}
+	for (Word i = 0; i < 0xffff; ++i)
+	{
+		ASSERT_NO_THROW(cpu.writeDE(i));
+		EXPECT_EQ(cpu.readDE(), i);
+	}
+	for (Word i = 0; i < 0xffff; ++i)
+	{
+		ASSERT_NO_THROW(cpu.writeHL(i));
+		EXPECT_EQ(cpu.readHL(), i);
+	}
+}
+
+TEST_F(CPUTest, OpcodeMiscTest)
 {
 	CPU cpu;
 	Memory mem;
@@ -72,13 +97,29 @@ TEST_F(CPUTest, MiscTest)
 	// 0xFB EI
 }
 
-TEST_F(CPUTest, LD8Test)
+TEST_F(CPUTest, OpcodeLD8Test)
 {
 	CPU cpu;
 	Memory mem;
 	Registers r;
 
 	// 0x02 LD (BC), A
+	// preparing cpu state before executing the opcode
+	cpu.registers.b = 0x00;
+	cpu.registers.c = 0x69;
+	// saving cpu state before executing the opcode
+	copyRegisters(r, cpu.registers);
+	// preparing memory
+	mem.write(cpu.registers.pc, 0x41);
+	// executing the opcode
+	cpu.execute(mem);
+	// expected change in registers
+	r.pc += 1;
+	r.c = 0x69;
+	r.b = 0x69;
+	// comparing expected change to real change
+	EXPECT_TRUE(compare(r, cpu.registers));
+
 	// 0x06 LD B, n
 	// 0x0A LD A, (BC)
 	// 0x0E LD C, n

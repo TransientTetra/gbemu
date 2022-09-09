@@ -2,56 +2,51 @@
 #define private public
 #include <libgbemu/cpu.hpp>
 
-void copyRegisters(Registers& dst, const Registers& src)
-{
-	dst.a = src.a;
-	dst.f = src.f;
-	dst.b = src.b;
-	dst.c = src.c;
-	dst.d = src.d;
-	dst.e = src.e;
-	dst.h = src.h;
-	dst.l = src.l;
-	dst.sp = src.sp;
-	dst.pc = src.pc;
-}
-
-bool compare(const Registers& a, const Registers& b)
-{
-	if (a.a != b.a) return false;
-	if (a.f != b.f) return false;
-	if (a.b != b.b) return false;
-	if (a.c != b.c) return false;
-	if (a.d != b.d) return false;
-	if (a.e != b.e) return false;
-	if (a.h != b.h) return false;
-	if (a.l != b.l) return false;
-	if (a.sp != b.sp) return false;
-	if (a.pc != b.pc) return false;
-	return true;
-}
-
 class CPUTest : public ::testing::Test
 {
 protected:
+	CPU cpu;
+	Memory mem, testMem;
+	Registers testRegs;
 	void SetUp() override
 	{
 	}
 	void TearDown() override
 	{
 	}
+	void testOpcode(Byte opcode)
+	{
+		// injecting opcode at pc
+		mem.write(cpu.registers.pc, opcode);
+		// saving cpu and memory state before executing the opcode
+		testRegs = cpu.registers;
+		testMem = mem;
+		// executing the opcode
+		cpu.execute(mem);
+	}
 };
 
 TEST_F(CPUTest, CPUCreationTest)
 {
-	CPU cpu;
 	EXPECT_EQ(cpu.registers.pc, 0x100);
 	EXPECT_EQ(cpu.registers.sp, 0xfffe);
 }
 
 TEST_F(CPUTest, Registers16bitTest)
 {
-	CPU cpu;
+	cpu.writeAF(0xbe6f);
+	EXPECT_EQ(cpu.registers.a, 0xbe);
+	EXPECT_EQ(cpu.registers.f, 0x6f);
+	cpu.writeBC(0xbe6f);
+	EXPECT_EQ(cpu.registers.b, 0xbe);
+	EXPECT_EQ(cpu.registers.c, 0x6f);
+	cpu.writeDE(0xbe6f);
+	EXPECT_EQ(cpu.registers.d, 0xbe);
+	EXPECT_EQ(cpu.registers.e, 0x6f);
+	cpu.writeHL(0xbe6f);
+	EXPECT_EQ(cpu.registers.h, 0xbe);
+	EXPECT_EQ(cpu.registers.l, 0x6f);
+
 	for (Word i = 0; i < 0xffff; ++i)
 	{
 		ASSERT_NO_THROW(cpu.writeAF(i));
@@ -76,20 +71,12 @@ TEST_F(CPUTest, Registers16bitTest)
 
 TEST_F(CPUTest, OpcodeMiscTest)
 {
-	CPU cpu;
-	Memory mem;
-	Registers r;
-
 	// 0x00 NOP
-	// saving cpu state before executing the opcode
-	copyRegisters(r, cpu.registers);
-	// preparing memory
-	mem.write(cpu.registers.pc, 0x00);
 	// executing the opcode
-	cpu.execute(mem);
+	testOpcode(0x00);
 	// expected change in registers
-	r.pc += 1;
-	EXPECT_TRUE(compare(r, cpu.registers));
+	testRegs.pc += 1;
+	EXPECT_TRUE(testRegs == cpu.registers);
 
 	// 0x10 STOP
 	// 0xF3 DI
@@ -99,34 +86,114 @@ TEST_F(CPUTest, OpcodeMiscTest)
 
 TEST_F(CPUTest, OpcodeLD8Test)
 {
-	CPU cpu;
-	Memory mem;
-	Registers r;
-
 	// 0x02 LD (BC), A
-	// preparing cpu state before executing the opcode
-	cpu.registers.b = 0x00;
-	cpu.registers.c = 0x69;
-	// saving cpu state before executing the opcode
-	copyRegisters(r, cpu.registers);
-	// preparing memory
-	mem.write(cpu.registers.pc, 0x41);
-	// executing the opcode
-	cpu.execute(mem);
-	// expected change in registers
-	r.pc += 1;
-	r.c = 0x69;
-	r.b = 0x69;
+	// preparing cpu and memory state before executing the opcode
+	cpu.writeBC(0xbeef);
+	cpu.registers.a = 0x69;
+	mem.write(cpu.readBC(), 0x0);
+	// testing the opcode
+	testOpcode(0x02);
+	// expected change in registers and memory
+	testRegs.pc += 1;
+	testMem.write(cpu.readBC(), 0x69);
 	// comparing expected change to real change
-	EXPECT_TRUE(compare(r, cpu.registers));
+	EXPECT_TRUE(testRegs == cpu.registers);
+	EXPECT_TRUE(testMem == mem);
 
 	// 0x06 LD B, n
+	// preparing cpu and memory state before executing the opcode
+	cpu.registers.b = 0;
+	mem.write(cpu.registers.pc + 1, 0x69);
+	// testing the opcode
+	testOpcode(0x06);
+	// expected change in registers and memory
+	testRegs.pc += 2;
+	testRegs.b = 0x69;
+	// comparing expected change to real change
+	EXPECT_TRUE(testRegs == cpu.registers);
+	EXPECT_TRUE(testMem == mem);
+
 	// 0x0A LD A, (BC)
+	// preparing cpu and memory state before executing the opcode
+	cpu.writeBC(0xbeef);
+	cpu.registers.a = 0;
+	mem.write(cpu.readBC(), 0x69);
+	// testing the opcode
+	testOpcode(0x0A);
+	// expected change in registers and memory
+	testRegs.pc += 1;
+	testRegs.a = 0x69;
+	// comparing expected change to real change
+	EXPECT_TRUE(testRegs == cpu.registers);
+	EXPECT_TRUE(testMem == mem);
+
 	// 0x0E LD C, n
+	// preparing cpu and memory state before executing the opcode
+	cpu.registers.c = 0;
+	mem.write(cpu.registers.pc + 1, 0x69);
+	// testing the opcode
+	testOpcode(0x0E);
+	// expected change in registers and memory
+	testRegs.pc += 2;
+	testRegs.c = 0x69;
+	// comparing expected change to real change
+	EXPECT_TRUE(testRegs == cpu.registers);
+	EXPECT_TRUE(testMem == mem);
+
 	// 0x12 LD (DE), A
+	// preparing cpu and memory state before executing the opcode
+	cpu.writeDE(0xbeef);
+	cpu.registers.a = 0x69;
+	mem.write(cpu.readDE(), 0);
+	// testing the opcode
+	testOpcode(0x12);
+	// expected change in registers and memory
+	testRegs.pc += 1;
+	testMem.write(cpu.readDE(), 0x69);
+	// comparing expected change to real change
+	EXPECT_TRUE(testRegs == cpu.registers);
+	EXPECT_TRUE(testMem == mem);
+
 	// 0x16 LD D, n
+	// preparing cpu and memory state before executing the opcode
+	cpu.registers.d = 0;
+	mem.write(cpu.registers.pc + 1, 0x69);
+	// testing the opcode
+	testOpcode(0x16);
+	// expected change in registers and memory
+	testRegs.pc += 2;
+	testRegs.d = 0x69;
+	// comparing expected change to real change
+	EXPECT_TRUE(testRegs == cpu.registers);
+	EXPECT_TRUE(testMem == mem);
+
 	// 0x1A LD A, (DE)
+	// preparing cpu and memory state before executing the opcode
+	cpu.writeDE(0xbeef);
+	cpu.registers.a = 0;
+	mem.write(cpu.readDE(), 0x69);
+	// testing the opcode
+	testOpcode(0x1A);
+	// expected change in registers and memory
+	testRegs.pc += 1;
+	testRegs.a = 0x69;
+	// comparing expected change to real change
+	EXPECT_TRUE(testRegs == cpu.registers);
+	EXPECT_TRUE(testMem == mem);
+
 	// 0x1E LD E, n
+	// preparing cpu and memory state before executing the opcode
+	cpu.registers.e = 0;
+	mem.write(cpu.registers.pc + 1, 0x69);
+	// testing the opcode
+	testOpcode(0x1E);
+	// expected change in registers and memory
+	testRegs.pc += 2;
+	testRegs.e = 0x69;
+	// comparing expected change to real change
+	EXPECT_TRUE(testRegs == cpu.registers);
+	EXPECT_TRUE(testMem == mem);
+
 	// 0x22 LD (HL+), A
 	// 0x26 LD H, n
 	// 0x2A LD A, (HL+)
@@ -138,31 +205,31 @@ TEST_F(CPUTest, OpcodeLD8Test)
 
 	// 0x40 LD B, B
 	// saving cpu state before executing the opcode
-	copyRegisters(r, cpu.registers);
+	testRegs = cpu.registers;
 	// preparing memory
 	mem.write(cpu.registers.pc, 0x40);
 	// executing the opcode
 	cpu.execute(mem);
 	// expected change in registers
-	r.pc += 1;
-	EXPECT_TRUE(compare(r, cpu.registers));
+	testRegs.pc += 1;
+	EXPECT_TRUE(testRegs == cpu.registers);
 
 	// 0x41 LD B, C
 	// preparing cpu state before executing the opcode
 	cpu.registers.b = 0x00;
 	cpu.registers.c = 0x69;
 	// saving cpu state before executing the opcode
-	copyRegisters(r, cpu.registers);
+	testRegs = cpu.registers;
 	// preparing memory
 	mem.write(cpu.registers.pc, 0x41);
 	// executing the opcode
 	cpu.execute(mem);
 	// expected change in registers
-	r.pc += 1;
-	r.c = 0x69;
-	r.b = 0x69;
+	testRegs.pc += 1;
+	testRegs.c = 0x69;
+	testRegs.b = 0x69;
 	// comparing expected change to real change
-	EXPECT_TRUE(compare(r, cpu.registers));
+	EXPECT_TRUE(testRegs == cpu.registers);
 
 	// 0x42 LD B, D
 	// 0x43 LD B, E

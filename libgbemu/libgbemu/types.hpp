@@ -2,7 +2,7 @@
 #define LIBGBEMU_TYPES_HPP
 
 #include <cstdint>
-using Byte = uint8_t;
-using Word = uint16_t;
+using Byte = std::uint8_t;
+using Word = std::uint16_t;
 
 #endif //LIBGBEMU_TYPES_HPP

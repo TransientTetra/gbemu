@@ -15,6 +15,9 @@ struct Registers
 	Byte l;
 	Word sp;
 	Word pc;
+
+	bool operator==(const Registers& other) const;
+	Registers& operator=(const Registers& other);
 };
 
 //Sharp LR35902 SOC

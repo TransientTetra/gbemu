@@ -27,9 +27,11 @@ private:
 	// all mapped memory, includes ram and vram and rom
 	Byte map[LIBGEMU_MEMORY_SIZE];
 public:
-	const Byte& read(const Word& address);
+	const Byte& read(const Word& address) const;
 	void write(const Word& address, const Byte& data);
 //	void write(const Word& address, const Word& data);
+	bool operator==(const Memory& other) const;
+	Memory& operator=(const Memory& other);
 };
 
 

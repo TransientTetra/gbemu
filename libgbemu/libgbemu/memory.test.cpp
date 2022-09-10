@@ -6,6 +6,7 @@
 class MemoryTest : public ::testing::Test
 {
 protected:
+	Memory mem{};
 	void SetUp() override
 	{
 	}
@@ -16,12 +17,10 @@ protected:
 
 TEST_F(MemoryTest, CreationTest)
 {
-	Memory mem;
 }
 
 TEST_F(MemoryTest, ReadWriteFringeTest)
 {
-	Memory mem;
 	ASSERT_NO_THROW(mem.write(0, 0x69));
 	ASSERT_EQ(mem.read(0), 0x69);
 	ASSERT_NO_THROW(mem.write(-1, 0x69));
@@ -34,7 +33,6 @@ TEST_F(MemoryTest, ReadWriteFringeTest)
 
 TEST_F(MemoryTest, ReadWriteWholeTest)
 {
-	Memory mem;
 	for (int i = 0; i < LIBGEMU_MEMORY_SIZE; ++i)
 	{
 		ASSERT_NO_THROW(mem.write(i, i));
@@ -43,6 +41,13 @@ TEST_F(MemoryTest, ReadWriteWholeTest)
 	{
 		ASSERT_NO_THROW(EXPECT_EQ(mem.read(i), static_cast<Byte>(i)));
 	}
+}
+
+TEST_F(MemoryTest, ReadWordTest)
+{
+	mem.write(0, 0xad);
+	mem.write(1, 0xde);
+	EXPECT_EQ(0xdead, mem.readWord(0));
 }
 
 #pragma clang diagnostic pop

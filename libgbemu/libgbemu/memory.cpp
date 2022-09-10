@@ -28,6 +28,11 @@ Memory& Memory::operator=(const Memory& other) // NOLINT(bugprone-unhandled-self
 	return *this;
 }
 
+Word Memory::readWord(const Word& address) const
+{
+	return 0x0000 | (read(address + 1) << 8) | read(address);
+}
+
 //void Memory::write(const Word& address, const Word& data)
 //{
 //	write(address, static_cast<Byte>(data >> 8));

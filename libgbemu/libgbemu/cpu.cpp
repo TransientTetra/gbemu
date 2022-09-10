@@ -1,90 +1,6 @@
 #include <libgbemu/cpu.hpp>
 
-bool Registers::operator==(const Registers& other) const
-{
-	if (a != other.a) return false;
-	if (f != other.f) return false;
-	if (b != other.b) return false;
-	if (c != other.c) return false;
-	if (d != other.d) return false;
-	if (e != other.e) return false;
-	if (h != other.h) return false;
-	if (l != other.l) return false;
-	if (sp != other.sp) return false;
-	if (pc != other.pc) return false;
-	return true;
-}
-
-Registers& Registers::operator=(const Registers& other)
-= default;
-
-CPU::CPU()
-{
-	registers.pc = 0x100;
-	registers.sp = 0xfffe;
-}
-
-Word CPU::readAF()
-{
-	Word ret = 0x0000;
-	ret += registers.a;
-	ret <<= 8;
-	ret += registers.f;
-	return ret;
-}
-
-void CPU::writeAF(const Word& data)
-{
-	registers.a = data >> 8;
-	registers.f = data & 0x00ff;
-}
-
-Word CPU::readBC()
-{
-	Word ret = 0x0000;
-	ret += registers.b;
-	ret <<= 8;
-	ret += registers.c;
-	return ret;
-}
-
-void CPU::writeBC(const Word& data)
-{
-	registers.b = data >> 8;
-	registers.c = data & 0x00ff;
-}
-
-Word CPU::readDE()
-{
-	Word ret = 0x0000;
-	ret += registers.d;
-	ret <<= 8;
-	ret += registers.e;
-	return ret;
-}
-
-void CPU::writeDE(const Word& data)
-{
-	registers.d = data >> 8;
-	registers.e = data & 0x00ff;
-}
-
-Word CPU::readHL()
-{
-	Word ret = 0x0000;
-	ret += registers.h;
-	ret <<= 8;
-	ret += registers.l;
-	return ret;
-}
-
-void CPU::writeHL(const Word& data)
-{
-	registers.h = data >> 8;
-	registers.l = data & 0x00ff;
-}
-
-void CPU::execute(Memory& memory)
+void CPU::execute(Registers& registers, Memory& memory)
 {
 	const Byte& current = memory.read(registers.pc);
 	registers.pc += 1;
@@ -101,7 +17,7 @@ void CPU::execute(Memory& memory)
 	// 8-bit loads
 		// 0x02 LD (BC), A
 		case 0x02:
-			memory.write(readBC(), registers.a);
+			memory.write(registers.bc, registers.a);
 			break;
 		// 0x06 LD B, n
 		case 0x06:
@@ -110,7 +26,7 @@ void CPU::execute(Memory& memory)
 			break;
 		// 0x0A LD A, (BC)
 		case 0x0A:
-			registers.a = memory.read(readBC());
+			registers.a = memory.read(registers.bc);
 			break;
 		// 0x0E LD C, n
 		case 0x0E:
@@ -119,7 +35,7 @@ void CPU::execute(Memory& memory)
 			break;
 		// 0x12 LD (DE), A
 		case 0x12:
-			memory.write(readDE(), registers.a);
+			memory.write(registers.de, registers.a);
 			break;
 		// 0x16 LD D, n
 		case 0x16:
@@ -128,7 +44,7 @@ void CPU::execute(Memory& memory)
 			break;
 		// 0x1A LD A, (DE)
 		case 0x1A:
-			registers.a = memory.read(readDE());
+			registers.a = memory.read(registers.de);
 			break;
 		// 0x1E LD E, n
 		case 0x1E:

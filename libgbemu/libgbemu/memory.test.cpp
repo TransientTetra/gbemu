@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include <libgbemu/memory.hpp>
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wconstant-conversion"
 class MemoryTest : public ::testing::Test
 {
 protected:
@@ -12,7 +14,7 @@ protected:
 	}
 };
 
-TEST_F(MemoryTest, MemoryCreationTest)
+TEST_F(MemoryTest, CreationTest)
 {
 	Memory mem;
 }
@@ -42,3 +44,5 @@ TEST_F(MemoryTest, ReadWriteWholeTest)
 		ASSERT_NO_THROW(EXPECT_EQ(mem.read(i), static_cast<Byte>(i)));
 	}
 }
+
+#pragma clang diagnostic pop

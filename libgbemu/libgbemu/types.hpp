@@ -4,6 +4,8 @@
 #include <cstdint>
 using Byte = std::uint8_t;
 using Word = std::uint16_t;
+using SignedByte = std::int8_t;
+using SignedWord = std::int16_t;
 
 #ifdef __BIG_ENDIAN__
 #define LIBGBEMU_BIG_ENDIAN

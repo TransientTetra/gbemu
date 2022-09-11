@@ -361,6 +361,99 @@ void CPU::execute(Registers& registers, Memory& memory)
 			registers.a = memory.read(0xFF00 | registers.c);
 			break;
 		// 0xFA LD A, (nn)
+	// 16-bit loads
+		// 0x01 LD BC, nn
+		case 0x01:
+			registers.bc = memory.readWord(registers.pc);
+			registers.pc += 2;
+			break;
+		// 0x08 LD (nn), SP
+		case 0x08:
+			memory.writeWord(memory.readWord(registers.pc), registers.sp);
+			registers.pc += 2;
+			break;
+		// 0x11 LD DE, nn
+		case 0x11:
+			registers.de = memory.readWord(registers.pc);
+			registers.pc += 2;
+			break;
+		// 0x21 LD HL, nn
+		case 0x21:
+			registers.hl = memory.readWord(registers.pc);
+			registers.pc += 2;
+			break;
+		// 0x31 LD SP, nn
+		case 0x31:
+			registers.sp = memory.readWord(registers.pc);
+			registers.pc += 2;
+			break;
+		// 0xC1 POP BC
+		case 0xC1:
+			registers.bc = memory.readWord(registers.sp);
+			registers.sp += 2;
+			break;
+		// 0xD1 POP DE
+		case 0xD1:
+			registers.de = memory.readWord(registers.sp);
+			registers.sp += 2;
+			break;
+		// 0xE1 POP HL
+		case 0xE1:
+			registers.hl = memory.readWord(registers.sp);
+			registers.sp += 2;
+			break;
+		// 0xF1 POP AF
+		case 0xF1:
+			registers.af = memory.readWord(registers.sp);
+			registers.sp += 2;
+			break;
+		// 0xC5 PUSH BC
+		case 0xC5:
+			registers.sp -= 2;
+			memory.writeWord(registers.sp, registers.bc);
+			break;
+		// 0xD5 PUSH DE
+		case 0xD5:
+			registers.sp -= 2;
+			memory.writeWord(registers.sp, registers.de);
+			break;
+		// 0xE5 PUSH HL
+		case 0xE5:
+			registers.sp -= 2;
+			memory.writeWord(registers.sp, registers.hl);
+			break;
+		// 0xF5 PUSH AF
+		case 0xF5:
+			registers.sp -= 2;
+			memory.writeWord(registers.sp, registers.af);
+			break;
+		// 0xF8 LD HL, SP+e
+		case 0xF8: // this is highly sus
+		{
+			SignedByte e = static_cast<SignedByte>(memory.read(registers.pc));
+			registers.hl = registers.sp + e;
+			registers.f &= 0b00001111; // clearing flags
+			if (e >= 0)
+			{
+				if (((registers.sp & 0xf) + (e & 0xf)) > 0xf)
+					registers.f |= 0b00100000; // half carry flag
+				if ((registers.sp & 0xff) + e > 0xff)
+					registers.f |= 0b00010000; // carry flag
+			}
+			else
+			{
+				if (((registers.sp + e) & 0xf) >= (registers.sp & 0xf))
+					registers.f |= 0b00100000; // half carry flag
+				if (((registers.sp + e) & 0xff) >= (registers.sp & 0xff))
+					registers.f |= 0b00010000; // carry flag
+			}
+			registers.pc += 1;
+			break;
+		}
+		// 0xF9 LD SP, HL
+		case 0xF9:
+			registers.sp = registers.hl;
+			break;
 		default:
 			registers.a = memory.read(memory.readWord(registers.pc));
 			registers.pc += 2;

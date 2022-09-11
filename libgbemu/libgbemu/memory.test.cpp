@@ -50,4 +50,11 @@ TEST_F(MemoryTest, ReadWordTest)
 	EXPECT_EQ(0xdead, mem.readWord(0));
 }
 
+TEST_F(MemoryTest, WriteWordTest)
+{
+	mem.writeWord(0, 0xbeef);
+	EXPECT_EQ(mem.read(0), 0xef);
+	EXPECT_EQ(mem.read(1), 0xbe);
+}
+
 #pragma clang diagnostic pop

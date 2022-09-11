@@ -33,8 +33,8 @@ Word Memory::readWord(const Word& address) const
 	return 0x0000 | (read(address + 1) << 8) | read(address);
 }
 
-//void Memory::write(const Word& address, const Word& data)
-//{
-//	write(address, static_cast<Byte>(data >> 8));
-//	write(address, static_cast<Byte>(data & 0x00ff));
-//}
+void Memory::writeWord(const Word& address, const Word& data)
+{
+	write(address, static_cast<Byte>(0x00ff & data));
+	write(address + 1, static_cast<Byte>(data >> 8));
+}

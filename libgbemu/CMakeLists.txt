@@ -8,6 +8,8 @@ set(LIBGBEMU_SOURCES
         libgbemu/types.hpp
         libgbemu/registers.cpp
         libgbemu/registers.hpp
+        libgbemu/state.cpp
+        libgbemu/state.hpp
         )
 add_library(libgbemu STATIC ${LIBGBEMU_SOURCES})
 

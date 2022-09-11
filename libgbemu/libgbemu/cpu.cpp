@@ -1,7 +1,9 @@
 #include <libgbemu/cpu.hpp>
 
-void CPU::execute(Registers& registers, Memory& memory)
+void CPU::execute(State& state)
 {
+	Memory& memory = state.memory;
+	Registers& registers = state.registers;
 	const Byte& current = memory.read(registers.pc);
 	registers.pc += 1;
 	switch(current)

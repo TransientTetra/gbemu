@@ -16,6 +16,8 @@ add_library(libgbemu STATIC ${LIBGBEMU_SOURCES})
 set(LIBGEMU_TEST_SOURCES
         ${LIBGEMU_TEST_SOURCES}
         libgbemu/cpu.test.cpp
+        libgbemu/cpu_8bit_loads.test.cpp
+        libgbemu/cpu_8bit_alu.test.cpp
         libgbemu/memory.test.cpp
         libgbemu/registers.test.cpp
         )

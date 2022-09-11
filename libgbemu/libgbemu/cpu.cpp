@@ -1,5 +1,10 @@
 #include <libgbemu/cpu.hpp>
 
+void CPU::handleUndefinedOpcode(State& state)
+{
+
+}
+
 void CPU::execute(State& state)
 {
 	Memory& memory = state.memory;
@@ -8,6 +13,20 @@ void CPU::execute(State& state)
 	registers.pc += 1;
 	switch(current)
 	{
+	// Undefined
+		case 0xD3:
+		case 0xE3:
+		case 0xE4:
+		case 0xF4:
+		case 0xDB:
+		case 0xDD:
+		case 0xEB:
+		case 0xEC:
+		case 0xED:
+		case 0xFC:
+		case 0xFD:
+			handleUndefinedOpcode(state);
+			return;
 	// Misc
 		// 0x00 NOP
 		case 0x00:
@@ -363,6 +382,10 @@ void CPU::execute(State& state)
 			registers.a = memory.read(0xFF00 | registers.c);
 			break;
 		// 0xFA LD A, (nn)
+		case 0xFA:
+			registers.a = memory.read(memory.readWord(registers.pc));
+			registers.pc += 2;
+			break;
 	// 16-bit loads
 		// 0x01 LD BC, nn
 		case 0x01:
@@ -457,8 +480,7 @@ void CPU::execute(State& state)
 			registers.sp = registers.hl;
 			break;
 		default:
-			registers.a = memory.read(memory.readWord(registers.pc));
-			registers.pc += 2;
-			break;
+			handleUndefinedOpcode(state);
+			return;
 	}
 }

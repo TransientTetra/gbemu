@@ -1,5 +1,6 @@
 #ifndef LIBGBEMU_CPU_HPP
 #define LIBGBEMU_CPU_HPP
+
 #include <libgbemu/types.hpp>
 #include <libgbemu/state.hpp>
 
@@ -8,6 +9,9 @@
 class CPU
 {
 private:
+
+	void handleUndefinedOpcode(State& state);
+
 public:
 	void execute(State& state);
 };

@@ -367,6 +367,19 @@ TEST_F(Opcodes16BitLoadsTest, Test0xF8)
 	expectedState.registers.f |= 0b00100000;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
+
+	state.registers.hl = 0;
+	state.registers.sp = 0xf0;
+	state.memory.write(state.registers.pc + 1, 0x10);
+	// testing the opcode
+	testOpcode(0xF8);
+	// expected change in registers and memory
+	expectedState.registers.pc += 2;
+	expectedState.registers.hl = 0xf0 + 0x10;
+	expectedState.registers.f &= 0b00001111;
+	expectedState.registers.f |= 0b00010000;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
 }
 
 TEST_F(Opcodes16BitLoadsTest, Test0xF9)

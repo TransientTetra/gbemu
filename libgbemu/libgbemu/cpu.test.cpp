@@ -298,8 +298,7 @@ TEST_F(Opcodes16BitLoadsTest, Test0xF8)
 	// expected change in registers and memory
 	expectedState.registers.pc += 2;
 	expectedState.registers.hl = 0xdead + 1;
-	expectedState.registers.f &= 0b00001111;
-	expectedState.registers.f |= 0b00000000;
+	expectedState.registers.clearFlags();
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 
@@ -311,8 +310,8 @@ TEST_F(Opcodes16BitLoadsTest, Test0xF8)
 	// expected change in registers and memory
 	expectedState.registers.pc += 2;
 	expectedState.registers.hl = 0x8f + 1;
-	expectedState.registers.f &= 0b00001111;
-	expectedState.registers.f |= 0b00100000;
+	expectedState.registers.clearFlags();
+	expectedState.registers.setHalfCarryFlag();
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 
@@ -324,8 +323,9 @@ TEST_F(Opcodes16BitLoadsTest, Test0xF8)
 	// expected change in registers and memory
 	expectedState.registers.pc += 2;
 	expectedState.registers.hl = 0xff + 1;
-	expectedState.registers.f &= 0b00001111;
-	expectedState.registers.f |= 0b00110000;
+	expectedState.registers.clearFlags();
+	expectedState.registers.setHalfCarryFlag();
+	expectedState.registers.setCarryFlag();
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 
@@ -337,8 +337,7 @@ TEST_F(Opcodes16BitLoadsTest, Test0xF8)
 	// expected change in registers and memory
 	expectedState.registers.pc += 2;
 	expectedState.registers.hl = 0xff - 5;
-	expectedState.registers.f &= 0b00001111;
-	expectedState.registers.f |= 0b00000000;
+	expectedState.registers.clearFlags();
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 
@@ -350,8 +349,9 @@ TEST_F(Opcodes16BitLoadsTest, Test0xF8)
 	// expected change in registers and memory
 	expectedState.registers.pc += 2;
 	expectedState.registers.hl = 2 - 5;
-	expectedState.registers.f &= 0b00001111;
-	expectedState.registers.f |= 0b00110000;
+	expectedState.registers.clearFlags();
+	expectedState.registers.setHalfCarryFlag();
+	expectedState.registers.setCarryFlag();
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 
@@ -363,8 +363,8 @@ TEST_F(Opcodes16BitLoadsTest, Test0xF8)
 	// expected change in registers and memory
 	expectedState.registers.pc += 2;
 	expectedState.registers.hl = 0xf0 - 5;
-	expectedState.registers.f &= 0b00001111;
-	expectedState.registers.f |= 0b00100000;
+	expectedState.registers.clearFlags();
+	expectedState.registers.setHalfCarryFlag();
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 
@@ -376,8 +376,8 @@ TEST_F(Opcodes16BitLoadsTest, Test0xF8)
 	// expected change in registers and memory
 	expectedState.registers.pc += 2;
 	expectedState.registers.hl = 0xf0 + 0x10;
-	expectedState.registers.f &= 0b00001111;
-	expectedState.registers.f |= 0b00010000;
+	expectedState.registers.clearFlags();
+	expectedState.registers.setCarryFlag();
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 }

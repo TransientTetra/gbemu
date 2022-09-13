@@ -1,5 +1,6 @@
 #ifndef LIBGBEMU_REGISTERS_HPP
 #define LIBGBEMU_REGISTERS_HPP
+
 #include <libgbemu/types.hpp>
 
 class Registers
@@ -8,8 +9,6 @@ private:
 	Byte bytes[12];
 
 public:
-	Registers();
-
 #ifdef LIBGBEMU_LITTLE_ENDIAN
 	Byte& a = bytes[1];
 	Byte& f = bytes[0];
@@ -37,7 +36,36 @@ public:
 	Word& de = reinterpret_cast<Word&>(bytes[4]);
 	Word& hl = reinterpret_cast<Word&>(bytes[6]);
 
+	Registers();
+
+	void clearFlags();
+
+	bool getZeroFlag();
+
+	void setZeroFlag();
+
+	void resetZeroFlag();
+
+	bool getSubtractFlag();
+
+	void setSubtractFlag();
+
+	void resetSubtractFlag();
+
+	bool getHalfCarryFlag();
+
+	void setHalfCarryFlag();
+
+	void resetHalfCarryFlag();
+
+	bool getCarryFlag();
+
+	void setCarryFlag();
+
+	void resetCarryFlag();
+
 	bool operator==(const Registers& other) const;
+
 	Registers& operator=(const Registers& other);
 };
 

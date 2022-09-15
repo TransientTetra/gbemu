@@ -12,6 +12,7 @@ set(LIBGBEMU_SOURCES
         libgbemu/state.hpp
         )
 add_library(libgbemu STATIC ${LIBGBEMU_SOURCES})
+set_target_properties(libgbemu PROPERTIES PREFIX "")
 
 set(LIBGEMU_TEST_SOURCES
         ${LIBGEMU_TEST_SOURCES}

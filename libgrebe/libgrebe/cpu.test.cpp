@@ -4,7 +4,7 @@
 #pragma clang diagnostic ignored "-Wconstant-conversion"
 #define private public
 
-#include <libgbemu/cpu.hpp>
+#include <libgrebe/cpu.hpp>
 
 class CPUTest : public ::testing::Test
 {

@@ -1,8 +1,8 @@
-#ifndef LIBGBEMU_STATE_HPP
-#define LIBGBEMU_STATE_HPP
+#ifndef LIBGREBE_STATE_HPP
+#define LIBGREBE_STATE_HPP
 
-#include <libgbemu/registers.hpp>
-#include <libgbemu/memory.hpp>
+#include <libgrebe/registers.hpp>
+#include <libgrebe/memory.hpp>
 
 class State
 {
@@ -17,4 +17,4 @@ public:
 };
 
 
-#endif //LIBGBEMU_STATE_HPP
+#endif //LIBGREBE_STATE_HPP

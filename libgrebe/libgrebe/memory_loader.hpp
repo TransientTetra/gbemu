@@ -1,6 +1,6 @@
-#ifndef LIBGBEMU_MEMORY_LOADER_HPP
-#define LIBGBEMU_MEMORY_LOADER_HPP
-#include <libgbemu/memory.hpp>
+#ifndef LIBGREBE_MEMORY_LOADER_HPP
+#define LIBGREBE_MEMORY_LOADER_HPP
+#include <libgrebe/memory.hpp>
 #include <string>
 
 struct InvalidBootRomException : public std::exception
@@ -18,4 +18,4 @@ public:
 };
 
 
-#endif //LIBGBEMU_MEMORY_LOADER_HPP
+#endif //LIBGREBE_MEMORY_LOADER_HPP

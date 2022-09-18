@@ -1,4 +1,4 @@
-#include <libgbemu/state.hpp>
+#include <libgrebe/state.hpp>
 
 bool State::operator==(const State& other) const
 {

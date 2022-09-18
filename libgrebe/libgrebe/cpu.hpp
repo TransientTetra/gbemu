@@ -1,8 +1,8 @@
-#ifndef LIBGBEMU_CPU_HPP
-#define LIBGBEMU_CPU_HPP
+#ifndef LIBGREBE_CPU_HPP
+#define LIBGREBE_CPU_HPP
 
-#include <libgbemu/types.hpp>
-#include <libgbemu/state.hpp>
+#include <libgrebe/types.hpp>
+#include <libgrebe/state.hpp>
 
 //Sharp LR35902 SOC
 //Sharp SM83 CPU
@@ -28,4 +28,4 @@ public:
 };
 
 
-#endif //LIBGBEMU_CPU_HPP
+#endif //LIBGREBE_CPU_HPP

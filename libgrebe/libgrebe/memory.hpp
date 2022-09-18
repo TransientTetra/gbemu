@@ -1,7 +1,7 @@
-#ifndef LIBGBEMU_MEMORY_HPP
-#define LIBGBEMU_MEMORY_HPP
+#ifndef LIBGREBE_MEMORY_HPP
+#define LIBGREBE_MEMORY_HPP
 
-#include <libgbemu/types.hpp>
+#include <libgrebe/types.hpp>
 
 #define LIBGEMU_MEMORY_SIZE 0x10000
 // Game Boy Memory Areas
@@ -36,4 +36,4 @@ public:
 };
 
 
-#endif //LIBGBEMU_MEMORY_HPP
+#endif //LIBGREBE_MEMORY_HPP

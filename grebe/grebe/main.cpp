@@ -1,5 +1,5 @@
-#include <libgbemu/memory_loader.hpp>
-#include <libgbemu/cpu.hpp>
+#include <libgrebe/memory_loader.hpp>
+#include <libgrebe/cpu.hpp>
 
 int main(int argc, char** argv)
 {

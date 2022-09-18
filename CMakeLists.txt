@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.23)
-project(gbemu)
+project(grebe)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(libgbemu)
+include_directories(libgrebe)
 
 add_subdirectory(libs)
 
-add_subdirectory(libgbemu)
-add_subdirectory(gbemu)
+add_subdirectory(libgrebe)
+add_subdirectory(grebe)

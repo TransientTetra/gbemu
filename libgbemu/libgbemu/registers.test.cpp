@@ -16,8 +16,7 @@ protected:
 
 TEST_F(RegistersTest, CreationTest)
 {
-	EXPECT_EQ(registers.pc, 0x100);
-	EXPECT_EQ(registers.sp, 0xfffe);
+	EXPECT_EQ(registers.pc, 0);
 }
 
 TEST_F(RegistersTest, OperatorsTest)

@@ -1,3 +1,6 @@
+cmake_minimum_required(VERSION 3.23)
+project(libgbemu)
+
 include_directories(.)
 set(LIBGBEMU_SOURCES
         ${LIBGBEMU_SOURCES}
@@ -10,6 +13,8 @@ set(LIBGBEMU_SOURCES
         libgbemu/registers.hpp
         libgbemu/state.cpp
         libgbemu/state.hpp
+        libgbemu/memory_loader.cpp
+        libgbemu/memory_loader.hpp
         )
 add_library(libgbemu STATIC ${LIBGBEMU_SOURCES})
 set_target_properties(libgbemu PROPERTIES PREFIX "")

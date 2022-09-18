@@ -2,8 +2,7 @@
 
 Registers::Registers()
 {
-	pc = 0x100;
-	sp = 0xfffe;
+	pc = 0;
 }
 
 bool Registers::operator==(const Registers& other) const

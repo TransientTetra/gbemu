@@ -11,6 +11,7 @@ GreBe is a Game Boy emulator in C++.
 8. libretro core API integration
 9. GBC support
 # Resources
+- https://gbdev.io/pandocs/About.html
 - https://github.com/gbdev/awesome-gbdev#emulator-development
 - https://www.pastraiser.com/cpu/gameboy/gameboy_opcodes.html
 - http://gameboy.mongenel.com/dmg/asmmemmap.html

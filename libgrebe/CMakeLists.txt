@@ -26,6 +26,7 @@ set(LIBGEMU_TEST_SOURCES
         libgrebe/cpu_8bit_alu.test.cpp
         libgrebe/memory.test.cpp
         libgrebe/registers.test.cpp
+        libgrebe/cpu_bit_ops.test.cpp
         )
 add_executable(libgrebe_tests ${LIBGEMU_TEST_SOURCES})
 target_link_libraries(libgrebe_tests libgrebe gtest_main)

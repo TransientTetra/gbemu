@@ -15,6 +15,7 @@ set(LIBGREBE_SOURCES
         libgrebe/state.hpp
         libgrebe/memory_loader.cpp
         libgrebe/memory_loader.hpp
+        libgrebe/cpu_opcodes.cpp
         )
 add_library(libgrebe STATIC ${LIBGREBE_SOURCES})
 set_target_properties(libgrebe PROPERTIES PREFIX "")

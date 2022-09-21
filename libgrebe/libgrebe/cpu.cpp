@@ -829,6 +829,127 @@ void CPU::execute(State& state)
 		case 0xCB:
 			handleCB(state);
 			break;
+	// Control flow
+		// 0x18 JR e
+		case 0x18:
+			opcodeJR(state, true);
+			break;
+		// 0x20 JR NZ, e
+		case 0x20:
+			opcodeJR(state, !registers.getZeroFlag());
+			break;
+		// 0x28 JR Z, e
+		case 0x28:
+			opcodeJR(state, registers.getZeroFlag());
+			break;
+		// 0x30 JR NC, e
+		case 0x30:
+			opcodeJR(state, !registers.getCarryFlag());
+			break;
+		// 0x38 JR C, e
+		case 0x38:
+			opcodeJR(state, registers.getCarryFlag());
+			break;
+		// 0xC2 JP NZ, nn
+		case 0xC2:
+			opcodeJP(state, !registers.getZeroFlag());
+			break;
+		// 0xC3 JP nn
+		case 0xC3:
+			opcodeJP(state, true);
+			break;
+		// 0xCA JP Z, nn
+		case 0xCA:
+			opcodeJP(state, registers.getZeroFlag());
+			break;
+		// 0xE9 JP HL
+		case 0xE9:
+			opcodeJPhl(state);
+			break;
+		// 0xD2 JP NC, nn
+		case 0xD2:
+			opcodeJP(state, !registers.getCarryFlag());
+			break;
+		// 0xDA JP C, nn
+		case 0xDA:
+			opcodeJP(state, registers.getCarryFlag());
+			break;
+		// 0xC4 CALL NZ, nn
+		case 0xC4:
+			opcodeCALL(state, !registers.getZeroFlag());
+			break;
+		// 0xCC CALL Z, nn
+		case 0xCC:
+			opcodeCALL(state, registers.getZeroFlag());
+			break;
+		// 0xCD CALL nn
+		case 0xCD:
+			opcodeCALL(state, true);
+			break;
+		// 0xD4 CALL NC, nn
+		case 0xD4:
+			opcodeCALL(state, !registers.getCarryFlag());
+			break;
+		// 0xDC CALL C, nn
+		case 0xDC:
+			opcodeCALL(state, registers.getCarryFlag());
+			break;
+		// 0xD0 RET NC
+		case 0xD0:
+			opcodeRET(state, !registers.getCarryFlag());
+			break;
+		// 0xC0 RET NZ
+		case 0xC0:
+			opcodeRET(state, !registers.getZeroFlag());
+			break;
+		// 0xC8 RET Z
+		case 0xC8:
+			opcodeRET(state, registers.getZeroFlag());
+			break;
+		// 0xD8 RET C
+		case 0xD8:
+			opcodeRET(state, registers.getCarryFlag());
+			break;
+		// 0xC9 RET
+		case 0xC9:
+			opcodeRET(state, true);
+			break;
+		// 0xD9 RETI
+		case 0xD9:
+			opcodeRETI(state);
+			break;
+		// 0xC7 RST 0x00
+		case 0xC7:
+			opcodeRST(state, 0x00);
+			break;
+		// 0xCF RST 0x08
+		case 0xCF:
+			opcodeRST(state, 0x08);
+			break;
+		// 0xD7 RST 0x10
+		case 0xD7:
+			opcodeRST(state, 0x10);
+			break;
+		// 0xDF RST 0x18
+		case 0xDF:
+			opcodeRST(state, 0x18);
+			break;
+		// 0xE7 RST 0x20
+		case 0xE7:
+			opcodeRST(state, 0x20);
+			break;
+		// 0xEF RST 0x28
+		case 0xEF:
+			opcodeRST(state, 0x28);
+			break;
+		// 0xF7 RST 0x30
+		case 0xF7:
+			opcodeRST(state, 0x30);
+			break;
+		// 0xFF RST 0x38
+		case 0xFF:
+			opcodeRST(state, 0x38);
+			break;
 		default:
 			handleUndefinedOpcode(state);
 			return;

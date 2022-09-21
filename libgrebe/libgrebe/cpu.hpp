@@ -77,6 +77,14 @@ private:
 	static void opcodeREShl(State& state, Byte bit);
 	static void opcodeSEThl(State& state, Byte bit);
 
+	static void opcodeJR(State& state, bool condition);
+	static void opcodeJP(State& state, bool condition);
+	static void opcodeJPhl(State& state);
+	static void opcodeCALL(State& state, bool condition);
+	static void opcodeRET(State& state, bool condition);
+	static void opcodeRETI(State& state);
+	static void opcodeRST(State& state, const Byte& address);
+
 public:
 	void execute(State& state);
 };

@@ -449,3 +449,58 @@ void CPU::opcodeSEThl(State& state, Byte bit)
 	state.memory.write(state.registers.hl, state.memory.read(state.registers.hl) | 1 << bit);
 }
 
+void CPU::opcodeJR(State& state, bool condition)
+{
+	SignedByte e = state.memory.read(state.registers.pc++);
+	if (condition)
+		state.registers.pc += e;
+}
+
+void CPU::opcodeJP(State& state, bool condition)
+{
+	Word addr = state.memory.readWord(state.registers.pc);
+	state.registers.pc += 2;
+	if (condition)
+		state.registers.pc = addr;
+}
+
+void CPU::opcodeJPhl(State& state)
+{
+	state.registers.pc = state.registers.hl;
+}
+
+void CPU::opcodeCALL(State& state, bool condition)
+{
+	Word addr = state.memory.readWord(state.registers.pc);
+	state.registers.pc += 2;
+	if (condition)
+	{
+		state.registers.sp -= 2;
+		state.memory.writeWord(state.registers.sp, state.registers.pc);
+		state.registers.pc = addr;
+	}
+}
+
+void CPU::opcodeRET(State& state, bool condition)
+{
+	if (condition)
+	{
+		state.registers.pc = state.memory.readWord(state.registers.sp);
+		state.registers.sp += 2;
+	}
+}
+
+void CPU::opcodeRETI(State& state)
+{
+	state.registers.pc = state.memory.readWord(state.registers.sp);
+	state.registers.sp += 2;
+	state.IME = true;
+}
+
+void CPU::opcodeRST(State& state, const Byte& address)
+{
+	state.registers.sp -= 2;
+	state.memory.writeWord(state.registers.sp, state.registers.pc);
+	state.registers.pc = address;
+}
+

@@ -7,6 +7,7 @@
 class State
 {
 public:
+	bool IME = true;
 	Registers registers;
 	Memory memory;
 

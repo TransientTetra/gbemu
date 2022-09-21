@@ -29,6 +29,6 @@ set(LIBGEMU_TEST_SOURCES
         libgrebe/registers.test.cpp
         libgrebe/cpu_bit_ops.test.cpp
         libgrebe/cpu_control_flow.test.cpp
-        )
+        libgrebe/cpu.test.hpp)
 add_executable(libgrebe_tests ${LIBGEMU_TEST_SOURCES})
 target_link_libraries(libgrebe_tests libgrebe gtest_main)

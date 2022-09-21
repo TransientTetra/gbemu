@@ -7,6 +7,11 @@ void CPU::handleUndefinedOpcode(State& state)
 
 void CPU::execute(State& state)
 {
+	if (state.imeScheduled)
+	{
+		state.imeScheduled = false;
+		state.ime = true;
+	}
 	Memory& memory = state.memory;
 	Registers& registers = state.registers;
 	const Byte& current = memory.read(registers.pc);
@@ -30,11 +35,24 @@ void CPU::execute(State& state)
 	// Misc
 		// 0x00 NOP
 		case 0x00:
+			opcodeNOP(state);
 			break;
 		// 0x10 STOP
+		case 0x10:
+			opcodeSTOP(state);
+			break;
 		// 0xF3 DI
+		case 0xF3:
+			opcodeDI(state);
+			break;
 		// 0x76 HALT
+		case 0x76:
+			opcodeHALT(state);
+			break;
 		// 0xFB EI
+		case 0xFB:
+			opcodeEI(state);
+			break;
 	// 8-bit loads
 		// 0x02 LD (BC), A
 		case 0x02:

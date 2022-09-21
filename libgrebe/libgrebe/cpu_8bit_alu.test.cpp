@@ -25,8 +25,7 @@ protected:
 		// injecting opcode at pc
 		state.memory.write(state.registers.pc, opcode);
 		// saving cpu and memory state before executing the opcode
-		expectedState.registers = state.registers;
-		expectedState.memory = state.memory;
+		expectedState = state;
 		// executing the opcode
 		cpu.execute(state);
 	}

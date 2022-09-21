@@ -1,36 +1,4 @@
-#include <gtest/gtest.h>
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wconstant-conversion"
-#define private public
-
-#include <libgrebe/cpu.hpp>
-
-class OpcodesControlFlowTest : public ::testing::Test
-{
-protected:
-	CPU cpu;
-	State state, expectedState;
-
-	void SetUp() override
-	{
-	}
-
-	void TearDown() override
-	{
-	}
-
-	void testOpcode(Byte opcode)
-	{
-		// injecting opcode at pc
-		state.memory.write(state.registers.pc, opcode);
-		// saving cpu and memory state before executing the opcode
-		expectedState.registers = state.registers;
-		expectedState.memory = state.memory;
-		// executing the opcode
-		cpu.execute(state);
-	}
-};
+#include <libgrebe/cpu.test.hpp>
 
 TEST_F(OpcodesControlFlowTest, Test0x20)
 {
@@ -640,7 +608,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC9)
 	// preparing cpu and memory state before executing the opcode
 	state.registers.pc = 0xdead;
 	state.registers.sp = 0x6967;
-	state.IME = false;
+	state.ime = false;
 	state.memory.writeWord(0x6967, 0xbeef);
 	// testing the opcode
 	testOpcode(0xC9);
@@ -657,12 +625,12 @@ TEST_F(OpcodesControlFlowTest, Test0xD9)
 	// preparing cpu and memory state before executing the opcode
 	state.registers.pc = 0xdead;
 	state.registers.sp = 0x6967;
-	state.IME = false;
+	state.ime = false;
 	state.memory.writeWord(0x6967, 0xbeef);
 	// testing the opcode
 	testOpcode(0xD9);
 	// expected change in registers and memory
-	expectedState.IME = true;
+	expectedState.ime = true;
 	expectedState.registers.sp = 0x6969;
 	expectedState.registers.pc = 0xbeef;
 	// comparing expected change to real change

@@ -1,44 +1,19 @@
-#include <gtest/gtest.h>
+#include <libgrebe/cpu.test.hpp>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wconstant-conversion"
-#define private public
-
-#include <libgrebe/cpu.hpp>
-
-class CPUTest : public ::testing::Test
+TEST_F(CPUTest, UndefinedOpcodesTest)
 {
-protected:
-	CPU cpu;
-	State state, expectedState;
-
-	void SetUp() override
-	{
-	}
-
-	void TearDown() override
-	{
-	}
-
-	void testOpcode(Byte opcode)
-	{
-		// injecting opcode at pc
-		state.memory.write(state.registers.pc, opcode);
-		// saving cpu and memory state before executing the opcode
-		expectedState.registers = state.registers;
-		expectedState.memory = state.memory;
-		// executing the opcode
-		cpu.execute(state);
-	}
-};
-
-TEST_F(CPUTest, CreationTest)
-{
+	EXPECT_THROW(testOpcode(0xD3), UndefinedOpcodeException);
+	EXPECT_THROW(testOpcode(0xE3), UndefinedOpcodeException);
+	EXPECT_THROW(testOpcode(0xE4), UndefinedOpcodeException);
+	EXPECT_THROW(testOpcode(0xF4), UndefinedOpcodeException);
+	EXPECT_THROW(testOpcode(0xDB), UndefinedOpcodeException);
+	EXPECT_THROW(testOpcode(0xDD), UndefinedOpcodeException);
+	EXPECT_THROW(testOpcode(0xEB), UndefinedOpcodeException);
+	EXPECT_THROW(testOpcode(0xEC), UndefinedOpcodeException);
+	EXPECT_THROW(testOpcode(0xED), UndefinedOpcodeException);
+	EXPECT_THROW(testOpcode(0xFC), UndefinedOpcodeException);
+	EXPECT_THROW(testOpcode(0xFD), UndefinedOpcodeException);
 }
-
-class OpcodesMiscTest : public CPUTest
-{
-};
 
 TEST_F(OpcodesMiscTest, Test0x00)
 {
@@ -58,6 +33,27 @@ TEST_F(OpcodesMiscTest, Test0x10)
 TEST_F(OpcodesMiscTest, Test0xF3)
 {
 	// 0xF3 DI
+	// preparing cpu and memory state before executing the opcode
+	state.ime = true;
+	// testing the opcode
+	testOpcode(0xF3);
+	// expected change in registers and memory
+	expectedState.registers.pc += 1;
+	expectedState.ime = false;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
+
+	// preparing cpu and memory state before executing the opcode
+	state.ime = true;
+	state.imeScheduled = true;
+	// testing the opcode
+	testOpcode(0xF3);
+	// expected change in registers and memory
+	expectedState.registers.pc += 1;
+	expectedState.ime = false;
+	expectedState.imeScheduled = false;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
 }
 
 TEST_F(OpcodesMiscTest, Test0x76)
@@ -68,11 +64,25 @@ TEST_F(OpcodesMiscTest, Test0x76)
 TEST_F(OpcodesMiscTest, Test0xFB)
 {
 	// 0xFB EI
+	// preparing cpu and memory state before executing the opcode
+	state.ime = false;
+	state.imeScheduled = false;
+	// testing the opcode
+	testOpcode(0xFB);
+	// expected change in registers and memory
+	expectedState.registers.pc += 1;
+	expectedState.imeScheduled = true;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
+	// testing the opcode
+	testOpcode(0x00);
+	// expected change in registers and memory
+	expectedState.registers.pc += 1;
+	expectedState.imeScheduled = false;
+	expectedState.ime = true;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
 }
-
-class Opcodes16BitLoadsTest : public CPUTest
-{
-};
 
 TEST_F(Opcodes16BitLoadsTest, Test0x01)
 {

@@ -494,7 +494,7 @@ void CPU::opcodeRETI(State& state)
 {
 	state.registers.pc = state.memory.readWord(state.registers.sp);
 	state.registers.sp += 2;
-	state.IME = true;
+	state.ime = true;
 }
 
 void CPU::opcodeRST(State& state, const Byte& address)
@@ -502,5 +502,31 @@ void CPU::opcodeRST(State& state, const Byte& address)
 	state.registers.sp -= 2;
 	state.memory.writeWord(state.registers.sp, state.registers.pc);
 	state.registers.pc = address;
+}
+
+void CPU::opcodeNOP(State& state)
+{
+
+}
+
+void CPU::opcodeDI(State& state)
+{
+	state.ime = false;
+	state.imeScheduled = false;
+}
+
+void CPU::opcodeEI(State& state)
+{
+	state.imeScheduled = true;
+}
+
+void CPU::opcodeSTOP(State& state)
+{
+
+}
+
+void CPU::opcodeHALT(State& state)
+{
+
 }
 

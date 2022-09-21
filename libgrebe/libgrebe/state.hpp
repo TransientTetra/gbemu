@@ -7,7 +7,8 @@
 class State
 {
 public:
-	bool IME = true;
+	bool imeScheduled = false;
+	bool ime = true;
 	Registers registers;
 	Memory memory;
 

@@ -1,36 +1,4 @@
-#include <gtest/gtest.h>
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wconstant-conversion"
-#define private public
-
-#include <libgrebe/cpu.hpp>
-
-class Opcodes8BitLoadsTest : public ::testing::Test
-{
-protected:
-	CPU cpu;
-	State state, expectedState;
-
-	void SetUp() override
-	{
-	}
-
-	void TearDown() override
-	{
-	}
-
-	void testOpcode(Byte opcode)
-	{
-		// injecting opcode at pc
-		state.memory.write(state.registers.pc, opcode);
-		// saving cpu and memory state before executing the opcode
-		expectedState.registers = state.registers;
-		expectedState.memory = state.memory;
-		// executing the opcode
-		cpu.execute(state);
-	}
-};
+#include <libgrebe/cpu.test.hpp>
 
 TEST_F(Opcodes8BitLoadsTest, Test0x02)
 {

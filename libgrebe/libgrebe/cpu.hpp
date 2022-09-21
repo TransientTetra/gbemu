@@ -85,6 +85,12 @@ private:
 	static void opcodeRETI(State& state);
 	static void opcodeRST(State& state, const Byte& address);
 
+	static void opcodeNOP(State& state);
+	static void opcodeDI(State& state);
+	static void opcodeEI(State& state);
+	static void opcodeSTOP(State& state);
+	static void opcodeHALT(State& state);
+
 public:
 	void execute(State& state);
 };

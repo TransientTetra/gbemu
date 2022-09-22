@@ -3,7 +3,15 @@
 
 #include <libgrebe/types.hpp>
 
-#define LIBGEMU_MEMORY_SIZE 0x10000
+#define LIBGREBE_MEMORY_SIZE 0x10000
+#define LIBGREBE_REGISTER_IE 0xFFFF
+#define LIBGREBE_REGISTER_IF 0xFF0F
+#define LIBGREBE_INT_VBLANK 0x40
+#define LIBGREBE_INT_STAT 0x48
+#define LIBGREBE_INT_TIMER 0x50
+#define LIBGREBE_INT_SERIAL 0x58
+#define LIBGREBE_INT_JOYPAD 0x60
+
 // Game Boy Memory Areas
 //	$FFFF		Interrupt Enable Flag
 //	$FF80-$FFFE 	Zero Page - 127 bytes
@@ -25,7 +33,7 @@ class Memory
 {
 private:
 	// all mapped memory, includes ram and vram and rom
-	Byte map[LIBGEMU_MEMORY_SIZE];
+	Byte map[LIBGREBE_MEMORY_SIZE];
 public:
 	[[nodiscard]] const Byte& read(const Word& address) const;
 	[[nodiscard]] Word readWord(const Word& address) const;

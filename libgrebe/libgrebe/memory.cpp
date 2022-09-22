@@ -12,7 +12,7 @@ void Memory::write(const Word& address, const Byte& data)
 
 bool Memory::operator==(const Memory& other) const
 {
-	for (int i = 0; i < LIBGEMU_MEMORY_SIZE; ++i)
+	for (int i = 0; i < LIBGREBE_MEMORY_SIZE; ++i)
 	{
 		if (read(i) != other.read(i)) return false;
 	}
@@ -21,7 +21,7 @@ bool Memory::operator==(const Memory& other) const
 
 Memory& Memory::operator=(const Memory& other) // NOLINT(bugprone-unhandled-self-assignment)
 {
-	for (int i = 0; i < LIBGEMU_MEMORY_SIZE; ++i)
+	for (int i = 0; i < LIBGREBE_MEMORY_SIZE; ++i)
 	{
 		write(i, other.read(i));
 	}

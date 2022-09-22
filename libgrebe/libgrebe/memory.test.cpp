@@ -33,11 +33,11 @@ TEST_F(MemoryTest, ReadWriteFringeTest)
 
 TEST_F(MemoryTest, ReadWriteWholeTest)
 {
-	for (int i = 0; i < LIBGEMU_MEMORY_SIZE; ++i)
+	for (int i = 0; i < LIBGREBE_MEMORY_SIZE; ++i)
 	{
 		ASSERT_NO_THROW(mem.write(i, i));
 	}
-	for (int i = 0; i < LIBGEMU_MEMORY_SIZE; ++i)
+	for (int i = 0; i < LIBGREBE_MEMORY_SIZE; ++i)
 	{
 		ASSERT_NO_THROW(EXPECT_EQ(mem.read(i), static_cast<Byte>(i)));
 	}

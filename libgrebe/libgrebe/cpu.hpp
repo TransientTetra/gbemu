@@ -19,9 +19,17 @@ class CPU
 {
 private:
 
-	void handleUndefinedOpcode(State& state);
+	static void handleUndefinedOpcode(State& state);
 
-	void handleCB(State& state);
+	static void decode(State& state, const Byte& opcode);
+	static void decode8BitLoads(State& state, const Byte& opcode);
+	static void decode16BitLoads(State& state, const Byte& opcode);
+	static void decode8BitArithmetic(State& state, const Byte& opcode);
+	static void decode16BitArithmetic(State& state, const Byte& opcode);
+	static void decodeBitOperations(State& state, const Byte& opcode);
+	static void decodeControlFlow(State& state, const Byte& opcode);
+	static void decodeMisc(State& state, const Byte& opcode);
+	static void decodeCB(State& state, const Byte& opcode);
 
 	static void opcodeLD(Byte& op1, const Byte& op2);
 	static void opcodeLDmem(Memory& memory, const Word& address, const Byte& op2);
@@ -92,7 +100,7 @@ private:
 	static void opcodeHALT(State& state);
 
 public:
-	void execute(State& state);
+	static void execute(State& state);
 };
 
 

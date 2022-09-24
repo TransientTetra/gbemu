@@ -1,5 +1,97 @@
 #include <libgrebe/cpu.test.hpp>
 
+TEST_F(CPUTest, InterruptsTest)
+{
+	state.registers.pc = 0xdead;
+	state.ime = false;
+	state.memory.write(LIBGREBE_REG_IE, 0xff);
+	state.memory.write(LIBGREBE_REG_IF, 0xff);
+	testOpcode(0x00);
+	expectedState.registers.pc += 1;
+	EXPECT_TRUE(expectedState == state);
+
+	state.registers.pc = 0xdead;
+	state.ime = true;
+	state.memory.write(LIBGREBE_REG_IE, 0);
+	state.memory.write(LIBGREBE_REG_IF, 0xff);
+	testOpcode(0x00);
+	expectedState.registers.pc += 1;
+	EXPECT_TRUE(expectedState == state);
+
+	state.registers.pc = 0xdead;
+	state.ime = true;
+	state.memory.write(LIBGREBE_REG_IE, 0xff);
+	state.memory.write(LIBGREBE_REG_IF, 0);
+	testOpcode(0x00);
+	expectedState.registers.pc += 1;
+	EXPECT_TRUE(expectedState == state);
+
+	state.registers.pc = 0xdead;
+	state.registers.sp = 0xbeef;
+	state.ime = true;
+	state.memory.write(LIBGREBE_REG_IE, 1);
+	state.memory.write(LIBGREBE_REG_IF, 1);
+	testOpcode(0x00);
+	expectedState.registers.pc = LIBGREBE_INT_VBLANK;
+	expectedState.registers.sp = 0xbeef - 2;
+	expectedState.ime = false;
+	expectedState.memory.writeWord(0xbeef - 2, 0xdead + 1);
+	expectedState.memory.write(LIBGREBE_REG_IF, 0);
+	EXPECT_TRUE(expectedState == state);
+
+	state.registers.pc = 0xdead;
+	state.registers.sp = 0xbeef;
+	state.ime = true;
+	state.memory.write(LIBGREBE_REG_IE, 2);
+	state.memory.write(LIBGREBE_REG_IF, 2);
+	testOpcode(0x00);
+	expectedState.registers.pc = LIBGREBE_INT_STAT;
+	expectedState.registers.sp = 0xbeef - 2;
+	expectedState.ime = false;
+	expectedState.memory.writeWord(0xbeef - 2, 0xdead + 1);
+	expectedState.memory.write(LIBGREBE_REG_IF, 0);
+	EXPECT_TRUE(expectedState == state);
+
+	state.registers.pc = 0xdead;
+	state.registers.sp = 0xbeef;
+	state.ime = true;
+	state.memory.write(LIBGREBE_REG_IE, 4);
+	state.memory.write(LIBGREBE_REG_IF, 4);
+	testOpcode(0x00);
+	expectedState.registers.pc = LIBGREBE_INT_TIMER;
+	expectedState.registers.sp = 0xbeef - 2;
+	expectedState.ime = false;
+	expectedState.memory.writeWord(0xbeef - 2, 0xdead + 1);
+	expectedState.memory.write(LIBGREBE_REG_IF, 0);
+	EXPECT_TRUE(expectedState == state);
+
+	state.registers.pc = 0xdead;
+	state.registers.sp = 0xbeef;
+	state.ime = true;
+	state.memory.write(LIBGREBE_REG_IE, 8);
+	state.memory.write(LIBGREBE_REG_IF, 8);
+	testOpcode(0x00);
+	expectedState.registers.pc = LIBGREBE_INT_SERIAL;
+	expectedState.registers.sp = 0xbeef - 2;
+	expectedState.ime = false;
+	expectedState.memory.writeWord(0xbeef - 2, 0xdead + 1);
+	expectedState.memory.write(LIBGREBE_REG_IF, 0);
+	EXPECT_TRUE(expectedState == state);
+
+	state.registers.pc = 0xdead;
+	state.registers.sp = 0xbeef;
+	state.ime = true;
+	state.memory.write(LIBGREBE_REG_IE, 16);
+	state.memory.write(LIBGREBE_REG_IF, 16);
+	testOpcode(0x00);
+	expectedState.registers.pc = LIBGREBE_INT_JOYPAD;
+	expectedState.registers.sp = 0xbeef - 2;
+	expectedState.ime = false;
+	expectedState.memory.writeWord(0xbeef - 2, 0xdead + 1);
+	expectedState.memory.write(LIBGREBE_REG_IF, 0);
+	EXPECT_TRUE(expectedState == state);
+}
+
 TEST_F(CPUTest, UndefinedOpcodesTest)
 {
 	EXPECT_THROW(testOpcode(0xD3), UndefinedOpcodeException);

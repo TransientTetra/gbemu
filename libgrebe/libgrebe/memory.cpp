@@ -1,4 +1,4 @@
-#include "memory.hpp"
+#include <libgrebe/memory.hpp>
 
 const Byte& Memory::read(const Word& address) const
 {

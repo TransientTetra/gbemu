@@ -24,8 +24,8 @@ set_target_properties(libgrebe PROPERTIES PREFIX "")
 set(LIBGEMU_TEST_SOURCES
         ${LIBGEMU_TEST_SOURCES}
         libgrebe/cpu.test.cpp
-        libgrebe/cpu_8bit_loads.test.cpp
-        libgrebe/cpu_8bit_alu.test.cpp
+        libgrebe/cpu_loads.test.cpp
+        libgrebe/cpu_alu.test.cpp
         libgrebe/memory.test.cpp
         libgrebe/registers.test.cpp
         libgrebe/cpu_bit_ops.test.cpp

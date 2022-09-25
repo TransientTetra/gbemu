@@ -34,7 +34,7 @@ protected:
 	}
 };
 
-class Opcodes8BitLoadsTest : public CPUTest
+class OpcodesLoadsTest : public CPUTest
 {
 };
 
@@ -42,8 +42,20 @@ class OpcodesMiscTest : public CPUTest
 {
 };
 
-class Opcodes16BitLoadsTest : public CPUTest
+class OpcodesAluTest : public CPUTest
 {
+protected:
+
+	void incTest(Byte opcode, Byte& reg, Byte& expectedReg);
+	void decTest(Byte opcode, Byte& reg, Byte& expectedReg);
+	void addTest(Byte opcode, Byte& operand);
+	void adcTest(Byte opcode, Byte& operand);
+	void subTest(Byte opcode, Byte& operand);
+	void sbcTest(Byte opcode, Byte& operand);
+	void andTest(Byte opcode, Byte& operand);
+	void xorTest(Byte opcode, Byte& operand);
+	void orTest(Byte opcode, Byte& operand);
+	void cpTest(Byte opcode, Byte& operand);
 };
 
 class OpcodesBitOperationsTest : public CPUTest
@@ -59,7 +71,7 @@ protected:
 		expectedState.registers = state.registers;
 		expectedState.memory = state.memory;
 		// executing the opcode
-		cpu.execute(state);
+		cpu.tick(state);
 	}
 
 	void testOpcodeRLC(Byte opcode, Byte& reg, Byte& expectedReg);

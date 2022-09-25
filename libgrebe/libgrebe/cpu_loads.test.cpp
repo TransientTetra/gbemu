@@ -1568,8 +1568,6 @@ TEST_F(OpcodesLoadsTest, Test0xF8)
 	expectedState.registers.pc += 2;
 	expectedState.registers.hl = 0xfffe;
 	expectedState.registers.clearFlags();
-	expectedState.registers.setHalfCarryFlag();
-	expectedState.registers.setCarryFlag();
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 
@@ -1607,9 +1605,9 @@ TEST_F(OpcodesLoadsTest, Test0xF8)
 	testOpcode(0xF8);
 	// expected change in registers and memory
 	expectedState.registers.pc += 2;
-	expectedState.registers.hl = 0x0100;
+	expectedState.registers.hl = 0x00ef;
 	expectedState.registers.clearFlags();
-	expectedState.registers.setCarryFlag();
+	expectedState.registers.setHalfCarryFlag();
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 

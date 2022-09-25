@@ -8,6 +8,7 @@
 #define private public
 
 #include <libgrebe/cpu.hpp>
+#include <libgrebe/instructions.hpp>
 
 class CPUTest : public ::testing::Test
 {
@@ -71,7 +72,7 @@ protected:
 		expectedState.registers = state.registers;
 		expectedState.memory = state.memory;
 		// executing the opcode
-		cpu.tick(state);
+		cpu.execute(state);
 	}
 
 	void testOpcodeRLC(Byte opcode, Byte& reg, Byte& expectedReg);

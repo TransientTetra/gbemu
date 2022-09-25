@@ -9,6 +9,7 @@ class State
 public:
 	bool imeScheduled = false;
 	bool ime = true;
+	unsigned long long clockCycles = 0;
 	Registers registers;
 	Memory memory;
 

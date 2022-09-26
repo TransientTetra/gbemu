@@ -2,7 +2,7 @@
 GreBe is a Game Boy emulator in C++.
 # Todo list
 1. ~~Implement opcodes~~
-2. CPU interrupts and timing + HALT and STOP
+2. ~~CPU interrupts and timing + HALT and STOP~~
 3. PPU
 4. Minimal app displaying frames
 5. Input handling

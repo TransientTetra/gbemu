@@ -37,8 +37,8 @@ Instruction Decoder::decode(const Byte& opcode)
 			return &Instructions::LD_C_d8;
 		case LIBGREBE_OP_RRCA:
 			return &Instructions::RRCA;
-		case LIBGREBE_OP_STOP_0:
-			return &Instructions::STOP_0;
+		case LIBGREBE_OP_STOP_d8:
+			return &Instructions::STOP_d8;
 		case LIBGREBE_OP_LD_DE_d16:
 			return &Instructions::LD_DE_d16;
 		case LIBGREBE_OP_LD_MEM_AT_DE_A:

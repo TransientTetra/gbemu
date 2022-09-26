@@ -1,5 +1,5 @@
-#ifndef GREBE_INSTRUCTIONS_HPP
-#define GREBE_INSTRUCTIONS_HPP
+#ifndef LIBGREBE_INSTRUCTIONS_HPP
+#define LIBGREBE_INSTRUCTIONS_HPP
 
 #include <libgrebe/state.hpp>
 #include <exception>
@@ -34,7 +34,7 @@ public:
 	static void DEC_C(State& state);
 	static void LD_C_d8(State& state);
 	static void RRCA(State& state);
-	static void STOP_0(State& state);
+	static void STOP_d8(State& state);
 	static void LD_DE_d16(State& state);
 	static void LD_MEM_AT_DE_A(State& state);
 	static void INC_DE(State& state);
@@ -522,4 +522,4 @@ public:
 };
 
 
-#endif //GREBE_INSTRUCTIONS_HPP
+#endif //LIBGREBE_INSTRUCTIONS_HPP

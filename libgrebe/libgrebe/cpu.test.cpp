@@ -129,6 +129,38 @@ TEST_F(OpcodesMiscTest, Test0x00)
 TEST_F(OpcodesMiscTest, Test0x10)
 {
 	// 0x10 STOP
+	// preparing cpu and memory state before executing the opcode
+	// testing the opcode
+	testOpcode(0x10);
+	// expected change in registers and memory
+	expectedState.clockCycles += 4;
+	expectedState.registers.pc += 2;
+	expectedState.stop = true;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
+	cpu.execute(state);
+	cpu.execute(state);
+	cpu.execute(state);
+	EXPECT_TRUE(expectedState == state);
+	state.memory.write(LIBGREBE_REG_P1, 0b11110111);
+	expectedState = state;
+	cpu.execute(state);
+	cpu.execute(state);
+	cpu.execute(state);
+	EXPECT_TRUE(expectedState == state);
+	state.memory.write(LIBGREBE_REG_P1, 0b11011111);
+	expectedState = state;
+	cpu.execute(state);
+	cpu.execute(state);
+	cpu.execute(state);
+	EXPECT_TRUE(expectedState == state);
+	state.memory.write(LIBGREBE_REG_P1, 0b11011110);
+	testOpcode(0);
+	expectedState.clockCycles += 4;
+	expectedState.registers.pc += 1;
+	expectedState.stop = false;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
 }
 
 TEST_F(OpcodesMiscTest, Test0xF3)
@@ -162,6 +194,86 @@ TEST_F(OpcodesMiscTest, Test0xF3)
 TEST_F(OpcodesMiscTest, Test0x76)
 {
 	// 0x76 HALT
+	// preparing cpu and memory state before executing the opcode
+	state.ime = true;
+	// testing the opcode
+	testOpcode(0x76);
+	// expected change in registers and memory
+	expectedState.clockCycles += 4;
+	expectedState.registers.pc += 1;
+	expectedState.halt = true;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
+	// testing the opcode
+	testOpcode(0x00);
+	// expected change in registers and memory
+	expectedState.clockCycles += 4;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
+	// testing the opcode
+	testOpcode(0xCF);
+	// expected change in registers and memory
+	expectedState.clockCycles += 4;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
+	// testing the opcode
+	testOpcode(0xCF);
+	// expected change in registers and memory
+	expectedState.clockCycles += 4;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
+
+	// injecting interrupt
+	state.registers.pc = 0xdead;
+	state.registers.sp = 0xbeef;
+	state.memory.write(LIBGREBE_REG_IE, 1);
+	state.memory.write(LIBGREBE_REG_IF, 1);
+	testOpcode(0x00);
+	expectedState.clockCycles += 24;
+	expectedState.registers.pc = LIBGREBE_INT_VBLANK;
+	expectedState.registers.sp = 0xbeef - 2;
+	expectedState.ime = false;
+	expectedState.halt = false;
+	expectedState.memory.writeWord(0xbeef - 2, 0xdead);
+	expectedState.memory.write(LIBGREBE_REG_IF, 0);
+	EXPECT_TRUE(expectedState == state);
+
+	// halt bug
+	// preparing cpu and memory state before executing the opcode
+	state.ime = false;
+	state.memory.write(LIBGREBE_REG_IE, 0);
+	state.memory.write(LIBGREBE_REG_IF, 0);
+	// testing the opcode
+	testOpcode(0x76);
+	// expected change in registers and memory
+	expectedState.clockCycles += 4;
+	expectedState.registers.pc += 1;
+	expectedState.halt = true;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
+	// testing the opcode
+	testOpcode(0xCF);
+	// expected change in registers and memory
+	expectedState.clockCycles += 4;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
+	// testing the opcode
+	testOpcode(0xCF);
+	// expected change in registers and memory
+	expectedState.clockCycles += 4;
+	// comparing expected change to real change
+	EXPECT_TRUE(expectedState == state);
+
+	// injecting interrupt
+	state.memory.write(LIBGREBE_REG_IE, 1);
+	state.memory.write(LIBGREBE_REG_IF, 1);
+	testOpcode(0x00);
+	expectedState.clockCycles += 8;
+	expectedState.registers.pc += 1;
+	expectedState.halt = false;
+	EXPECT_TRUE(expectedState == state);
+
+	// todo halt bug 2
 }
 
 TEST_F(OpcodesMiscTest, Test0xFB)

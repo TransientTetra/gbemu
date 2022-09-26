@@ -7,7 +7,6 @@ void Instructions::Undefined(State& state)
 
 void Instructions::NOP(State& state)
 {
-	
 	state.clockCycles += 4;
 }
 
@@ -144,8 +143,9 @@ void Instructions::RRCA(State& state)
 	state.clockCycles += 4;
 }
 
-void Instructions::STOP_0(State& state)
+void Instructions::STOP_d8(State& state)
 {
+	state.stop = true;
 	state.registers.pc += 1;
 	state.clockCycles += 4;
 }
@@ -932,6 +932,7 @@ void Instructions::LD_MEM_AT_HL_L(State& state)
 
 void Instructions::HALT(State& state)
 {
+	state.halt = true;
 	state.clockCycles += 4;
 }
 

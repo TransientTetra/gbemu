@@ -7,8 +7,10 @@
 class State
 {
 public:
+	bool halt = false;
+	bool stop = false;
 	bool imeScheduled = false;
-	bool ime = true;
+	bool ime = false;
 	unsigned long long clockCycles = 0;
 	Registers registers;
 	Memory memory;

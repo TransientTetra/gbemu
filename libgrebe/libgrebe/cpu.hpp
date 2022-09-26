@@ -3,6 +3,7 @@
 
 #include <libgrebe/types.hpp>
 #include <libgrebe/state.hpp>
+#include <libgrebe/memory_locations.hpp>
 
 //Sharp LR35902 SOC
 //Sharp SM83 CPU

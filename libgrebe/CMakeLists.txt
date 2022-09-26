@@ -20,6 +20,7 @@ set(LIBGREBE_SOURCES
         libgrebe/opcodes.hpp
         libgrebe/instructions.cpp
         libgrebe/instructions.hpp
+        libgrebe/memory_locations.hpp
         )
 
 add_library(libgrebe STATIC ${LIBGREBE_SOURCES})

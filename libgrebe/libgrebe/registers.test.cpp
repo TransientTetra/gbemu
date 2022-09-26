@@ -14,9 +14,22 @@ protected:
 	}
 };
 
-TEST_F(RegistersTest, CreationTest)
+TEST_F(RegistersTest, DMGCreationTest)
 {
-	EXPECT_EQ(registers.pc, 0);
+	// https://gbdev.io/pandocs/Power_Up_Sequence.html#cpu-registers
+	EXPECT_EQ(registers.a, 1);
+	EXPECT_EQ(registers.b, 0);
+	EXPECT_EQ(registers.c, 0x13);
+	EXPECT_EQ(registers.d, 0);
+	EXPECT_EQ(registers.e, 0xd8);
+	EXPECT_EQ(registers.h, 1);
+	EXPECT_EQ(registers.l, 0x4d);
+	EXPECT_EQ(registers.getZeroFlag(), true);
+	EXPECT_EQ(registers.getSubtractFlag(), false);
+	EXPECT_EQ(registers.getHalfCarryFlag(), false);
+	EXPECT_EQ(registers.getCarryFlag(), false);
+	EXPECT_EQ(registers.pc, 0x0100);
+	EXPECT_EQ(registers.sp, 0xfffe);
 }
 
 TEST_F(RegistersTest, OperatorsTest)

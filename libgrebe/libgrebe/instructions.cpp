@@ -293,7 +293,8 @@ void Instructions::JR_NZ_r8(State& state)
 		state.registers.pc += e;
 		state.clockCycles += 12;
 	}
-	state.clockCycles += 8;
+	else
+		state.clockCycles += 8;
 }
 
 void Instructions::LD_HL_d16(State& state)
@@ -377,7 +378,8 @@ void Instructions::JR_Z_r8(State& state)
 		state.registers.pc += e;
 		state.clockCycles += 12;
 	}
-	state.clockCycles += 8;
+	else
+		state.clockCycles += 8;
 }
 
 void Instructions::ADD_HL_HL(State& state)
@@ -455,7 +457,8 @@ void Instructions::JR_NC_r8(State& state)
 		state.registers.pc += e;
 		state.clockCycles += 12;
 	}
-	state.clockCycles += 8;
+	else
+		state.clockCycles += 8;
 }
 
 void Instructions::LD_SP_d16(State& state)
@@ -529,7 +532,8 @@ void Instructions::JR_C_r8(State& state)
 		state.registers.pc += e;
 		state.clockCycles += 12;
 	}
-	state.clockCycles += 8;
+	else
+		state.clockCycles += 8;
 }
 
 void Instructions::ADD_HL_SP(State& state)
@@ -3060,7 +3064,7 @@ void Instructions::BIT_0_MEM_AT_HL(State& state)
 	state.registers.setHalfCarryFlag();
 	state.registers.setZeroFlag();
 	if (operand & (1 << 0)) state.registers.resetZeroFlag();
-	state.clockCycles += 16;
+	state.clockCycles += 12;
 }
 
 void Instructions::BIT_0_A(State& state)
@@ -3140,7 +3144,7 @@ void Instructions::BIT_1_MEM_AT_HL(State& state)
 	state.registers.setHalfCarryFlag();
 	state.registers.setZeroFlag();
 	if (operand & (1 << 1)) state.registers.resetZeroFlag();
-	state.clockCycles += 16;
+	state.clockCycles += 12;
 }
 
 void Instructions::BIT_1_A(State& state)
@@ -3220,7 +3224,7 @@ void Instructions::BIT_2_MEM_AT_HL(State& state)
 	state.registers.setHalfCarryFlag();
 	state.registers.setZeroFlag();
 	if (operand & (1 << 2)) state.registers.resetZeroFlag();
-	state.clockCycles += 16;
+	state.clockCycles += 12;
 }
 
 void Instructions::BIT_2_A(State& state)
@@ -3300,7 +3304,7 @@ void Instructions::BIT_3_MEM_AT_HL(State& state)
 	state.registers.setHalfCarryFlag();
 	state.registers.setZeroFlag();
 	if (operand & (1 << 3)) state.registers.resetZeroFlag();
-	state.clockCycles += 16;
+	state.clockCycles += 12;
 }
 
 void Instructions::BIT_3_A(State& state)
@@ -3380,7 +3384,7 @@ void Instructions::BIT_4_MEM_AT_HL(State& state)
 	state.registers.setHalfCarryFlag();
 	state.registers.setZeroFlag();
 	if (operand & (1 << 4)) state.registers.resetZeroFlag();
-	state.clockCycles += 16;
+	state.clockCycles += 12;
 }
 
 void Instructions::BIT_4_A(State& state)
@@ -3460,7 +3464,7 @@ void Instructions::BIT_5_MEM_AT_HL(State& state)
 	state.registers.setHalfCarryFlag();
 	state.registers.setZeroFlag();
 	if (operand & (1 << 5)) state.registers.resetZeroFlag();
-	state.clockCycles += 16;
+	state.clockCycles += 12;
 }
 
 void Instructions::BIT_5_A(State& state)
@@ -3540,7 +3544,7 @@ void Instructions::BIT_6_MEM_AT_HL(State& state)
 	state.registers.setHalfCarryFlag();
 	state.registers.setZeroFlag();
 	if (operand & (1 << 6)) state.registers.resetZeroFlag();
-	state.clockCycles += 16;
+	state.clockCycles += 12;
 }
 
 void Instructions::BIT_6_A(State& state)
@@ -3620,7 +3624,7 @@ void Instructions::BIT_7_MEM_AT_HL(State& state)
 	state.registers.setHalfCarryFlag();
 	state.registers.setZeroFlag();
 	if (operand & (1 << 7)) state.registers.resetZeroFlag();
-	state.clockCycles += 16;
+	state.clockCycles += 12;
 }
 
 void Instructions::BIT_7_A(State& state)

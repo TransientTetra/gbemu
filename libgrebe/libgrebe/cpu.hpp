@@ -3,7 +3,6 @@
 
 #include <libgrebe/types.hpp>
 #include <libgrebe/state.hpp>
-#include <exception>
 
 //Sharp LR35902 SOC
 //Sharp SM83 CPU

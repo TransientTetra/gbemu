@@ -31,7 +31,33 @@ protected:
 		// saving cpu and memory state before executing the opcode
 		expectedState = state;
 		// executing the opcode
-		cpu.execute(state);
+		do
+		{
+			CPU::tick(state);
+		}
+		while (!state.cpuQueue.empty());
+	}
+
+	static void compareMem(const Memory& mem1, const Memory& mem2)
+	{
+		if (mem1 == mem2)
+			std::cerr << "Memories identical" << std::endl;
+		else
+		{
+			for (int i = 0; i < LIBGREBE_MEMORY_SIZE; ++i)
+			{
+				if (mem1.read(i) != mem2.read(i))
+				{
+					int j = std::max(0, i - 4);
+					std::cerr << "Found diff at " << std::hex << i << std::endl;
+					for (; j < std::min(LIBGREBE_MEMORY_SIZE, i + 4); ++j)
+					{
+						std::cerr << std::hex << j << "  " << std::hex << (int)mem1.read(j) << "   "
+							  << std::hex << (int)mem2.read(j) << std::endl;
+					}
+				}
+			}
+		}
 	}
 };
 
@@ -72,7 +98,13 @@ protected:
 		expectedState.registers = state.registers;
 		expectedState.memory = state.memory;
 		// executing the opcode
-		cpu.execute(state);
+		CPU::tick(state);
+		// executing the opcode
+		do
+		{
+			CPU::tick(state);
+		}
+		while (!state.cpuQueue.empty());
 	}
 
 	void testOpcodeRLC(Byte opcode, Byte& reg, Byte& expectedReg);

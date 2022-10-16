@@ -1,7 +1,7 @@
 #include <libgrebe/decoder.hpp>
 #include <libgrebe/opcodes.hpp>
 
-Instruction Decoder::decode(const Byte& opcode)
+std::function<void(State&)> Decoder::decode(const Byte& opcode)
 {
 	switch (opcode)
 	{
@@ -411,8 +411,8 @@ Instruction Decoder::decode(const Byte& opcode)
 			return &Instructions::RET;
 		case LIBGREBE_OP_JP_Z_a16:
 			return &Instructions::JP_Z_a16;
-//		case LIBGREBE_OP_PREFIX_CB:
-//			return &Instructions::PREFIX_CB;
+		case LIBGREBE_OP_PREFIX_CB:
+			return &Instructions::PREFIX_CB;
 		case LIBGREBE_OP_CALL_Z_a16:
 			return &Instructions::CALL_Z_a16;
 		case LIBGREBE_OP_CALL_a16:
@@ -500,7 +500,7 @@ Instruction Decoder::decode(const Byte& opcode)
 	}
 }
 
-Instruction Decoder::decodeCB(const Byte& opcode)
+std::function<void(State&)> Decoder::decodeCB(const Byte& opcode)
 {
 	switch (opcode)
 	{

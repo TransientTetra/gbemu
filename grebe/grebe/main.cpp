@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 		MemoryLoader ml;
 		ml.LoadBootRom(state.memory, argv[1]);
 		CPU cpu;
-		cpu.execute(state);
+		cpu.execute2(state);
 	}
 	return 0;
 }

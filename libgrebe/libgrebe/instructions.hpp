@@ -12,8 +12,6 @@ struct UndefinedOpcodeException : public std::exception
 	}
 };
 
-typedef void (*Instruction)(State& state);
-
 class Instructions
 {
 public:
@@ -221,7 +219,7 @@ public:
 	static void RET_Z(State& state);
 	static void RET(State& state);
 	static void JP_Z_a16(State& state);
-//	static void PREFIX_CB(State& state);
+	static void PREFIX_CB(State& state);
 	static void CALL_Z_a16(State& state);
 	static void CALL_a16(State& state);
 	static void ADC_A_d8(State& state);

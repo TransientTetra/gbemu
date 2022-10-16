@@ -1,4 +1,5 @@
 #include <libgrebe/memory.hpp>
+#include <libgrebe/utils.hpp>
 
 Memory::Memory()
 {
@@ -87,7 +88,7 @@ Memory& Memory::operator=(const Memory& other) // NOLINT(bugprone-unhandled-self
 
 Word Memory::readWord(const Word& address) const
 {
-	return 0x0000 | (read(address + 1) << 8) | read(address);
+	return toWord(read(address), read(address + 1));
 }
 
 void Memory::writeWord(const Word& address, const Word& data)

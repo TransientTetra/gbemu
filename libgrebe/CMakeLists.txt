@@ -21,6 +21,10 @@ set(LIBGREBE_SOURCES
         libgrebe/instructions.cpp
         libgrebe/instructions.hpp
         libgrebe/memory_locations.hpp
+        libgrebe/utils.cpp
+        libgrebe/utils.hpp
+        libgrebe/interrupt_handler.cpp
+        libgrebe/interrupt_handler.hpp
         )
 
 add_library(libgrebe STATIC ${LIBGREBE_SOURCES})

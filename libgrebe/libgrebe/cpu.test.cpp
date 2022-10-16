@@ -7,7 +7,7 @@ TEST_F(CPUTest, InterruptsTest)
 	state.memory.write(LIBGREBE_REG_IE, 0xff);
 	state.memory.write(LIBGREBE_REG_IF, 0xff);
 	testOpcode(0x00);
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	expectedState.registers.pc += 1;
 	EXPECT_TRUE(expectedState == state);
 
@@ -16,7 +16,7 @@ TEST_F(CPUTest, InterruptsTest)
 	state.memory.write(LIBGREBE_REG_IE, 0);
 	state.memory.write(LIBGREBE_REG_IF, 0xff);
 	testOpcode(0x00);
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	expectedState.registers.pc += 1;
 	EXPECT_TRUE(expectedState == state);
 
@@ -25,7 +25,7 @@ TEST_F(CPUTest, InterruptsTest)
 	state.memory.write(LIBGREBE_REG_IE, 0xff);
 	state.memory.write(LIBGREBE_REG_IF, 0);
 	testOpcode(0x00);
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	expectedState.registers.pc += 1;
 	EXPECT_TRUE(expectedState == state);
 
@@ -34,8 +34,13 @@ TEST_F(CPUTest, InterruptsTest)
 	state.ime = true;
 	state.memory.write(LIBGREBE_REG_IE, 1);
 	state.memory.write(LIBGREBE_REG_IF, 1);
-	testOpcode(0x00);
-	expectedState.clockCycles += 20;
+	expectedState = state;
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	expectedState.cpuClockCycles += 20;
 	expectedState.registers.pc = LIBGREBE_INT_VBLANK;
 	expectedState.registers.sp = 0xbeef - 2;
 	expectedState.ime = false;
@@ -48,8 +53,13 @@ TEST_F(CPUTest, InterruptsTest)
 	state.ime = true;
 	state.memory.write(LIBGREBE_REG_IE, 2);
 	state.memory.write(LIBGREBE_REG_IF, 2);
-	testOpcode(0x00);
-	expectedState.clockCycles += 20;
+	expectedState = state;
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	expectedState.cpuClockCycles += 20;
 	expectedState.registers.pc = LIBGREBE_INT_STAT;
 	expectedState.registers.sp = 0xbeef - 2;
 	expectedState.ime = false;
@@ -62,8 +72,13 @@ TEST_F(CPUTest, InterruptsTest)
 	state.ime = true;
 	state.memory.write(LIBGREBE_REG_IE, 4);
 	state.memory.write(LIBGREBE_REG_IF, 4);
-	testOpcode(0x00);
-	expectedState.clockCycles += 20;
+	expectedState = state;
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	expectedState.cpuClockCycles += 20;
 	expectedState.registers.pc = LIBGREBE_INT_TIMER;
 	expectedState.registers.sp = 0xbeef - 2;
 	expectedState.ime = false;
@@ -76,8 +91,13 @@ TEST_F(CPUTest, InterruptsTest)
 	state.ime = true;
 	state.memory.write(LIBGREBE_REG_IE, 8);
 	state.memory.write(LIBGREBE_REG_IF, 8);
-	testOpcode(0x00);
-	expectedState.clockCycles += 20;
+	expectedState = state;
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	expectedState.cpuClockCycles += 20;
 	expectedState.registers.pc = LIBGREBE_INT_SERIAL;
 	expectedState.registers.sp = 0xbeef - 2;
 	expectedState.ime = false;
@@ -90,8 +110,13 @@ TEST_F(CPUTest, InterruptsTest)
 	state.ime = true;
 	state.memory.write(LIBGREBE_REG_IE, 16);
 	state.memory.write(LIBGREBE_REG_IF, 16);
-	testOpcode(0x00);
-	expectedState.clockCycles += 20;
+	expectedState = state;
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	expectedState.cpuClockCycles += 20;
 	expectedState.registers.pc = LIBGREBE_INT_JOYPAD;
 	expectedState.registers.sp = 0xbeef - 2;
 	expectedState.ime = false;
@@ -121,7 +146,7 @@ TEST_F(OpcodesMiscTest, Test0x00)
 	// executing the opcode
 	testOpcode(0x00);
 	// expected change in registers
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	expectedState.registers.pc += 1;
 	EXPECT_TRUE(expectedState == state);
 }
@@ -133,32 +158,40 @@ TEST_F(OpcodesMiscTest, Test0x10)
 	// testing the opcode
 	testOpcode(0x10);
 	// expected change in registers and memory
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	expectedState.registers.pc += 2;
-	expectedState.stop = true;
+	expectedState.cpuState = STOP;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
-	cpu.execute(state);
-	cpu.execute(state);
-	cpu.execute(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
 	EXPECT_TRUE(expectedState == state);
 	state.memory.write(LIBGREBE_REG_P1, 0b11110111);
 	expectedState = state;
-	cpu.execute(state);
-	cpu.execute(state);
-	cpu.execute(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
 	EXPECT_TRUE(expectedState == state);
 	state.memory.write(LIBGREBE_REG_P1, 0b11011111);
 	expectedState = state;
-	cpu.execute(state);
-	cpu.execute(state);
-	cpu.execute(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
 	EXPECT_TRUE(expectedState == state);
 	state.memory.write(LIBGREBE_REG_P1, 0b11011110);
-	testOpcode(0);
-	expectedState.clockCycles += 4;
-	expectedState.registers.pc += 1;
-	expectedState.stop = false;
+	expectedState = state;
+	CPU::tick(state);
+	expectedState.cpuState = FETCH_AND_DECODE;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 }
@@ -171,7 +204,7 @@ TEST_F(OpcodesMiscTest, Test0xF3)
 	// testing the opcode
 	testOpcode(0xF3);
 	// expected change in registers and memory
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.ime = false;
 	// comparing expected change to real change
@@ -183,7 +216,7 @@ TEST_F(OpcodesMiscTest, Test0xF3)
 	// testing the opcode
 	testOpcode(0xF3);
 	// expected change in registers and memory
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.ime = false;
 	expectedState.imeScheduled = false;
@@ -199,27 +232,27 @@ TEST_F(OpcodesMiscTest, Test0x76)
 	// testing the opcode
 	testOpcode(0x76);
 	// expected change in registers and memory
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	expectedState.registers.pc += 1;
-	expectedState.halt = true;
+	expectedState.cpuState = HALT;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 	// testing the opcode
 	testOpcode(0x00);
 	// expected change in registers and memory
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 	// testing the opcode
 	testOpcode(0xCF);
 	// expected change in registers and memory
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 	// testing the opcode
 	testOpcode(0xCF);
 	// expected change in registers and memory
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 
@@ -228,12 +261,17 @@ TEST_F(OpcodesMiscTest, Test0x76)
 	state.registers.sp = 0xbeef;
 	state.memory.write(LIBGREBE_REG_IE, 1);
 	state.memory.write(LIBGREBE_REG_IF, 1);
-	testOpcode(0x00);
-	expectedState.clockCycles += 24;
+	expectedState = state;
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	CPU::tick(state);
+	expectedState.cpuClockCycles += 20;
 	expectedState.registers.pc = LIBGREBE_INT_VBLANK;
 	expectedState.registers.sp = 0xbeef - 2;
 	expectedState.ime = false;
-	expectedState.halt = false;
+	expectedState.cpuState = FETCH_AND_DECODE;
 	expectedState.memory.writeWord(0xbeef - 2, 0xdead);
 	expectedState.memory.write(LIBGREBE_REG_IF, 0);
 	EXPECT_TRUE(expectedState == state);
@@ -246,21 +284,21 @@ TEST_F(OpcodesMiscTest, Test0x76)
 	// testing the opcode
 	testOpcode(0x76);
 	// expected change in registers and memory
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	expectedState.registers.pc += 1;
-	expectedState.halt = true;
+	expectedState.cpuState = HALT;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 	// testing the opcode
 	testOpcode(0xCF);
 	// expected change in registers and memory
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 	// testing the opcode
 	testOpcode(0xCF);
 	// expected change in registers and memory
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
 
@@ -268,9 +306,9 @@ TEST_F(OpcodesMiscTest, Test0x76)
 	state.memory.write(LIBGREBE_REG_IE, 1);
 	state.memory.write(LIBGREBE_REG_IF, 1);
 	testOpcode(0x00);
-	expectedState.clockCycles += 8;
+	expectedState.cpuClockCycles += 8;
 	expectedState.registers.pc += 1;
-	expectedState.halt = false;
+	expectedState.cpuState = FETCH_AND_DECODE;
 	EXPECT_TRUE(expectedState == state);
 
 	// todo halt bug 2
@@ -285,7 +323,7 @@ TEST_F(OpcodesMiscTest, Test0xFB)
 	// testing the opcode
 	testOpcode(0xFB);
 	// expected change in registers and memory
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.imeScheduled = true;
 	// comparing expected change to real change
@@ -293,7 +331,7 @@ TEST_F(OpcodesMiscTest, Test0xFB)
 	// testing the opcode
 	testOpcode(0x00);
 	// expected change in registers and memory
-	expectedState.clockCycles += 4;
+	expectedState.cpuClockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.imeScheduled = false;
 	expectedState.ime = true;

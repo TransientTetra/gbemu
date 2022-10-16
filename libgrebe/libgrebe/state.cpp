@@ -2,9 +2,19 @@
 
 bool State::operator==(const State& other) const
 {
-	return registers == other.registers && memory == other.memory && ime == other.ime &&
-	       imeScheduled == other.imeScheduled && clockCycles == other.clockCycles && halt == other.halt &&
-	       stop == other.stop;
+	bool res = true;
+	res &= registers == other.registers;
+	res &= memory == other.memory;
+	res &= ime == other.ime;
+	res &= imeScheduled == other.imeScheduled;
+	res &= cpuClockCycles == other.cpuClockCycles;
+	res &= tmp.size() == other.tmp.size();
+	res &= cpuState == other.cpuState;
+	res &= interruptHandlerState == other.interruptHandlerState;
+//	res &= tmp1 == other.tmp1;
+//	res &= tmp2 == other.tmp2;
+//	res &= cpuQueue == other.cpuQueue;
+	return  res;
 }
 
 State& State::operator=(const State& other)

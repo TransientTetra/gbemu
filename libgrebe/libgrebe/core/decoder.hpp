@@ -2,7 +2,7 @@
 #define LIBGREBE_DECODER_HPP
 #include <functional>
 #include <libgrebe/state.hpp>
-#include <libgrebe/instructions.hpp>
+#include <libgrebe/core/instructions.hpp>
 
 class Decoder
 {

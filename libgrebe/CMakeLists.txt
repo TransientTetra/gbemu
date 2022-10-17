@@ -4,27 +4,27 @@ project(libgrebe)
 include_directories(.)
 set(LIBGREBE_SOURCES
         ${LIBGREBE_SOURCES}
-        libgrebe/cpu.cpp
-        libgrebe/cpu.hpp
-        libgrebe/memory.cpp
-        libgrebe/memory.hpp
+        libgrebe/core/cpu.cpp
+        libgrebe/core/cpu.hpp
+        libgrebe/core/memory.cpp
+        libgrebe/core/memory.hpp
         libgrebe/types.hpp
-        libgrebe/registers.cpp
-        libgrebe/registers.hpp
+        libgrebe/core/registers.cpp
+        libgrebe/core/registers.hpp
         libgrebe/state.cpp
         libgrebe/state.hpp
         libgrebe/memory_loader.cpp
         libgrebe/memory_loader.hpp
-        libgrebe/decoder.cpp
-        libgrebe/decoder.hpp
-        libgrebe/opcodes.hpp
-        libgrebe/instructions.cpp
-        libgrebe/instructions.hpp
+        libgrebe/core/decoder.cpp
+        libgrebe/core/decoder.hpp
+        libgrebe/core/opcodes.hpp
+        libgrebe/core/instructions.cpp
+        libgrebe/core/instructions.hpp
         libgrebe/memory_locations.hpp
         libgrebe/utils.cpp
         libgrebe/utils.hpp
-        libgrebe/interrupt_handler.cpp
-        libgrebe/interrupt_handler.hpp
+        libgrebe/core/interrupt_handler.cpp
+        libgrebe/core/interrupt_handler.hpp
         )
 
 add_library(libgrebe STATIC ${LIBGREBE_SOURCES})
@@ -32,14 +32,14 @@ set_target_properties(libgrebe PROPERTIES PREFIX "")
 
 set(LIBGEMU_TEST_SOURCES
         ${LIBGEMU_TEST_SOURCES}
-        libgrebe/cpu.test.cpp
-        libgrebe/cpu_loads.test.cpp
-        libgrebe/cpu_alu.test.cpp
-        libgrebe/memory.test.cpp
-        libgrebe/registers.test.cpp
-        libgrebe/cpu_bit_ops.test.cpp
-        libgrebe/cpu_control_flow.test.cpp
-        libgrebe/cpu.test.hpp
+        libgrebe/core/cpu.test.cpp
+        libgrebe/core/cpu_loads.test.cpp
+        libgrebe/core/cpu_alu.test.cpp
+        libgrebe/core/memory.test.cpp
+        libgrebe/core/registers.test.cpp
+        libgrebe/core/cpu_bit_ops.test.cpp
+        libgrebe/core/cpu_control_flow.test.cpp
+        libgrebe/core/cpu.test.hpp
         )
 add_executable(libgrebe_tests ${LIBGEMU_TEST_SOURCES})
 target_link_libraries(libgrebe_tests libgrebe gtest_main)

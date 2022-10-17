@@ -1,5 +1,5 @@
 #include <libgrebe/memory_loader.hpp>
-#include <libgrebe/cpu.hpp>
+#include <libgrebe/core/cpu.hpp>
 
 int main(int argc, char** argv)
 {

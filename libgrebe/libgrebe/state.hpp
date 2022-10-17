@@ -4,8 +4,8 @@
 #include <queue>
 #include <functional>
 #include <stack>
-#include <libgrebe/registers.hpp>
-#include <libgrebe/memory.hpp>
+#include "libgrebe/core/registers.hpp"
+#include "libgrebe/core/memory.hpp"
 
 enum CPUState
 {

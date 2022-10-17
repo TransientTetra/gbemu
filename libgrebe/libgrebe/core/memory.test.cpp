@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <libgrebe/memory.hpp>
+#include <libgrebe/core/memory.hpp>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wconstant-conversion"

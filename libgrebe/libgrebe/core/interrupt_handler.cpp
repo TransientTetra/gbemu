@@ -1,4 +1,4 @@
-#include <libgrebe/interrupt_handler.hpp>
+#include <libgrebe/core/interrupt_handler.hpp>
 #include <libgrebe/utils.hpp>
 
 void InterruptHandler::tick(State& state)

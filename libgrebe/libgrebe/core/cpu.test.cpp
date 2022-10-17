@@ -1,4 +1,4 @@
-#include <libgrebe/cpu.test.hpp>
+#include <libgrebe/core/cpu.test.hpp>
 
 TEST_F(CPUTest, InterruptsTest)
 {

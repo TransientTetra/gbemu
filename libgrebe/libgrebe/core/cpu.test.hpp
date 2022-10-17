@@ -7,8 +7,8 @@
 #pragma clang diagnostic ignored "-Wconstant-conversion"
 #define private public
 
-#include <libgrebe/cpu.hpp>
-#include <libgrebe/instructions.hpp>
+#include <libgrebe/core/cpu.hpp>
+#include <libgrebe/core/instructions.hpp>
 
 class CPUTest : public ::testing::Test
 {

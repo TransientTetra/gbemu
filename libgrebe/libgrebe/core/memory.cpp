@@ -1,4 +1,4 @@
-#include <libgrebe/memory.hpp>
+#include <libgrebe/core/memory.hpp>
 #include <libgrebe/utils.hpp>
 
 Memory::Memory()

@@ -1,4 +1,4 @@
-#include <libgrebe/cpu.test.hpp>
+#include <libgrebe/core/cpu.test.hpp>
 
 void OpcodesAluTest::incTest(Byte opcode, Byte& reg, Byte& expectedReg)
 {

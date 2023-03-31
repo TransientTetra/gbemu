@@ -37,7 +37,12 @@
 # CMake
 /cmake-build-debug
 /cmake-build-release
+/build
+compile_commands.json
 
 # Binaries
 /bin
 *.bin
+
+# Misc
+/.cache

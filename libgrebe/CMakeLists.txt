@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.23)
 project(libgrebe)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(.)
 set(LIBGREBE_SOURCES
@@ -30,8 +32,8 @@ set(LIBGREBE_SOURCES
 add_library(libgrebe STATIC ${LIBGREBE_SOURCES})
 set_target_properties(libgrebe PROPERTIES PREFIX "")
 
-set(LIBGEMU_TEST_SOURCES
-        ${LIBGEMU_TEST_SOURCES}
+set(LIBGREBE_TEST_SOURCES
+        ${LIBGREBE_TEST_SOURCES}
         libgrebe/core/cpu.test.cpp
         libgrebe/core/cpu_loads.test.cpp
         libgrebe/core/cpu_alu.test.cpp
@@ -41,5 +43,5 @@ set(LIBGEMU_TEST_SOURCES
         libgrebe/core/cpu_control_flow.test.cpp
         libgrebe/core/cpu.test.hpp
         )
-add_executable(libgrebe_tests ${LIBGEMU_TEST_SOURCES})
+add_executable(libgrebe_tests ${LIBGREBE_TEST_SOURCES})
 target_link_libraries(libgrebe_tests libgrebe gtest_main)

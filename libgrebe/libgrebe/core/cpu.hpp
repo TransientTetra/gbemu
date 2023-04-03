@@ -24,7 +24,6 @@ private:
 	static void halt(State& state);
 	static void haltBug(State& state);
 public:
-	static void execute2(State& state);
 	static void tick(State& state);
 };
 

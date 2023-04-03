@@ -4,8 +4,8 @@
 #include <queue>
 #include <functional>
 #include <stack>
-#include "libgrebe/core/registers.hpp"
-#include "libgrebe/core/memory.hpp"
+#include <libgrebe/core/registers.hpp>
+#include <libgrebe/core/memory.hpp>
 
 enum CPUState
 {
@@ -26,6 +26,14 @@ enum InterruptHandlerState
 	CYCLE5,
 };
 
+enum PPUState
+{
+	HBLANK, // MODE0
+	VBLANK, // MODE1
+	OAM_SCAN, // MODE2
+	DRAW, // MODE3
+};
+
 class State
 {
 public:
@@ -33,6 +41,7 @@ public:
 	unsigned long long cpuClockCycles = 0;
 	CPUState cpuState = FETCH_AND_DECODE;
 	InterruptHandlerState interruptHandlerState = CYCLE1;
+	PPUState ppuState = OAM_SCAN;
 
 	bool extendedOpcodeSet = false;
 	bool imeScheduled = false;

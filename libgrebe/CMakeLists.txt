@@ -27,6 +27,10 @@ set(LIBGREBE_SOURCES
         libgrebe/utils.hpp
         libgrebe/core/interrupt_handler.cpp
         libgrebe/core/interrupt_handler.hpp
+        libgrebe/display/lcd.cpp
+        libgrebe/display/lcd.hpp
+        libgrebe/display/ppu.cpp
+        libgrebe/display/ppu.hpp
         )
 
 add_library(libgrebe STATIC ${LIBGREBE_SOURCES})

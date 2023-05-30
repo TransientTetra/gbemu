@@ -35,9 +35,8 @@
 /.idea
 
 # CMake
-/cmake-build-debug
-/cmake-build-release
-/build
+/cmake-build*
+/build*
 compile_commands.json
 
 # Binaries

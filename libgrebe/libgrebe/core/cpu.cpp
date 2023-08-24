@@ -26,7 +26,7 @@ void CPU::tick()
 			stop();
 			break;
 		case INTERRUPT_HANDLER:
-			// InterruptHandler::tick(state);
+			InterruptHandler::tick(state);
 			break;
 		default:
 			throw IllegalCPUStateException();

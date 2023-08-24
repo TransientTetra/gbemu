@@ -1,6 +1,7 @@
 #ifndef LIBGREBE_CPU_HPP
 #define LIBGREBE_CPU_HPP
 
+#include <libgrebe/common/synchronous_component.hpp>
 #include <libgrebe/types.hpp>
 #include <libgrebe/state.hpp>
 #include <libgrebe/memory_locations.hpp>
@@ -15,16 +16,17 @@ struct IllegalCPUStateException : public std::exception
 
 //Sharp LR35902 SOC
 //Sharp SM83 CPU
-class CPU
+class CPU : public SynchronousComponent
 {
+	using SynchronousComponent::SynchronousComponent;
 private:
-	static void fetchAndDecode(State& state);
-	static void execute(State& state);
-	static void stop(State& state);
-	static void halt(State& state);
-	static void haltBug(State& state);
+	void fetchAndDecode();
+	void execute();
+	void stop();
+	void halt();
+	void haltBug();
 public:
-	static void tick(State& state);
+	void tick() override;
 };
 
 

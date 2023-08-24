@@ -2,6 +2,7 @@
 #define LIBGREBE_CPU_TEST_HPP
 
 #include <gtest/gtest.h>
+#include <memory>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wconstant-conversion"
@@ -13,15 +14,25 @@
 class CPUTest : public ::testing::Test
 {
 protected:
-	CPU cpu;
+	std::unique_ptr<CPU> cpu;
 	State state, expectedState;
 
 	void SetUp() override
 	{
+			cpu = std::make_unique<CPU>(state);
 	}
 
 	void TearDown() override
 	{
+	}
+
+	void machineCycle()
+	{
+			state.clockCycles += 4;
+			cpu->tick();
+			cpu->tick();
+			cpu->tick();
+			cpu->tick();
 	}
 
 	void testOpcode(Byte opcode)
@@ -30,12 +41,14 @@ protected:
 		state.memory.write(state.registers.pc, opcode);
 		// saving cpu and memory state before executing the opcode
 		expectedState = state;
-		// executing the opcode
-		do
+		// fetch the opcode
+		machineCycle();
+		// execute the opcode
+		while (!state.cpuQueue.empty())
 		{
-			CPU::tick(state);
+			++state.clockCycles;
+			cpu->tick();
 		}
-		while (!state.cpuQueue.empty());
 	}
 
 	static void compareMem(const Memory& mem1, const Memory& mem2)
@@ -97,14 +110,16 @@ protected:
 		// saving cpu and memory state before executing the opcode
 		expectedState.registers = state.registers;
 		expectedState.memory = state.memory;
+		// reading 0xCB
+		machineCycle();
+		// reading extended opcode
+		machineCycle();
 		// executing the opcode
-		CPU::tick(state);
-		// executing the opcode
-		do
+		while (!state.cpuQueue.empty())
 		{
-			CPU::tick(state);
+			++state.clockCycles;
+			cpu->tick();
 		}
-		while (!state.cpuQueue.empty());
 	}
 
 	void testOpcodeRLC(Byte opcode, Byte& reg, Byte& expectedReg);

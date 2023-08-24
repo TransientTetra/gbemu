@@ -7,7 +7,7 @@ bool State::operator==(const State& other) const
 	res &= memory == other.memory;
 	res &= ime == other.ime;
 	res &= imeScheduled == other.imeScheduled;
-	res &= cpuClockCycles == other.cpuClockCycles;
+	res &= clockCycles == other.clockCycles;
 	res &= tmp.size() == other.tmp.size();
 	res &= cpuState == other.cpuState;
 	res &= interruptHandlerState == other.interruptHandlerState;

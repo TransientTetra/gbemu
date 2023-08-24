@@ -1,6 +1,7 @@
 #ifndef LIBGREBE_STATE_HPP
 #define LIBGREBE_STATE_HPP
 
+#include <cstdint>
 #include <queue>
 #include <functional>
 #include <stack>
@@ -38,7 +39,8 @@ class State
 {
 public:
 	std::queue<std::function<void(State&)>> cpuQueue;
-	unsigned long long cpuClockCycles = 0;
+	uint64_t clockCycles = 0; //this will overflow in 139 years @4MiHz, think we're fine
+	uint8_t cpuClockCycle = 0;
 	CPUState cpuState = FETCH_AND_DECODE;
 	InterruptHandlerState interruptHandlerState = CYCLE1;
 	PPUState ppuState = OAM_SCAN;

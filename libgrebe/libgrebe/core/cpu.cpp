@@ -2,35 +2,38 @@
 #include <libgrebe/core/decoder.hpp>
 #include <libgrebe/core/interrupt_handler.hpp>
 
-void CPU::tick(State& state)
+void CPU::tick()
 {
-	state.cpuClockCycles += 4;
+	++state.cpuClockCycle;
+	if (state.cpuClockCycle < 4)
+		return;
+	state.cpuClockCycle = 0;
 	switch (state.cpuState)
 	{
 		case FETCH_AND_DECODE:
-			fetchAndDecode(state);
+			fetchAndDecode();
 			break;
 		case EXECUTE:
-			execute(state);
+			execute();
 			break;
 		case HALT:
-			halt(state);
+			halt();
 			break;
 		case HALT_BUG:
-			haltBug(state);
+			haltBug();
 			break;
 		case STOP:
-			stop(state);
+			stop();
 			break;
 		case INTERRUPT_HANDLER:
-			InterruptHandler::tick(state);
+			// InterruptHandler::tick(state);
 			break;
 		default:
 			throw IllegalCPUStateException();
 	}
 }
 
-void CPU::fetchAndDecode(State& state)
+void CPU::fetchAndDecode()
 {
 	const Byte& IE = state.memory.read(LIBGREBE_REG_IE);
 	const Byte& IF = state.memory.read(LIBGREBE_REG_IF);
@@ -60,50 +63,50 @@ void CPU::fetchAndDecode(State& state)
 	// enqueue microoperations for the decoded instruction
 	loadMicroOps(state);
 	state.cpuState = EXECUTE;
-	execute(state); // microops executed immediately, on the same m-cycle as fetch
+	execute(); // microops executed immediately, on the same m-cycle as fetch
 }
 
-void CPU::execute(State& state)
+void CPU::execute()
 {
 	state.cpuQueue.front()(state);
 	state.cpuQueue.pop();
 	if (state.cpuState == EXECUTE && state.cpuQueue.empty()) state.cpuState = FETCH_AND_DECODE;
 }
 
-void CPU::stop(State& state)
+void CPU::stop()
 {
-	state.cpuClockCycles -= 4;
-	const Byte& joypad = state.memory.read(LIBGREBE_REG_P1);
-	if (~joypad & 0b00110000 && ~joypad & 0b1111)
-	{
-		if (state.cpuQueue.empty())
-			state.cpuState = FETCH_AND_DECODE;
-		else
-			state.cpuState = EXECUTE;
-	}
+	// state.clockCycles -= 4;
+	// const Byte& joypad = state.memory.read(LIBGREBE_REG_P1);
+	// if (~joypad & 0b00110000 && ~joypad & 0b1111)
+	// {
+	// 	if (state.cpuQueue.empty())
+	// 		state.cpuState = FETCH_AND_DECODE;
+	// 	else
+	// 		state.cpuState = EXECUTE;
+	// }
 }
 
-void CPU::halt(State& state)
+void CPU::halt()
 {
-	const Byte& IE = state.memory.read(LIBGREBE_REG_IE);
-	const Byte& IF = state.memory.read(LIBGREBE_REG_IF);
-	if (state.ime && (IE & IF & 0x1f))
-	{
-		state.cpuState = INTERRUPT_HANDLER;
-		InterruptHandler::tick(state);
-		return;
-	}
-	else if (!state.ime && (IE & IF & 0x1f))
-	{
-		if (state.cpuQueue.empty())
-			state.cpuState = FETCH_AND_DECODE;
-		else
-			state.cpuState = EXECUTE;
-		tick(state);
-	}
+	// const Byte& IE = state.memory.read(LIBGREBE_REG_IE);
+	// const Byte& IF = state.memory.read(LIBGREBE_REG_IF);
+	// if (state.ime && (IE & IF & 0x1f))
+	// {
+	// 	state.cpuState = INTERRUPT_HANDLER;
+	// 	InterruptHandler::tick(state);
+	// 	return;
+	// }
+	// else if (!state.ime && (IE & IF & 0x1f))
+	// {
+	// 	if (state.cpuQueue.empty())
+	// 		state.cpuState = FETCH_AND_DECODE;
+	// 	else
+	// 		state.cpuState = EXECUTE;
+	// 	machineCycle(state);
+	// }
 }
 
-void CPU::haltBug(State& state)
+void CPU::haltBug()
 {
 	//todo
 }

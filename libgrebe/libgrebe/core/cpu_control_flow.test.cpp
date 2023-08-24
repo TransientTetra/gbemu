@@ -10,7 +10,7 @@ TEST_F(OpcodesControlFlowTest, Test0x20)
 	// testing the opcode
 	testOpcode(0x20);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc = 0xdeaf;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -22,7 +22,7 @@ TEST_F(OpcodesControlFlowTest, Test0x20)
 	// testing the opcode
 	testOpcode(0x20);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc = 0xdeb1;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -34,7 +34,7 @@ TEST_F(OpcodesControlFlowTest, Test0x20)
 	// testing the opcode
 	testOpcode(0x20);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc = 0xdeaf;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -46,7 +46,7 @@ TEST_F(OpcodesControlFlowTest, Test0x20)
 	// testing the opcode
 	testOpcode(0x20);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc = 0xdead;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -62,7 +62,7 @@ TEST_F(OpcodesControlFlowTest, Test0x30)
 	// testing the opcode
 	testOpcode(0x30);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc = 0xdeaf;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -74,7 +74,7 @@ TEST_F(OpcodesControlFlowTest, Test0x30)
 	// testing the opcode
 	testOpcode(0x30);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc = 0xdeb1;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -86,7 +86,7 @@ TEST_F(OpcodesControlFlowTest, Test0x30)
 	// testing the opcode
 	testOpcode(0x30);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc = 0xdeaf;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -98,7 +98,7 @@ TEST_F(OpcodesControlFlowTest, Test0x30)
 	// testing the opcode
 	testOpcode(0x30);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc = 0xdead;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -113,7 +113,7 @@ TEST_F(OpcodesControlFlowTest, Test0x18)
 	// testing the opcode
 	testOpcode(0x18);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc = 0xdeb1;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -124,7 +124,7 @@ TEST_F(OpcodesControlFlowTest, Test0x18)
 	// testing the opcode
 	testOpcode(0x18);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc = 0xdead;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -140,7 +140,7 @@ TEST_F(OpcodesControlFlowTest, Test0x28)
 	// testing the opcode
 	testOpcode(0x28);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc = 0xdeaf;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -152,7 +152,7 @@ TEST_F(OpcodesControlFlowTest, Test0x28)
 	// testing the opcode
 	testOpcode(0x28);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc = 0xdeb1;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -164,7 +164,7 @@ TEST_F(OpcodesControlFlowTest, Test0x28)
 	// testing the opcode
 	testOpcode(0x28);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc = 0xdeaf;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -176,7 +176,7 @@ TEST_F(OpcodesControlFlowTest, Test0x28)
 	// testing the opcode
 	testOpcode(0x28);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc = 0xdead;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -192,7 +192,7 @@ TEST_F(OpcodesControlFlowTest, Test0x38)
 	// testing the opcode
 	testOpcode(0x38);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc = 0xdeaf;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -204,7 +204,7 @@ TEST_F(OpcodesControlFlowTest, Test0x38)
 	// testing the opcode
 	testOpcode(0x38);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc = 0xdeb1;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -216,7 +216,7 @@ TEST_F(OpcodesControlFlowTest, Test0x38)
 	// testing the opcode
 	testOpcode(0x38);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc = 0xdeaf;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -228,7 +228,7 @@ TEST_F(OpcodesControlFlowTest, Test0x38)
 	// testing the opcode
 	testOpcode(0x38);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc = 0xdead;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -244,7 +244,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC2)
 	// testing the opcode
 	testOpcode(0xC2);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 3;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -256,7 +256,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC2)
 	// testing the opcode
 	testOpcode(0xC2);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc = 0xbeef;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -272,7 +272,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD2)
 	// testing the opcode
 	testOpcode(0xD2);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 3;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -284,7 +284,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD2)
 	// testing the opcode
 	testOpcode(0xD2);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc = 0xbeef;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -299,7 +299,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC3)
 	// testing the opcode
 	testOpcode(0xC3);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc = 0xbeef;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -314,7 +314,7 @@ TEST_F(OpcodesControlFlowTest, Test0xE9)
 	// testing the opcode
 	testOpcode(0xE9);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc = 0xbeef;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -330,7 +330,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCA)
 	// testing the opcode
 	testOpcode(0xCA);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 3;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -342,7 +342,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCA)
 	// testing the opcode
 	testOpcode(0xCA);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc = 0xbeef;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -358,7 +358,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDA)
 	// testing the opcode
 	testOpcode(0xDA);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 3;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -370,7 +370,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDA)
 	// testing the opcode
 	testOpcode(0xDA);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc = 0xbeef;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -387,7 +387,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCD)
 	// testing the opcode
 	testOpcode(0xCD);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 24;
+	expectedState.clockCycles += 24;
 	expectedState.registers.sp = 0x6967;
 	expectedState.registers.pc = 0xbeef;
 	expectedState.memory.writeWord(0x6967, 0xdead + 3);
@@ -406,7 +406,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCC)
 	// testing the opcode
 	testOpcode(0xCC);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 3;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -419,7 +419,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCC)
 	// testing the opcode
 	testOpcode(0xCC);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 24;
+	expectedState.clockCycles += 24;
 	expectedState.registers.sp = 0x6967;
 	expectedState.registers.pc = 0xbeef;
 	expectedState.memory.writeWord(0x6967, 0xdead + 3);
@@ -438,7 +438,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDC)
 	// testing the opcode
 	testOpcode(0xDC);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 3;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -451,7 +451,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDC)
 	// testing the opcode
 	testOpcode(0xDC);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 24;
+	expectedState.clockCycles += 24;
 	expectedState.registers.sp = 0x6967;
 	expectedState.registers.pc = 0xbeef;
 	expectedState.memory.writeWord(0x6967, 0xdead + 3);
@@ -470,7 +470,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC4)
 	// testing the opcode
 	testOpcode(0xC4);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 3;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -483,7 +483,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC4)
 	// testing the opcode
 	testOpcode(0xC4);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 24;
+	expectedState.clockCycles += 24;
 	expectedState.registers.sp = 0x6967;
 	expectedState.registers.pc = 0xbeef;
 	expectedState.memory.writeWord(0x6967, 0xdead + 3);
@@ -502,7 +502,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD4)
 	// testing the opcode
 	testOpcode(0xD4);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 3;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -515,7 +515,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD4)
 	// testing the opcode
 	testOpcode(0xD4);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 24;
+	expectedState.clockCycles += 24;
 	expectedState.registers.sp = 0x6967;
 	expectedState.registers.pc = 0xbeef;
 	expectedState.memory.writeWord(0x6967, 0xdead + 3);
@@ -534,7 +534,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC0)
 	// testing the opcode
 	testOpcode(0xC0);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -547,7 +547,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC0)
 	// testing the opcode
 	testOpcode(0xC0);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 20;
+	expectedState.clockCycles += 20;
 	expectedState.registers.pc = 0xbeef;
 	expectedState.registers.sp = 0x696B;
 	// comparing expected change to real change
@@ -565,7 +565,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD0)
 	// testing the opcode
 	testOpcode(0xD0);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -578,7 +578,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD0)
 	// testing the opcode
 	testOpcode(0xD0);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 20;
+	expectedState.clockCycles += 20;
 	expectedState.registers.pc = 0xbeef;
 	expectedState.registers.sp = 0x696B;
 	// comparing expected change to real change
@@ -596,7 +596,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC8)
 	// testing the opcode
 	testOpcode(0xC8);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -609,7 +609,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC8)
 	// testing the opcode
 	testOpcode(0xC8);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 20;
+	expectedState.clockCycles += 20;
 	expectedState.registers.sp = 0x6969;
 	expectedState.registers.pc = 0xbeef;
 	// comparing expected change to real change
@@ -627,7 +627,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD8)
 	// testing the opcode
 	testOpcode(0xD8);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	// comparing expected change to real change
 	EXPECT_TRUE(expectedState == state);
@@ -640,7 +640,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD8)
 	// testing the opcode
 	testOpcode(0xD8);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 20;
+	expectedState.clockCycles += 20;
 	expectedState.registers.sp = 0x6969;
 	expectedState.registers.pc = 0xbeef;
 	// comparing expected change to real change
@@ -658,7 +658,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC9)
 	// testing the opcode
 	testOpcode(0xC9);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.sp = 0x6969;
 	expectedState.registers.pc = 0xbeef;
 	// comparing expected change to real change
@@ -676,7 +676,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD9)
 	// testing the opcode
 	testOpcode(0xD9);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.ime = true;
 	expectedState.registers.sp = 0x6969;
 	expectedState.registers.pc = 0xbeef;
@@ -693,7 +693,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC7)
 	// testing the opcode
 	testOpcode(0xC7);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc = 0x00;
 	expectedState.registers.sp = 0x6967;
 	expectedState.memory.writeWord(0x6967, 0xdeae);
@@ -710,7 +710,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD7)
 	// testing the opcode
 	testOpcode(0xD7);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc = 0x10;
 	expectedState.registers.sp = 0x6967;
 	expectedState.memory.writeWord(0x6967, 0xdeae);
@@ -727,7 +727,7 @@ TEST_F(OpcodesControlFlowTest, Test0xE7)
 	// testing the opcode
 	testOpcode(0xE7);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc = 0x20;
 	expectedState.registers.sp = 0x6967;
 	expectedState.memory.writeWord(0x6967, 0xdeae);
@@ -744,7 +744,7 @@ TEST_F(OpcodesControlFlowTest, Test0xF7)
 	// testing the opcode
 	testOpcode(0xF7);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc = 0x30;
 	expectedState.registers.sp = 0x6967;
 	expectedState.memory.writeWord(0x6967, 0xdeae);
@@ -761,7 +761,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCF)
 	// testing the opcode
 	testOpcode(0xCF);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc = 0x08;
 	expectedState.registers.sp = 0x6967;
 	expectedState.memory.writeWord(0x6967, 0xdeae);
@@ -778,7 +778,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDF)
 	// testing the opcode
 	testOpcode(0xDF);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc = 0x18;
 	expectedState.registers.sp = 0x6967;
 	expectedState.memory.writeWord(0x6967, 0xdeae);
@@ -795,7 +795,7 @@ TEST_F(OpcodesControlFlowTest, Test0xEF)
 	// testing the opcode
 	testOpcode(0xEF);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc = 0x28;
 	expectedState.registers.sp = 0x6967;
 	expectedState.memory.writeWord(0x6967, 0xdeae);
@@ -812,7 +812,7 @@ TEST_F(OpcodesControlFlowTest, Test0xFF)
 	// testing the opcode
 	testOpcode(0xFF);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc = 0x38;
 	expectedState.registers.sp = 0x6967;
 	expectedState.memory.writeWord(0x6967, 0xdeae);

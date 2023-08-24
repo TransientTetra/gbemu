@@ -1,0 +1,9 @@
+---
+BasedOnStyle: Microsoft
+AccessModifierOffset: -4
+ColumnLimit: 120
+# UseTab: Always
+PointerAlignment: 'Left'
+IndentCaseLabels: true
+
+...

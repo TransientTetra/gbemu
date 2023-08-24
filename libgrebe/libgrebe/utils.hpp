@@ -7,4 +7,4 @@ Word toWord(const Byte& lsb, const Byte& msb);
 Byte lsb(const Word& word);
 Byte msb(const Word& word);
 
-#endif //LIBGREBE_UTILS_HPP
+#endif // LIBGREBE_UTILS_HPP

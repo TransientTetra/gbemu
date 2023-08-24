@@ -2,23 +2,23 @@
 
 void PPU::tick(State& state)
 {
-	switch (state.ppuState)
-	{
-		case HBLANK:
-			hblank(state);
-			break;
-		case VBLANK:
-			vblank(state);
-			break;
-		case OAM_SCAN:
-			oamScan(state);
-			break;
-		case DRAW:
-			draw(state);
-			break;
-		default:
-			throw IllegalPPUStateException();
-	}
+    switch (state.ppuState)
+    {
+        case HBLANK:
+            hblank(state);
+            break;
+        case VBLANK:
+            vblank(state);
+            break;
+        case OAM_SCAN:
+            oamScan(state);
+            break;
+        case DRAW:
+            draw(state);
+            break;
+        default:
+            throw IllegalPPUStateException();
+    }
 }
 
 void PPU::hblank(State& state)

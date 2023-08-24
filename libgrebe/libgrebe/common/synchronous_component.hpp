@@ -7,11 +7,14 @@
 class SynchronousComponent
 {
 protected:
-  State& state;
+    State& state;
+
 public:
-  explicit SynchronousComponent(State& state) : state(state) {}
-  // tick represents action for one t-clock
-  virtual void tick() = 0;
+    explicit SynchronousComponent(State& state) : state(state)
+    {
+    }
+    // tick represents action for one t-clock
+    virtual void tick() = 0;
 };
 
-#endif //LIBGREBE_SYNCHRONOUS_COMPONENT_HPP
+#endif // LIBGREBE_SYNCHRONOUS_COMPONENT_HPP

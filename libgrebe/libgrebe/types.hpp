@@ -26,5 +26,4 @@ using SignedWord = std::int16_t;
 #endif // __LITTLE_ENDIAN__
 #endif // __BIG_ENDIAN__
 
-
-#endif //LIBGREBE_TYPES_HPP
+#endif // LIBGREBE_TYPES_HPP

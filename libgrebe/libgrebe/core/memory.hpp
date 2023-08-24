@@ -8,17 +8,17 @@
 class Memory
 {
 private:
-	// all mapped memory, includes ram and vram and rom
-	Byte map[LIBGREBE_MEMORY_SIZE];
+    // all mapped memory, includes ram and vram and rom
+    Byte map[LIBGREBE_MEMORY_SIZE];
+
 public:
-	Memory();
-	[[nodiscard]] const Byte& read(const Word& address) const;
-	[[nodiscard]] Word readWord(const Word& address) const;
-	void write(const Word& address, const Byte& data);
-	void writeWord(const Word& address, const Word& data);
-	bool operator==(const Memory& other) const;
-	Memory& operator=(const Memory& other);
+    Memory();
+    [[nodiscard]] const Byte& read(const Word& address) const;
+    [[nodiscard]] Word readWord(const Word& address) const;
+    void write(const Word& address, const Byte& data);
+    void writeWord(const Word& address, const Word& data);
+    bool operator==(const Memory& other) const;
+    Memory& operator=(const Memory& other);
 };
 
-
-#endif //LIBGREBE_MEMORY_HPP
+#endif // LIBGREBE_MEMORY_HPP

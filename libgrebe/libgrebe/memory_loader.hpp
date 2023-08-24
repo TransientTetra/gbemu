@@ -5,17 +5,16 @@
 
 struct InvalidBootRomException : public std::exception
 {
-	[[nodiscard]] const char* what() const noexcept override
-	{
-		return "Invalid boot rom file or file not found";
-	}
+    [[nodiscard]] const char* what() const noexcept override
+    {
+        return "Invalid boot rom file or file not found";
+    }
 };
 
 class MemoryLoader
 {
 public:
-	static void LoadBootRom(Memory& memory, const std::string& path);
+    static void LoadBootRom(Memory& memory, const std::string& path);
 };
 
-
-#endif //LIBGREBE_MEMORY_LOADER_HPP
+#endif // LIBGREBE_MEMORY_LOADER_HPP

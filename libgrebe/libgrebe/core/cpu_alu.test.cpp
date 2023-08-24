@@ -8,7 +8,7 @@ void OpcodesAluTest::incTest(Byte opcode, Byte& reg, Byte& expectedReg)
 	testOpcode(opcode);
 	// expected change in registers and memory
 	expectedState.registers.pc += 1;
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedReg = 1;
 	expectedState.registers.resetZeroFlag();
 	expectedState.registers.resetSubtractFlag();
@@ -22,7 +22,7 @@ void OpcodesAluTest::incTest(Byte opcode, Byte& reg, Byte& expectedReg)
 	testOpcode(opcode);
 	// expected change in registers and memory
 	expectedState.registers.pc += 1;
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedReg = 0;
 	expectedState.registers.resetZeroFlag();
 	expectedState.registers.resetSubtractFlag();
@@ -38,7 +38,7 @@ void OpcodesAluTest::incTest(Byte opcode, Byte& reg, Byte& expectedReg)
 	testOpcode(opcode);
 	// expected change in registers and memory
 	expectedState.registers.pc += 1;
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedReg = 0x10;
 	expectedState.registers.resetZeroFlag();
 	expectedState.registers.resetSubtractFlag();
@@ -56,7 +56,7 @@ void OpcodesAluTest::decTest(Byte opcode, Byte& reg, Byte& expectedReg)
 	testOpcode(opcode);
 	// expected change in registers and memory
 	expectedState.registers.pc += 1;
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedReg = 2;
 	expectedState.registers.resetZeroFlag();
 	expectedState.registers.resetSubtractFlag();
@@ -71,7 +71,7 @@ void OpcodesAluTest::decTest(Byte opcode, Byte& reg, Byte& expectedReg)
 	testOpcode(opcode);
 	// expected change in registers and memory
 	expectedState.registers.pc += 1;
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedReg = 0;
 	expectedState.registers.resetZeroFlag();
 	expectedState.registers.resetSubtractFlag();
@@ -87,7 +87,7 @@ void OpcodesAluTest::decTest(Byte opcode, Byte& reg, Byte& expectedReg)
 	testOpcode(opcode);
 	// expected change in registers and memory
 	expectedState.registers.pc += 1;
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedReg = 0x0f;
 	expectedState.registers.resetZeroFlag();
 	expectedState.registers.resetSubtractFlag();
@@ -106,7 +106,7 @@ void OpcodesAluTest::addTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -120,7 +120,7 @@ void OpcodesAluTest::addTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -136,7 +136,7 @@ void OpcodesAluTest::addTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xfe;
 	expectedState.registers.clearFlags();
@@ -151,7 +151,7 @@ void OpcodesAluTest::addTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x10;
 	expectedState.registers.clearFlags();
@@ -165,7 +165,7 @@ void OpcodesAluTest::addTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -183,7 +183,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -198,7 +198,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -215,7 +215,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x10;
 	expectedState.registers.clearFlags();
@@ -230,7 +230,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -246,7 +246,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -261,7 +261,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -278,7 +278,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x11;
 	expectedState.registers.clearFlags();
@@ -294,7 +294,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -311,7 +311,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -328,7 +328,7 @@ void OpcodesAluTest::subTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -343,7 +343,7 @@ void OpcodesAluTest::subTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -358,7 +358,7 @@ void OpcodesAluTest::subTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 3;
 	expectedState.registers.clearFlags();
@@ -372,7 +372,7 @@ void OpcodesAluTest::subTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xff;
 	expectedState.registers.clearFlags();
@@ -388,7 +388,7 @@ void OpcodesAluTest::subTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x0e;
 	expectedState.registers.clearFlags();
@@ -403,7 +403,7 @@ void OpcodesAluTest::subTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xf0;
 	expectedState.registers.clearFlags();
@@ -422,7 +422,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -438,7 +438,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -454,7 +454,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 3;
 	expectedState.registers.clearFlags();
@@ -469,7 +469,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xff;
 	expectedState.registers.clearFlags();
@@ -486,7 +486,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x0e;
 	expectedState.registers.clearFlags();
@@ -502,7 +502,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xf0;
 	expectedState.registers.clearFlags();
@@ -519,7 +519,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -536,7 +536,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -553,7 +553,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 2;
 	expectedState.registers.clearFlags();
@@ -569,7 +569,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xfe;
 	expectedState.registers.clearFlags();
@@ -587,7 +587,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x0e;
 	expectedState.registers.clearFlags();
@@ -604,7 +604,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xf0;
 	expectedState.registers.clearFlags();
@@ -622,7 +622,7 @@ void OpcodesAluTest::andTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -637,7 +637,7 @@ void OpcodesAluTest::andTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -652,7 +652,7 @@ void OpcodesAluTest::andTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -667,7 +667,7 @@ void OpcodesAluTest::andTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -682,7 +682,7 @@ void OpcodesAluTest::andTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b01010101;
 	expectedState.registers.clearFlags();
@@ -699,7 +699,7 @@ void OpcodesAluTest::xorTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -713,7 +713,7 @@ void OpcodesAluTest::xorTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -726,7 +726,7 @@ void OpcodesAluTest::xorTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -739,7 +739,7 @@ void OpcodesAluTest::xorTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -752,7 +752,7 @@ void OpcodesAluTest::xorTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -769,7 +769,7 @@ void OpcodesAluTest::orTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -783,7 +783,7 @@ void OpcodesAluTest::orTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -796,7 +796,7 @@ void OpcodesAluTest::orTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -809,7 +809,7 @@ void OpcodesAluTest::orTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -822,7 +822,7 @@ void OpcodesAluTest::orTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b01010101;
 	expectedState.registers.clearFlags();
@@ -838,7 +838,7 @@ void OpcodesAluTest::cpTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setZeroFlag();
@@ -852,7 +852,7 @@ void OpcodesAluTest::cpTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setZeroFlag();
@@ -866,7 +866,7 @@ void OpcodesAluTest::cpTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setSubtractFlag();
@@ -879,7 +879,7 @@ void OpcodesAluTest::cpTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setSubtractFlag();
@@ -894,7 +894,7 @@ void OpcodesAluTest::cpTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setSubtractFlag();
@@ -908,7 +908,7 @@ void OpcodesAluTest::cpTest(Byte opcode, Byte& operand)
 	// testing the opcode
 	testOpcode(opcode);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setSubtractFlag();
@@ -944,7 +944,7 @@ TEST_F(OpcodesAluTest, Test0x34)
 	// testing the opcode
 	testOpcode(0x34);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 1;
 	expectedState.memory.write(0xdead, 1);
 	expectedState.registers.resetZeroFlag();
@@ -959,7 +959,7 @@ TEST_F(OpcodesAluTest, Test0x34)
 	// testing the opcode
 	testOpcode(0x34);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 1;
 	expectedState.memory.write(0xdead, 0);
 	expectedState.registers.resetZeroFlag();
@@ -976,7 +976,7 @@ TEST_F(OpcodesAluTest, Test0x34)
 	// testing the opcode
 	testOpcode(0x34);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 1;
 	expectedState.memory.write(0xdead, 0x10);
 	expectedState.registers.resetZeroFlag();
@@ -1038,7 +1038,7 @@ TEST_F(OpcodesAluTest, Test0x35)
 	// testing the opcode
 	testOpcode(0x35);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 1;
 	expectedState.memory.write(0xdead, 2);
 	expectedState.registers.resetZeroFlag();
@@ -1054,7 +1054,7 @@ TEST_F(OpcodesAluTest, Test0x35)
 	// testing the opcode
 	testOpcode(0x35);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 1;
 	expectedState.memory.write(0xdead, 0);
 	expectedState.registers.resetZeroFlag();
@@ -1071,7 +1071,7 @@ TEST_F(OpcodesAluTest, Test0x35)
 	// testing the opcode
 	testOpcode(0x35);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 12;
+	expectedState.clockCycles += 12;
 	expectedState.registers.pc += 1;
 	expectedState.memory.write(0xdead, 0x0f);
 	expectedState.registers.resetZeroFlag();
@@ -1153,7 +1153,7 @@ TEST_F(OpcodesAluTest, Test0x86)
 	// testing the opcode
 	testOpcode(0x86);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1168,7 +1168,7 @@ TEST_F(OpcodesAluTest, Test0x86)
 	// testing the opcode
 	testOpcode(0x86);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1185,7 +1185,7 @@ TEST_F(OpcodesAluTest, Test0x86)
 	// testing the opcode
 	testOpcode(0x86);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x10;
 	expectedState.registers.clearFlags();
@@ -1200,7 +1200,7 @@ TEST_F(OpcodesAluTest, Test0x86)
 	// testing the opcode
 	testOpcode(0x86);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1215,7 +1215,7 @@ TEST_F(OpcodesAluTest, Test0x86)
 	// testing the opcode
 	testOpcode(0x86);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1232,7 +1232,7 @@ TEST_F(OpcodesAluTest, Test0x87)
 	// testing the opcode
 	testOpcode(0x87);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1245,7 +1245,7 @@ TEST_F(OpcodesAluTest, Test0x87)
 	// testing the opcode
 	testOpcode(0x87);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x1e;
 	expectedState.registers.clearFlags();
@@ -1258,7 +1258,7 @@ TEST_F(OpcodesAluTest, Test0x87)
 	// testing the opcode
 	testOpcode(0x87);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xfe;
 	expectedState.registers.clearFlags();
@@ -1272,7 +1272,7 @@ TEST_F(OpcodesAluTest, Test0x87)
 	// testing the opcode
 	testOpcode(0x87);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xe0;
 	expectedState.registers.clearFlags();
@@ -1291,7 +1291,7 @@ TEST_F(OpcodesAluTest, Test0xC6)
 	// testing the opcode
 	testOpcode(0xC6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1306,7 +1306,7 @@ TEST_F(OpcodesAluTest, Test0xC6)
 	// testing the opcode
 	testOpcode(0xC6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1323,7 +1323,7 @@ TEST_F(OpcodesAluTest, Test0xC6)
 	// testing the opcode
 	testOpcode(0xC6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0x10;
 	expectedState.registers.clearFlags();
@@ -1338,7 +1338,7 @@ TEST_F(OpcodesAluTest, Test0xC6)
 	// testing the opcode
 	testOpcode(0xC6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1394,7 +1394,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
 	// testing the opcode
 	testOpcode(0x8E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1410,7 +1410,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
 	// testing the opcode
 	testOpcode(0x8E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1428,7 +1428,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
 	// testing the opcode
 	testOpcode(0x8E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x10;
 	expectedState.registers.clearFlags();
@@ -1444,7 +1444,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
 	// testing the opcode
 	testOpcode(0x8E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1461,7 +1461,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
 	// testing the opcode
 	testOpcode(0x8E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1477,7 +1477,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
 	// testing the opcode
 	testOpcode(0x8E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1495,7 +1495,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
 	// testing the opcode
 	testOpcode(0x8E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x11;
 	expectedState.registers.clearFlags();
@@ -1512,7 +1512,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
 	// testing the opcode
 	testOpcode(0x8E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1530,7 +1530,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
 	// testing the opcode
 	testOpcode(0x8E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1548,7 +1548,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
 	// testing the opcode
 	testOpcode(0x8F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1562,7 +1562,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
 	// testing the opcode
 	testOpcode(0x8F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x1e;
 	expectedState.registers.clearFlags();
@@ -1576,7 +1576,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
 	// testing the opcode
 	testOpcode(0x8F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xfe;
 	expectedState.registers.clearFlags();
@@ -1591,7 +1591,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
 	// testing the opcode
 	testOpcode(0x8F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xe0;
 	expectedState.registers.clearFlags();
@@ -1605,7 +1605,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
 	// testing the opcode
 	testOpcode(0x8F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1618,7 +1618,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
 	// testing the opcode
 	testOpcode(0x8F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x1f;
 	expectedState.registers.clearFlags();
@@ -1632,7 +1632,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
 	// testing the opcode
 	testOpcode(0x8F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xff;
 	expectedState.registers.clearFlags();
@@ -1647,7 +1647,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
 	// testing the opcode
 	testOpcode(0x8F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xe1;
 	expectedState.registers.clearFlags();
@@ -1667,7 +1667,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
 	// testing the opcode
 	testOpcode(0xCE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1683,7 +1683,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
 	// testing the opcode
 	testOpcode(0xCE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1701,7 +1701,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
 	// testing the opcode
 	testOpcode(0xCE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0x10;
 	expectedState.registers.clearFlags();
@@ -1717,7 +1717,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
 	// testing the opcode
 	testOpcode(0xCE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1734,7 +1734,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
 	// testing the opcode
 	testOpcode(0xCE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1750,7 +1750,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
 	// testing the opcode
 	testOpcode(0xCE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1768,7 +1768,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
 	// testing the opcode
 	testOpcode(0xCE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0x11;
 	expectedState.registers.clearFlags();
@@ -1785,7 +1785,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
 	// testing the opcode
 	testOpcode(0xCE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1803,7 +1803,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
 	// testing the opcode
 	testOpcode(0xCE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 1;
 	expectedState.registers.clearFlags();
@@ -1858,7 +1858,7 @@ TEST_F(OpcodesAluTest, Test0x96)
 	// testing the opcode
 	testOpcode(0x96);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1874,7 +1874,7 @@ TEST_F(OpcodesAluTest, Test0x96)
 	// testing the opcode
 	testOpcode(0x96);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1890,7 +1890,7 @@ TEST_F(OpcodesAluTest, Test0x96)
 	// testing the opcode
 	testOpcode(0x96);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 3;
 	expectedState.registers.clearFlags();
@@ -1905,7 +1905,7 @@ TEST_F(OpcodesAluTest, Test0x96)
 	// testing the opcode
 	testOpcode(0x96);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xff;
 	expectedState.registers.clearFlags();
@@ -1922,7 +1922,7 @@ TEST_F(OpcodesAluTest, Test0x96)
 	// testing the opcode
 	testOpcode(0x96);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x0e;
 	expectedState.registers.clearFlags();
@@ -1938,7 +1938,7 @@ TEST_F(OpcodesAluTest, Test0x96)
 	// testing the opcode
 	testOpcode(0x96);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xf0;
 	expectedState.registers.clearFlags();
@@ -1956,7 +1956,7 @@ TEST_F(OpcodesAluTest, Test0x97)
 	// testing the opcode
 	testOpcode(0x97);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1970,7 +1970,7 @@ TEST_F(OpcodesAluTest, Test0x97)
 	// testing the opcode
 	testOpcode(0x97);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -1984,7 +1984,7 @@ TEST_F(OpcodesAluTest, Test0x97)
 	// testing the opcode
 	testOpcode(0x97);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2004,7 +2004,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
 	// testing the opcode
 	testOpcode(0xD6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2020,7 +2020,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
 	// testing the opcode
 	testOpcode(0xD6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2036,7 +2036,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
 	// testing the opcode
 	testOpcode(0xD6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 3;
 	expectedState.registers.clearFlags();
@@ -2051,7 +2051,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
 	// testing the opcode
 	testOpcode(0xD6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0xff;
 	expectedState.registers.clearFlags();
@@ -2068,7 +2068,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
 	// testing the opcode
 	testOpcode(0xD6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0x0e;
 	expectedState.registers.clearFlags();
@@ -2084,7 +2084,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
 	// testing the opcode
 	testOpcode(0xD6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0xf0;
 	expectedState.registers.clearFlags();
@@ -2141,7 +2141,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
 	// testing the opcode
 	testOpcode(0x9E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2158,7 +2158,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
 	// testing the opcode
 	testOpcode(0x9E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2175,7 +2175,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
 	// testing the opcode
 	testOpcode(0x9E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 3;
 	expectedState.registers.clearFlags();
@@ -2191,7 +2191,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
 	// testing the opcode
 	testOpcode(0x9E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xff;
 	expectedState.registers.clearFlags();
@@ -2209,7 +2209,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
 	// testing the opcode
 	testOpcode(0x9E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x0e;
 	expectedState.registers.clearFlags();
@@ -2226,7 +2226,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
 	// testing the opcode
 	testOpcode(0x9E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xf0;
 	expectedState.registers.clearFlags();
@@ -2244,7 +2244,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
 	// testing the opcode
 	testOpcode(0x9E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2262,7 +2262,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
 	// testing the opcode
 	testOpcode(0x9E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2280,7 +2280,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
 	// testing the opcode
 	testOpcode(0x9E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 2;
 	expectedState.registers.clearFlags();
@@ -2297,7 +2297,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
 	// testing the opcode
 	testOpcode(0x9E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xfe;
 	expectedState.registers.clearFlags();
@@ -2316,7 +2316,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
 	// testing the opcode
 	testOpcode(0x9E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x0e;
 	expectedState.registers.clearFlags();
@@ -2334,7 +2334,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
 	// testing the opcode
 	testOpcode(0x9E);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xf0;
 	expectedState.registers.clearFlags();
@@ -2353,7 +2353,7 @@ TEST_F(OpcodesAluTest, Test0x9F)
 	// testing the opcode
 	testOpcode(0x9F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2368,7 +2368,7 @@ TEST_F(OpcodesAluTest, Test0x9F)
 	// testing the opcode
 	testOpcode(0x9F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2383,7 +2383,7 @@ TEST_F(OpcodesAluTest, Test0x9F)
 	// testing the opcode
 	testOpcode(0x9F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2400,7 +2400,7 @@ TEST_F(OpcodesAluTest, Test0x9F)
 	// testing the opcode
 	testOpcode(0x9F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xff;
 	expectedState.registers.clearFlags();
@@ -2418,7 +2418,7 @@ TEST_F(OpcodesAluTest, Test0x9F)
 	// testing the opcode
 	testOpcode(0x9F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xff;
 	expectedState.registers.clearFlags();
@@ -2436,7 +2436,7 @@ TEST_F(OpcodesAluTest, Test0x9F)
 	// testing the opcode
 	testOpcode(0x9F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xff;
 	expectedState.registers.clearFlags();
@@ -2458,7 +2458,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
 	// testing the opcode
 	testOpcode(0xDE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2475,7 +2475,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
 	// testing the opcode
 	testOpcode(0xDE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2492,7 +2492,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
 	// testing the opcode
 	testOpcode(0xDE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 3;
 	expectedState.registers.clearFlags();
@@ -2508,7 +2508,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
 	// testing the opcode
 	testOpcode(0xDE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0xff;
 	expectedState.registers.clearFlags();
@@ -2526,7 +2526,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
 	// testing the opcode
 	testOpcode(0xDE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0x0e;
 	expectedState.registers.clearFlags();
@@ -2543,7 +2543,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
 	// testing the opcode
 	testOpcode(0xDE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0xf0;
 	expectedState.registers.clearFlags();
@@ -2561,7 +2561,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
 	// testing the opcode
 	testOpcode(0xDE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2579,7 +2579,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
 	// testing the opcode
 	testOpcode(0xDE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -2597,7 +2597,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
 	// testing the opcode
 	testOpcode(0xDE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 2;
 	expectedState.registers.clearFlags();
@@ -2614,7 +2614,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
 	// testing the opcode
 	testOpcode(0xDE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0xfe;
 	expectedState.registers.clearFlags();
@@ -2633,7 +2633,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
 	// testing the opcode
 	testOpcode(0xDE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0x0e;
 	expectedState.registers.clearFlags();
@@ -2651,7 +2651,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
 	// testing the opcode
 	testOpcode(0xDE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0xf0;
 	expectedState.registers.clearFlags();
@@ -2707,7 +2707,7 @@ TEST_F(OpcodesAluTest, Test0xA6)
 	// testing the opcode
 	testOpcode(0xA6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -2723,7 +2723,7 @@ TEST_F(OpcodesAluTest, Test0xA6)
 	// testing the opcode
 	testOpcode(0xA6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -2739,7 +2739,7 @@ TEST_F(OpcodesAluTest, Test0xA6)
 	// testing the opcode
 	testOpcode(0xA6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -2755,7 +2755,7 @@ TEST_F(OpcodesAluTest, Test0xA6)
 	// testing the opcode
 	testOpcode(0xA6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -2771,7 +2771,7 @@ TEST_F(OpcodesAluTest, Test0xA6)
 	// testing the opcode
 	testOpcode(0xA6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b01010101;
 	expectedState.registers.clearFlags();
@@ -2788,7 +2788,7 @@ TEST_F(OpcodesAluTest, Test0xA7)
 	// testing the opcode
 	testOpcode(0xA7);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -2802,7 +2802,7 @@ TEST_F(OpcodesAluTest, Test0xA7)
 	// testing the opcode
 	testOpcode(0xA7);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -2815,7 +2815,7 @@ TEST_F(OpcodesAluTest, Test0xA7)
 	// testing the opcode
 	testOpcode(0xA7);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b10101010;
 	expectedState.registers.clearFlags();
@@ -2834,7 +2834,7 @@ TEST_F(OpcodesAluTest, Test0xE6)
 	// testing the opcode
 	testOpcode(0xE6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -2850,7 +2850,7 @@ TEST_F(OpcodesAluTest, Test0xE6)
 	// testing the opcode
 	testOpcode(0xE6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -2866,7 +2866,7 @@ TEST_F(OpcodesAluTest, Test0xE6)
 	// testing the opcode
 	testOpcode(0xE6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -2882,7 +2882,7 @@ TEST_F(OpcodesAluTest, Test0xE6)
 	// testing the opcode
 	testOpcode(0xE6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -2898,7 +2898,7 @@ TEST_F(OpcodesAluTest, Test0xE6)
 	// testing the opcode
 	testOpcode(0xE6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b01010101;
 	expectedState.registers.clearFlags();
@@ -2954,7 +2954,7 @@ TEST_F(OpcodesAluTest, Test0xAE)
 	// testing the opcode
 	testOpcode(0xAE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -2969,7 +2969,7 @@ TEST_F(OpcodesAluTest, Test0xAE)
 	// testing the opcode
 	testOpcode(0xAE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -2983,7 +2983,7 @@ TEST_F(OpcodesAluTest, Test0xAE)
 	// testing the opcode
 	testOpcode(0xAE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -2997,7 +2997,7 @@ TEST_F(OpcodesAluTest, Test0xAE)
 	// testing the opcode
 	testOpcode(0xAE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -3011,7 +3011,7 @@ TEST_F(OpcodesAluTest, Test0xAE)
 	// testing the opcode
 	testOpcode(0xAE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -3028,7 +3028,7 @@ TEST_F(OpcodesAluTest, Test0xAF)
 	// testing the opcode
 	testOpcode(0xAF);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -3041,7 +3041,7 @@ TEST_F(OpcodesAluTest, Test0xAF)
 	// testing the opcode
 	testOpcode(0xAF);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -3054,7 +3054,7 @@ TEST_F(OpcodesAluTest, Test0xAF)
 	// testing the opcode
 	testOpcode(0xAF);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -3073,7 +3073,7 @@ TEST_F(OpcodesAluTest, Test0xEE)
 	// testing the opcode
 	testOpcode(0xEE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -3088,7 +3088,7 @@ TEST_F(OpcodesAluTest, Test0xEE)
 	// testing the opcode
 	testOpcode(0xEE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -3102,7 +3102,7 @@ TEST_F(OpcodesAluTest, Test0xEE)
 	// testing the opcode
 	testOpcode(0xEE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -3116,7 +3116,7 @@ TEST_F(OpcodesAluTest, Test0xEE)
 	// testing the opcode
 	testOpcode(0xEE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -3130,7 +3130,7 @@ TEST_F(OpcodesAluTest, Test0xEE)
 	// testing the opcode
 	testOpcode(0xEE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -3185,7 +3185,7 @@ TEST_F(OpcodesAluTest, Test0xB6)
 	// testing the opcode
 	testOpcode(0xB6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -3200,7 +3200,7 @@ TEST_F(OpcodesAluTest, Test0xB6)
 	// testing the opcode
 	testOpcode(0xB6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -3214,7 +3214,7 @@ TEST_F(OpcodesAluTest, Test0xB6)
 	// testing the opcode
 	testOpcode(0xB6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -3228,7 +3228,7 @@ TEST_F(OpcodesAluTest, Test0xB6)
 	// testing the opcode
 	testOpcode(0xB6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -3242,7 +3242,7 @@ TEST_F(OpcodesAluTest, Test0xB6)
 	// testing the opcode
 	testOpcode(0xB6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b01010101;
 	expectedState.registers.clearFlags();
@@ -3258,7 +3258,7 @@ TEST_F(OpcodesAluTest, Test0xB7)
 	// testing the opcode
 	testOpcode(0xB7);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -3271,7 +3271,7 @@ TEST_F(OpcodesAluTest, Test0xB7)
 	// testing the opcode
 	testOpcode(0xB7);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -3283,7 +3283,7 @@ TEST_F(OpcodesAluTest, Test0xB7)
 	// testing the opcode
 	testOpcode(0xB7);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b10101010;
 	expectedState.registers.clearFlags();
@@ -3301,7 +3301,7 @@ TEST_F(OpcodesAluTest, Test0xF6)
 	// testing the opcode
 	testOpcode(0xF6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b00000000;
 	expectedState.registers.clearFlags();
@@ -3316,7 +3316,7 @@ TEST_F(OpcodesAluTest, Test0xF6)
 	// testing the opcode
 	testOpcode(0xF6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -3330,7 +3330,7 @@ TEST_F(OpcodesAluTest, Test0xF6)
 	// testing the opcode
 	testOpcode(0xF6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -3344,7 +3344,7 @@ TEST_F(OpcodesAluTest, Test0xF6)
 	// testing the opcode
 	testOpcode(0xF6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b11111111;
 	expectedState.registers.clearFlags();
@@ -3358,7 +3358,7 @@ TEST_F(OpcodesAluTest, Test0xF6)
 	// testing the opcode
 	testOpcode(0xF6);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.a = 0b01010101;
 	expectedState.registers.clearFlags();
@@ -3412,7 +3412,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
 	// testing the opcode
 	testOpcode(0xBE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setZeroFlag();
@@ -3427,7 +3427,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
 	// testing the opcode
 	testOpcode(0xBE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setZeroFlag();
@@ -3442,7 +3442,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
 	// testing the opcode
 	testOpcode(0xBE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setSubtractFlag();
@@ -3456,7 +3456,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
 	// testing the opcode
 	testOpcode(0xBE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setSubtractFlag();
@@ -3472,7 +3472,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
 	// testing the opcode
 	testOpcode(0xBE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setSubtractFlag();
@@ -3487,7 +3487,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
 	// testing the opcode
 	testOpcode(0xBE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setSubtractFlag();
@@ -3504,7 +3504,7 @@ TEST_F(OpcodesAluTest, Test0xBF)
 	// testing the opcode
 	testOpcode(0xBF);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.clearFlags();
@@ -3518,7 +3518,7 @@ TEST_F(OpcodesAluTest, Test0xBF)
 	// testing the opcode
 	testOpcode(0xBF);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 2;
 	expectedState.registers.clearFlags();
@@ -3532,7 +3532,7 @@ TEST_F(OpcodesAluTest, Test0xBF)
 	// testing the opcode
 	testOpcode(0xBF);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0xff;
 	expectedState.registers.clearFlags();
@@ -3552,7 +3552,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
 	// testing the opcode
 	testOpcode(0xFE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setZeroFlag();
@@ -3567,7 +3567,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
 	// testing the opcode
 	testOpcode(0xFE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setZeroFlag();
@@ -3582,7 +3582,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
 	// testing the opcode
 	testOpcode(0xFE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setSubtractFlag();
@@ -3596,7 +3596,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
 	// testing the opcode
 	testOpcode(0xFE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setSubtractFlag();
@@ -3612,7 +3612,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
 	// testing the opcode
 	testOpcode(0xFE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setSubtractFlag();
@@ -3627,7 +3627,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
 	// testing the opcode
 	testOpcode(0xFE);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 2;
 	expectedState.registers.clearFlags();
 	expectedState.registers.setSubtractFlag();
@@ -3646,7 +3646,7 @@ TEST_F(OpcodesAluTest, Test0x27)
 	// testing the opcode
 	testOpcode(0x27);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.setZeroFlag();
@@ -3662,7 +3662,7 @@ TEST_F(OpcodesAluTest, Test0x27)
 	// testing the opcode
 	testOpcode(0x27);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x32;
 	expectedState.registers.resetZeroFlag();
@@ -3678,7 +3678,7 @@ TEST_F(OpcodesAluTest, Test0x27)
 	// testing the opcode
 	testOpcode(0x27);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x23;
 	expectedState.registers.resetZeroFlag();
@@ -3694,7 +3694,7 @@ TEST_F(OpcodesAluTest, Test0x27)
 	// testing the opcode
 	testOpcode(0x27);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x14;
 	expectedState.registers.resetZeroFlag();
@@ -3710,7 +3710,7 @@ TEST_F(OpcodesAluTest, Test0x27)
 	// testing the opcode
 	testOpcode(0x27);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x24;
 	expectedState.registers.resetZeroFlag();
@@ -3726,7 +3726,7 @@ TEST_F(OpcodesAluTest, Test0x27)
 	// testing the opcode
 	testOpcode(0x27);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0;
 	expectedState.registers.setZeroFlag();
@@ -3760,7 +3760,7 @@ TEST_F(OpcodesAluTest, Test0x37)
 	// testing the opcode
 	testOpcode(0x37);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.resetSubtractFlag();
 	expectedState.registers.resetHalfCarryFlag();
@@ -3773,7 +3773,7 @@ TEST_F(OpcodesAluTest, Test0x37)
 	// testing the opcode
 	testOpcode(0x37);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.resetSubtractFlag();
 	expectedState.registers.resetHalfCarryFlag();
@@ -3790,7 +3790,7 @@ TEST_F(OpcodesAluTest, Test0x2F)
 	// testing the opcode
 	testOpcode(0x2F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0x00;
 	expectedState.registers.setSubtractFlag();
@@ -3803,7 +3803,7 @@ TEST_F(OpcodesAluTest, Test0x2F)
 	// testing the opcode
 	testOpcode(0x2F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.a = 0b01010101;
 	expectedState.registers.setSubtractFlag();
@@ -3820,7 +3820,7 @@ TEST_F(OpcodesAluTest, Test0x3F)
 	// testing the opcode
 	testOpcode(0x3F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.resetSubtractFlag();
 	expectedState.registers.resetHalfCarryFlag();
@@ -3834,7 +3834,7 @@ TEST_F(OpcodesAluTest, Test0x3F)
 	// testing the opcode
 	testOpcode(0x3F);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 4;
+	expectedState.clockCycles += 4;
 	expectedState.registers.pc += 1;
 	expectedState.registers.resetSubtractFlag();
 	expectedState.registers.resetHalfCarryFlag();
@@ -3852,7 +3852,7 @@ TEST_F(OpcodesAluTest, Test0x03)
 	// testing the opcode
 	testOpcode(0x03);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.bc = 1;
 	// comparing expected change to real change
@@ -3863,7 +3863,7 @@ TEST_F(OpcodesAluTest, Test0x03)
 	// testing the opcode
 	testOpcode(0x03);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.bc = 0;
 	// comparing expected change to real change
@@ -3878,7 +3878,7 @@ TEST_F(OpcodesAluTest, Test0x13)
 	// testing the opcode
 	testOpcode(0x13);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.de = 1;
 	// comparing expected change to real change
@@ -3889,7 +3889,7 @@ TEST_F(OpcodesAluTest, Test0x13)
 	// testing the opcode
 	testOpcode(0x13);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.de = 0;
 	// comparing expected change to real change
@@ -3904,7 +3904,7 @@ TEST_F(OpcodesAluTest, Test0x23)
 	// testing the opcode
 	testOpcode(0x23);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 1;
 	// comparing expected change to real change
@@ -3915,7 +3915,7 @@ TEST_F(OpcodesAluTest, Test0x23)
 	// testing the opcode
 	testOpcode(0x23);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0;
 	// comparing expected change to real change
@@ -3930,7 +3930,7 @@ TEST_F(OpcodesAluTest, Test0x33)
 	// testing the opcode
 	testOpcode(0x33);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.sp = 1;
 	// comparing expected change to real change
@@ -3941,7 +3941,7 @@ TEST_F(OpcodesAluTest, Test0x33)
 	// testing the opcode
 	testOpcode(0x33);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.sp = 0;
 	// comparing expected change to real change
@@ -3957,7 +3957,7 @@ TEST_F(OpcodesAluTest, Test0x09)
 	// testing the opcode
 	testOpcode(0x09);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.resetSubtractFlag();
 	expectedState.registers.resetHalfCarryFlag();
@@ -3971,7 +3971,7 @@ TEST_F(OpcodesAluTest, Test0x09)
 	// testing the opcode
 	testOpcode(0x09);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 5;
 	expectedState.registers.resetSubtractFlag();
@@ -3986,7 +3986,7 @@ TEST_F(OpcodesAluTest, Test0x09)
 	// testing the opcode
 	testOpcode(0x09);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0x1000;
 	expectedState.registers.resetSubtractFlag();
@@ -4001,7 +4001,7 @@ TEST_F(OpcodesAluTest, Test0x09)
 	// testing the opcode
 	testOpcode(0x09);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0x0000;
 	expectedState.registers.resetSubtractFlag();
@@ -4016,7 +4016,7 @@ TEST_F(OpcodesAluTest, Test0x09)
 	// testing the opcode
 	testOpcode(0x09);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0x0000;
 	expectedState.registers.resetSubtractFlag();
@@ -4035,7 +4035,7 @@ TEST_F(OpcodesAluTest, Test0x19)
 	// testing the opcode
 	testOpcode(0x19);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.resetSubtractFlag();
 	expectedState.registers.resetHalfCarryFlag();
@@ -4049,7 +4049,7 @@ TEST_F(OpcodesAluTest, Test0x19)
 	// testing the opcode
 	testOpcode(0x19);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 5;
 	expectedState.registers.resetSubtractFlag();
@@ -4064,7 +4064,7 @@ TEST_F(OpcodesAluTest, Test0x19)
 	// testing the opcode
 	testOpcode(0x19);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0x1000;
 	expectedState.registers.resetSubtractFlag();
@@ -4079,7 +4079,7 @@ TEST_F(OpcodesAluTest, Test0x19)
 	// testing the opcode
 	testOpcode(0x19);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0x0000;
 	expectedState.registers.resetSubtractFlag();
@@ -4094,7 +4094,7 @@ TEST_F(OpcodesAluTest, Test0x19)
 	// testing the opcode
 	testOpcode(0x19);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0x0000;
 	expectedState.registers.resetSubtractFlag();
@@ -4112,7 +4112,7 @@ TEST_F(OpcodesAluTest, Test0x29)
 	// testing the opcode
 	testOpcode(0x29);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.resetSubtractFlag();
 	expectedState.registers.resetHalfCarryFlag();
@@ -4125,7 +4125,7 @@ TEST_F(OpcodesAluTest, Test0x29)
 	// testing the opcode
 	testOpcode(0x29);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 6;
 	expectedState.registers.resetSubtractFlag();
@@ -4139,7 +4139,7 @@ TEST_F(OpcodesAluTest, Test0x29)
 	// testing the opcode
 	testOpcode(0x29);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0x1ffe;
 	expectedState.registers.resetSubtractFlag();
@@ -4153,7 +4153,7 @@ TEST_F(OpcodesAluTest, Test0x29)
 	// testing the opcode
 	testOpcode(0x29);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0xfffe;
 	expectedState.registers.resetSubtractFlag();
@@ -4167,7 +4167,7 @@ TEST_F(OpcodesAluTest, Test0x29)
 	// testing the opcode
 	testOpcode(0x29);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0xe000;
 	expectedState.registers.resetSubtractFlag();
@@ -4186,7 +4186,7 @@ TEST_F(OpcodesAluTest, Test0x39)
 	// testing the opcode
 	testOpcode(0x39);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.resetSubtractFlag();
 	expectedState.registers.resetHalfCarryFlag();
@@ -4200,7 +4200,7 @@ TEST_F(OpcodesAluTest, Test0x39)
 	// testing the opcode
 	testOpcode(0x39);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 5;
 	expectedState.registers.resetSubtractFlag();
@@ -4215,7 +4215,7 @@ TEST_F(OpcodesAluTest, Test0x39)
 	// testing the opcode
 	testOpcode(0x39);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0x1000;
 	expectedState.registers.resetSubtractFlag();
@@ -4230,7 +4230,7 @@ TEST_F(OpcodesAluTest, Test0x39)
 	// testing the opcode
 	testOpcode(0x39);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0x0000;
 	expectedState.registers.resetSubtractFlag();
@@ -4245,7 +4245,7 @@ TEST_F(OpcodesAluTest, Test0x39)
 	// testing the opcode
 	testOpcode(0x39);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0x0000;
 	expectedState.registers.resetSubtractFlag();
@@ -4263,7 +4263,7 @@ TEST_F(OpcodesAluTest, Test0x0B)
 	// testing the opcode
 	testOpcode(0x0B);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.bc = 0xffff;
 	// comparing expected change to real change
@@ -4274,7 +4274,7 @@ TEST_F(OpcodesAluTest, Test0x0B)
 	// testing the opcode
 	testOpcode(0x0B);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.bc = 0xfffe;
 	// comparing expected change to real change
@@ -4289,7 +4289,7 @@ TEST_F(OpcodesAluTest, Test0x1B)
 	// testing the opcode
 	testOpcode(0x1B);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.de = 0xffff;
 	// comparing expected change to real change
@@ -4300,7 +4300,7 @@ TEST_F(OpcodesAluTest, Test0x1B)
 	// testing the opcode
 	testOpcode(0x1B);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.de = 0xfffe;
 	// comparing expected change to real change
@@ -4315,7 +4315,7 @@ TEST_F(OpcodesAluTest, Test0x2B)
 	// testing the opcode
 	testOpcode(0x2B);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0xffff;
 	// comparing expected change to real change
@@ -4326,7 +4326,7 @@ TEST_F(OpcodesAluTest, Test0x2B)
 	// testing the opcode
 	testOpcode(0x2B);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.hl = 0xfffe;
 	// comparing expected change to real change
@@ -4341,7 +4341,7 @@ TEST_F(OpcodesAluTest, Test0x3B)
 	// testing the opcode
 	testOpcode(0x3B);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.sp = 0xffff;
 	// comparing expected change to real change
@@ -4352,7 +4352,7 @@ TEST_F(OpcodesAluTest, Test0x3B)
 	// testing the opcode
 	testOpcode(0x3B);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 8;
+	expectedState.clockCycles += 8;
 	expectedState.registers.pc += 1;
 	expectedState.registers.sp = 0xfffe;
 	// comparing expected change to real change
@@ -4369,7 +4369,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
 	// testing the opcode
 	testOpcode(0xE8);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc += 2;
 	expectedState.registers.clearFlags();
 	// comparing expected change to real change
@@ -4382,7 +4382,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
 	// testing the opcode
 	testOpcode(0xE8);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc += 2;
 	expectedState.registers.sp = 5;
 	expectedState.registers.clearFlags();
@@ -4396,7 +4396,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
 	// testing the opcode
 	testOpcode(0xE8);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc += 2;
 	expectedState.registers.sp = 1;
 	expectedState.registers.clearFlags();
@@ -4410,7 +4410,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
 	// testing the opcode
 	testOpcode(0xE8);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc += 2;
 	expectedState.registers.sp = 0xfffe;
 	expectedState.registers.clearFlags();
@@ -4424,7 +4424,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
 	// testing the opcode
 	testOpcode(0xE8);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc += 2;
 	expectedState.registers.sp = 0x0010;
 	expectedState.registers.clearFlags();
@@ -4439,7 +4439,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
 	// testing the opcode
 	testOpcode(0xE8);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc += 2;
 	expectedState.registers.sp = 0x0000;
 	expectedState.registers.clearFlags();
@@ -4455,7 +4455,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
 	// testing the opcode
 	testOpcode(0xE8);
 	// expected change in registers and memory
-	expectedState.cpuClockCycles += 16;
+	expectedState.clockCycles += 16;
 	expectedState.registers.pc += 2;
 	expectedState.registers.sp = 0x0100;
 	expectedState.registers.clearFlags();

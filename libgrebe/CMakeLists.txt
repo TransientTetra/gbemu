@@ -31,6 +31,7 @@ set(LIBGREBE_SOURCES
         libgrebe/display/lcd.hpp
         libgrebe/display/ppu.cpp
         libgrebe/display/ppu.hpp
+        libgrebe/common/synchronous_component.hpp
         )
 
 add_library(libgrebe STATIC ${LIBGREBE_SOURCES})

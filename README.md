@@ -6,10 +6,10 @@ GreBe is a Game Boy emulator in C++.
 3. PPU
 4. Minimal app displaying frames
 5. Input handling
-6. Cycle accuratedness
-7. APU
-8. Extended ROM cartridge support and test ROMs validation
+6. Cycle accuratedness and test ROMs validation
+8. Extended ROM cartridge support
 9. libretro core API integration
+7. APU
 10. GBC support
 # Resources
 - https://www.youtube.com/watch?v=HyzD8pNlpwI

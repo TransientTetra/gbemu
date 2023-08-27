@@ -1,6 +1,7 @@
 #ifndef LIBGREBE_INTERRUPT_HANDLER_HPP
 #define LIBGREBE_INTERRUPT_HANDLER_HPP
 
+#include <libgrebe/common/synchronous_component.hpp>
 #include <libgrebe/state.hpp>
 
 struct IllegalInterruptHandlerStateException : public std::exception
@@ -11,17 +12,18 @@ struct IllegalInterruptHandlerStateException : public std::exception
     }
 };
 
-class InterruptHandler
+class InterruptHandler : public SynchronousComponent
 {
+    using SynchronousComponent::SynchronousComponent;
 private:
-    static void cycle1(State& state);
-    static void cycle2(State& state);
-    static void cycle3(State& state);
-    static void cycle4(State& state);
-    static void cycle5(State& state);
+    void cycle1();
+    void cycle2();
+    void cycle3();
+    void cycle4();
+    void cycle5();
 
 public:
-    static void tick(State& state);
+    void tick() override;
 };
 
 #endif // LIBGREBE_INTERRUPT_HANDLER_HPP

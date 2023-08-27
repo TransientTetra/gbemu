@@ -1,4 +1,4 @@
-#include <libgrebe/core/cpu.test.hpp>
+#include <libgrebe/core/cpu/cpu.test.hpp>
 
 TEST_F(OpcodesLoadsTest, Test0x02)
 {

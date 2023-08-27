@@ -1,6 +1,6 @@
 #ifndef LIBGREBE_MEMORY_LOADER_HPP
 #define LIBGREBE_MEMORY_LOADER_HPP
-#include "libgrebe/core/memory.hpp"
+#include <libgrebe/core/memory.hpp>
 #include <string>
 
 struct InvalidBootRomException : public std::exception

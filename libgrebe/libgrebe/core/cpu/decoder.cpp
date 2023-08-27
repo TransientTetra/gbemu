@@ -1,5 +1,5 @@
-#include <libgrebe/core/decoder.hpp>
-#include <libgrebe/core/opcodes.hpp>
+#include <libgrebe/core/cpu/decoder.hpp>
+#include <libgrebe/core/cpu/opcodes.hpp>
 
 std::function<void(State&)> Decoder::decode(const Byte& opcode)
 {

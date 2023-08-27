@@ -1,5 +1,5 @@
-#include <libgrebe/core/cpu.hpp>
-#include <libgrebe/core/decoder.hpp>
+#include <libgrebe/core/cpu/cpu.hpp>
+#include <libgrebe/core/cpu/decoder.hpp>
 #include <libgrebe/core/interrupt_handler.hpp>
 
 void CPU::tick()
@@ -10,8 +10,8 @@ void CPU::tick()
     state.cpuClockCycle = 0;
     switch (state.cpuState)
     {
-        case FETCH_AND_DECODE:
-            fetchAndDecode();
+        case FETCH:
+            fetch();
             break;
         case EXECUTE:
             execute();
@@ -25,30 +25,13 @@ void CPU::tick()
         case STOP:
             stop();
             break;
-        case INTERRUPT_HANDLER:
-            InterruptHandler::tick(state);
-            break;
         default:
             throw IllegalCPUStateException();
     }
 }
 
-void CPU::fetchAndDecode()
+void CPU::fetch()
 {
-    const Byte& IE = state.memory.read(LIBGREBE_REG_IE);
-    const Byte& IF = state.memory.read(LIBGREBE_REG_IF);
-    if (state.ime && (IE & IF & 0x1f))
-    {
-        state.cpuState = INTERRUPT_HANDLER;
-        InterruptHandler::tick(state);
-        return;
-    }
-
-    if (state.imeScheduled)
-    {
-        state.imeScheduled = false;
-        state.ime = true;
-    }
     // fetch
     const Byte& opcode = state.memory.read(state.registers.pc++);
     // decode
@@ -71,7 +54,7 @@ void CPU::execute()
     state.cpuQueue.front()(state);
     state.cpuQueue.pop();
     if (state.cpuState == EXECUTE && state.cpuQueue.empty())
-        state.cpuState = FETCH_AND_DECODE;
+        state.cpuState = FETCH;
 }
 
 void CPU::stop()

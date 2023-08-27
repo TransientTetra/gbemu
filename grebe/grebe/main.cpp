@@ -1,4 +1,4 @@
-#include <libgrebe/core/cpu.hpp>
+#include <libgrebe/core/cpu/cpu.hpp>
 #include <libgrebe/memory_loader.hpp>
 
 int main(int argc, char** argv)

@@ -14,14 +14,13 @@ struct IllegalCPUStateException : public std::exception
     }
 };
 
-// Sharp LR35902 SOC
 // Sharp SM83 CPU
 class CPU : public SynchronousComponent
 {
     using SynchronousComponent::SynchronousComponent;
 
 private:
-    void fetchAndDecode();
+    void fetch();
     void execute();
     void stop();
     void halt();

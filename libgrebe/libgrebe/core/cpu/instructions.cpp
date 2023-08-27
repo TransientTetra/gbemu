@@ -1,4 +1,4 @@
-#include <libgrebe/core/instructions.hpp>
+#include <libgrebe/core/cpu/instructions.hpp>
 #include <libgrebe/utils.hpp>
 
 void Instructions::Undefined(State& state)

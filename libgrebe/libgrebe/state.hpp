@@ -4,18 +4,17 @@
 #include <cstdint>
 #include <functional>
 #include <libgrebe/core/memory.hpp>
-#include <libgrebe/core/registers.hpp>
+#include <libgrebe/core/cpu/registers.hpp>
 #include <queue>
 #include <stack>
 
 enum CPUState
 {
-    FETCH_AND_DECODE,
+    FETCH,
     EXECUTE,
     STOP,
     HALT,
     HALT_BUG,
-    INTERRUPT_HANDLER,
 };
 
 enum InterruptHandlerState
@@ -41,7 +40,8 @@ public:
     std::queue<std::function<void(State&)>> cpuQueue;
     uint64_t clockCycles = 0; // this will overflow in 139 years @4MiHz, think we're fine
     uint8_t cpuClockCycle = 0;
-    CPUState cpuState = FETCH_AND_DECODE;
+    uint8_t interruptHandlerClockCycle = 0;
+    CPUState cpuState = FETCH;
     InterruptHandlerState interruptHandlerState = CYCLE1;
     PPUState ppuState = OAM_SCAN;
 

@@ -1,55 +1,61 @@
 #include <libgrebe/core/interrupt_handler.hpp>
+#include <libgrebe/core/cpu/cpu.hpp>
+#include <libgrebe/core/interrupt_handler.hpp>
 #include <libgrebe/utils.hpp>
 
-void InterruptHandler::tick(State& state)
+void InterruptHandler::tick()
 {
+    ++state.interruptHandlerClockCycle;
+    if (state.interruptHandlerClockCycle < 4)
+        return;
+    state.interruptHandlerClockCycle = 0;
     switch (state.interruptHandlerState)
     {
         case CYCLE1:
-            cycle1(state);
+            cycle1();
             break;
         case CYCLE2:
-            cycle2(state);
+            cycle2();
             break;
         case CYCLE3:
-            cycle3(state);
+            cycle3();
             break;
         case CYCLE4:
-            cycle4(state);
+            cycle4();
             break;
         case CYCLE5:
-            cycle5(state);
+            cycle5();
             break;
         default:
             throw IllegalInterruptHandlerStateException();
     }
 }
 
-void InterruptHandler::cycle1(State& state)
+void InterruptHandler::cycle1()
 {
     // NOP
     state.interruptHandlerState = CYCLE2;
 }
 
-void InterruptHandler::cycle2(State& state)
+void InterruptHandler::cycle2()
 {
     // NOP
     state.interruptHandlerState = CYCLE3;
 }
 
-void InterruptHandler::cycle3(State& state)
+void InterruptHandler::cycle3()
 {
     state.memory.write(--state.registers.sp, msb(state.registers.pc));
     state.interruptHandlerState = CYCLE4;
 }
 
-void InterruptHandler::cycle4(State& state)
+void InterruptHandler::cycle4()
 {
     state.memory.write(--state.registers.sp, lsb(state.registers.pc));
     state.interruptHandlerState = CYCLE5;
 }
 
-void InterruptHandler::cycle5(State& state)
+void InterruptHandler::cycle5()
 {
     state.ime = false;
     Byte jumpVector;
@@ -82,5 +88,5 @@ void InterruptHandler::cycle5(State& state)
     }
     state.registers.pc = jumpVector;
     state.interruptHandlerState = CYCLE1;
-    state.cpuState = FETCH_AND_DECODE;
+    state.cpuState = FETCH;
 }

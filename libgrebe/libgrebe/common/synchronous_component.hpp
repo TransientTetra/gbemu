@@ -1,7 +1,7 @@
 #ifndef LIBGREBE_SYNCHRONOUS_COMPONENT_HPP
 #define LIBGREBE_SYNCHRONOUS_COMPONENT_HPP
 
-#include "libgrebe/state.hpp"
+#include <libgrebe/state.hpp>
 
 // interface for clock-controlled components; affecting global state
 class SynchronousComponent

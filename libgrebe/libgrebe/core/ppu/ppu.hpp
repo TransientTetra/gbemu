@@ -1,6 +1,7 @@
 #ifndef LIBGREBE_PPU_HPP
 #define LIBGREBE_PPU_HPP
 
+#include <libgrebe/common/synchronous_component.hpp>
 #include <libgrebe/state.hpp>
 
 struct IllegalPPUStateException : public std::exception
@@ -11,16 +12,17 @@ struct IllegalPPUStateException : public std::exception
     }
 };
 
-class PPU
+class PPU : public SynchronousComponent
 {
+    using SynchronousComponent::SynchronousComponent;
 private:
-    static void hblank(State& state);
-    static void vblank(State& state);
-    static void oamScan(State& state);
-    static void draw(State& state);
+    void hblank();
+    void vblank();
+    void oamScan();
+    void draw();
 
 public:
-    static void tick(State& state);
+    void tick();
 };
 
 #endif // LIBGREBE_PPU_HPP

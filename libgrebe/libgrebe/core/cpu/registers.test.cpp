@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #define private public
-#include <libgrebe/core/registers.hpp>
+#include <libgrebe/core/cpu/registers.hpp>
 
 class RegistersTest : public ::testing::Test
 {

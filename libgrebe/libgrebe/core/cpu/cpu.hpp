@@ -1,6 +1,7 @@
 #ifndef LIBGREBE_CPU_HPP
 #define LIBGREBE_CPU_HPP
 
+#include <libgrebe/common/state_mutator.hpp>
 #include <libgrebe/common/synchronous_component.hpp>
 #include <libgrebe/memory_locations.hpp>
 #include <libgrebe/state.hpp>
@@ -15,9 +16,9 @@ struct IllegalCPUStateException : public std::exception
 };
 
 // Sharp SM83 CPU
-class CPU : public SynchronousComponent
+class CPU : public SynchronousComponent, public StateMutator
 {
-    using SynchronousComponent::SynchronousComponent;
+    using StateMutator::StateMutator;
 
 private:
     void fetch();

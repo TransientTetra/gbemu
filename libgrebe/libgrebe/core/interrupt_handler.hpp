@@ -1,6 +1,7 @@
 #ifndef LIBGREBE_INTERRUPT_HANDLER_HPP
 #define LIBGREBE_INTERRUPT_HANDLER_HPP
 
+#include <libgrebe/common/state_mutator.hpp>
 #include <libgrebe/common/synchronous_component.hpp>
 #include <libgrebe/state.hpp>
 
@@ -12,9 +13,10 @@ struct IllegalInterruptHandlerStateException : public std::exception
     }
 };
 
-class InterruptHandler : public SynchronousComponent
+class InterruptHandler : public SynchronousComponent, public StateMutator
 {
-    using SynchronousComponent::SynchronousComponent;
+    using StateMutator::StateMutator;
+
 private:
     void cycle1();
     void cycle2();

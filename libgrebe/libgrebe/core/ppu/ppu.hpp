@@ -1,6 +1,7 @@
 #ifndef LIBGREBE_PPU_HPP
 #define LIBGREBE_PPU_HPP
 
+#include <libgrebe/common/state_mutator.hpp>
 #include <libgrebe/common/synchronous_component.hpp>
 #include <libgrebe/state.hpp>
 
@@ -12,9 +13,10 @@ struct IllegalPPUStateException : public std::exception
     }
 };
 
-class PPU : public SynchronousComponent
+class PPU : public SynchronousComponent, public StateMutator
 {
-    using SynchronousComponent::SynchronousComponent;
+    using StateMutator::StateMutator;
+
 private:
     void hblank();
     void vblank();

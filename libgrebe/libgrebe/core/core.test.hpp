@@ -26,11 +26,14 @@ protected:
 
     void machineCycle()
     {
-        state.clockCycles += 4;
         core->tick();
+        ++state.clockCycles;
         core->tick();
+        ++state.clockCycles;
         core->tick();
+        ++state.clockCycles;
         core->tick();
+        ++state.clockCycles;
     }
 };
 

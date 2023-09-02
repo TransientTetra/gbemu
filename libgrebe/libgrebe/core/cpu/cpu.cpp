@@ -4,10 +4,8 @@
 
 void CPU::tick()
 {
-    ++state.cpuClockCycle;
-    if (state.cpuClockCycle < 4)
+    if ((state.clockCycles + 1) % 4)
         return;
-    state.cpuClockCycle = 0;
     switch (state.cpuState)
     {
         case FETCH:

@@ -5,10 +5,8 @@
 
 void InterruptHandler::tick()
 {
-    ++state.interruptHandlerClockCycle;
-    if (state.interruptHandlerClockCycle < 4)
+    if ((state.clockCycles + 1) % 4)
         return;
-    state.interruptHandlerClockCycle = 0;
     switch (state.interruptHandlerState)
     {
         case CYCLE1:

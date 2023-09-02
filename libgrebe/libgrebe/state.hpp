@@ -39,8 +39,6 @@ class State
 public:
     std::queue<std::function<void(State&)>> cpuQueue;
     uint64_t clockCycles = 0; // this will overflow in 139 years @4MiHz, think we're fine
-    uint8_t cpuClockCycle = 0;
-    uint8_t interruptHandlerClockCycle = 0;
     CPUState cpuState = FETCH;
     InterruptHandlerState interruptHandlerState = CYCLE1;
     PPUState ppuState = OAM_SCAN;

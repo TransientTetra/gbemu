@@ -28,11 +28,14 @@ protected:
 
     void machineCycle()
     {
-        state.clockCycles += 4;
         cpu->tick();
+        ++state.clockCycles;
         cpu->tick();
+        ++state.clockCycles;
         cpu->tick();
+        ++state.clockCycles;
         cpu->tick();
+        ++state.clockCycles;
     }
 
     void testOpcode(Byte opcode)
@@ -46,8 +49,8 @@ protected:
         // execute the opcode
         while (!state.cpuQueue.empty())
         {
-            ++state.clockCycles;
             cpu->tick();
+            ++state.clockCycles;
         }
     }
 
@@ -115,8 +118,8 @@ protected:
         // executing the opcode
         while (!state.cpuQueue.empty())
         {
-            ++state.clockCycles;
             cpu->tick();
+            ++state.clockCycles;
         }
     }
 

@@ -34,6 +34,8 @@ set(LIBGREBE_SOURCES
         libgrebe/common/synchronous_component.hpp
         libgrebe/core/core.hpp
         libgrebe/core/core.cpp
+        libgrebe/core/cpu/cpu.cpp
+        libgrebe/core/cpu/cpu.hpp
         )
 
 add_library(libgrebe STATIC ${LIBGREBE_SOURCES})

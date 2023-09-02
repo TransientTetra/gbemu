@@ -25,8 +25,8 @@ set(LIBGREBE_SOURCES
         libgrebe/memory_locations.hpp
         libgrebe/utils.cpp
         libgrebe/utils.hpp
-        libgrebe/core/interrupt_handler.cpp
-        libgrebe/core/interrupt_handler.hpp
+        libgrebe/core/cpu/interrupt_handler.cpp
+        libgrebe/core/cpu/interrupt_handler.hpp
         libgrebe/display/lcd.cpp
         libgrebe/display/lcd.hpp
         libgrebe/core/ppu/ppu.cpp

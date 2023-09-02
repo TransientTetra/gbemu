@@ -1,6 +1,6 @@
 #include <libgrebe/common/state_mutator.hpp>
 #include <libgrebe/core/core.hpp>
-#include <libgrebe/core/interrupt_handler.hpp>
+#include <libgrebe/core/cpu/interrupt_handler.hpp>
 
 Core::Core(State& state) : StateMutator(state), cpu(state), interruptHandler(state), ppu(state)
 {

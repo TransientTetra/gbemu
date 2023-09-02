@@ -1,6 +1,6 @@
 #include <libgrebe/core/cpu/cpu.hpp>
 #include <libgrebe/core/cpu/decoder.hpp>
-#include <libgrebe/core/interrupt_handler.hpp>
+#include <libgrebe/core/cpu/interrupt_handler.hpp>
 
 void CPU::tick()
 {

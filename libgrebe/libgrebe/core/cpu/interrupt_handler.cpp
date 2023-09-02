@@ -1,5 +1,4 @@
 #include <libgrebe/core/cpu/interrupt_handler.hpp>
-#include <libgrebe/core/cpu/cpu.hpp>
 #include <libgrebe/utils.hpp>
 
 void InterruptHandler::tick()

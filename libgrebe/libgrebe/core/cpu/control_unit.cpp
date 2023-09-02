@@ -1,8 +1,8 @@
-#include <libgrebe/core/cpu/cpu.hpp>
+#include <libgrebe/core/cpu/control_unit.hpp>
 #include <libgrebe/core/cpu/decoder.hpp>
 #include <libgrebe/core/cpu/interrupt_handler.hpp>
 
-void CPU::tick()
+void ControlUnit::tick()
 {
     if ((state.clockCycles + 1) % 4)
         return;
@@ -28,7 +28,7 @@ void CPU::tick()
     }
 }
 
-void CPU::fetch()
+void ControlUnit::fetch()
 {
     // fetch
     const Byte& opcode = state.memory.read(state.registers.pc++);
@@ -47,7 +47,7 @@ void CPU::fetch()
     execute(); // microops executed immediately, on the same m-cycle as fetch
 }
 
-void CPU::execute()
+void ControlUnit::execute()
 {
     state.cpuQueue.front()(state);
     state.cpuQueue.pop();
@@ -55,7 +55,7 @@ void CPU::execute()
         state.cpuState = FETCH;
 }
 
-void CPU::stop()
+void ControlUnit::stop()
 {
     // state.clockCycles -= 4;
     // const Byte& joypad = state.memory.read(LIBGREBE_REG_P1);
@@ -68,7 +68,7 @@ void CPU::stop()
     // }
 }
 
-void CPU::halt()
+void ControlUnit::halt()
 {
     // const Byte& IE = state.memory.read(LIBGREBE_REG_IE);
     // const Byte& IF = state.memory.read(LIBGREBE_REG_IF);
@@ -88,7 +88,7 @@ void CPU::halt()
     // }
 }
 
-void CPU::haltBug()
+void ControlUnit::haltBug()
 {
     // todo
 }

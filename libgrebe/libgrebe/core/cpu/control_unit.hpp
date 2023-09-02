@@ -1,11 +1,8 @@
-#ifndef LIBGREBE_CPU_HPP
-#define LIBGREBE_CPU_HPP
+#ifndef LIBGREBE_CONTROL_UNIT_HPP
+#define LIBGREBE_CONTROL_UNIT_HPP
 
 #include <libgrebe/common/state_mutator.hpp>
 #include <libgrebe/common/synchronous_component.hpp>
-#include <libgrebe/memory_locations.hpp>
-#include <libgrebe/state.hpp>
-#include <libgrebe/types.hpp>
 
 struct IllegalCPUStateException : public std::exception
 {
@@ -15,8 +12,8 @@ struct IllegalCPUStateException : public std::exception
     }
 };
 
-// Sharp SM83 CPU
-class CPU : public SynchronousComponent, public StateMutator
+// Sharp SM83 CPU, control unit
+class ControlUnit : public SynchronousComponent, public StateMutator
 {
     using StateMutator::StateMutator;
 
@@ -31,4 +28,4 @@ public:
     void tick() override;
 };
 
-#endif // LIBGREBE_CPU_HPP
+#endif // LIBGREBE_CONTROL_UNIT_HPP

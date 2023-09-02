@@ -1,6 +1,7 @@
-#include <libgrebe/core/cpu/cpu.test.hpp>
+#include <libgrebe/core/cpu/control_unit.test.hpp>
+#include <libgrebe/core/cpu/instructions.hpp>
 
-TEST_F(CPUTest, UndefinedOpcodesTest)
+TEST_F(ControlUnitTest, UndefinedOpcodesTest)
 {
     EXPECT_THROW(testOpcode(0xD3), UndefinedOpcodeException);
     EXPECT_THROW(testOpcode(0xE3), UndefinedOpcodeException);

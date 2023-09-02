@@ -8,18 +8,17 @@
 #pragma clang diagnostic ignored "-Wconstant-conversion"
 #define private public
 
-#include <libgrebe/core/cpu/cpu.hpp>
-#include <libgrebe/core/cpu/instructions.hpp>
+#include <libgrebe/core/cpu/control_unit.hpp>
 
-class CPUTest : public ::testing::Test
+class ControlUnitTest : public ::testing::Test
 {
 protected:
-    std::unique_ptr<CPU> cpu;
+    std::unique_ptr<ControlUnit> cpu;
     State state, expectedState;
 
     void SetUp() override
     {
-        cpu = std::make_unique<CPU>(state);
+        cpu = std::make_unique<ControlUnit>(state);
     }
 
     void TearDown() override
@@ -77,15 +76,15 @@ protected:
     }
 };
 
-class OpcodesLoadsTest : public CPUTest
+class OpcodesLoadsTest : public ControlUnitTest
 {
 };
 
-class OpcodesMiscTest : public CPUTest
+class OpcodesMiscTest : public ControlUnitTest
 {
 };
 
-class OpcodesAluTest : public CPUTest
+class OpcodesAluTest : public ControlUnitTest
 {
 protected:
     void incTest(Byte opcode, Byte& reg, Byte& expectedReg);
@@ -100,7 +99,7 @@ protected:
     void cpTest(Byte opcode, Byte& operand);
 };
 
-class OpcodesBitOperationsTest : public CPUTest
+class OpcodesBitOperationsTest : public ControlUnitTest
 {
 protected:
     void testOpcodeCB(Byte opcode)
@@ -152,7 +151,7 @@ protected:
     void testOpcodeSEThl(Byte opcode, Byte bit);
 };
 
-class OpcodesControlFlowTest : public CPUTest
+class OpcodesControlFlowTest : public ControlUnitTest
 {
 };
 

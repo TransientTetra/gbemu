@@ -1,4 +1,4 @@
-#include <libgrebe/core/cpu/cpu.test.hpp>
+#include <libgrebe/core/cpu/control_unit.test.hpp>
 
 void OpcodesBitOperationsTest::testOpcodeRLC(Byte opcode, Byte& reg, Byte& expectedReg)
 {

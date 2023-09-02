@@ -2,7 +2,7 @@
 #define LIBGREBE_CORE_HPP
 #include <libgrebe/common/state_mutator.hpp>
 #include <libgrebe/common/synchronous_component.hpp>
-#include <libgrebe/core/cpu/cpu.hpp>
+#include <libgrebe/core/cpu/control_unit.hpp>
 #include <libgrebe/core/cpu/interrupt_handler.hpp>
 #include <libgrebe/core/ppu/ppu.hpp>
 
@@ -11,7 +11,7 @@
 class Core : public SynchronousComponent, public StateMutator
 {
 private:
-    CPU cpu;
+    ControlUnit cpu;
     InterruptHandler interruptHandler;
     PPU ppu;
 

@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(.)
 set(LIBGREBE_SOURCES
         ${LIBGREBE_SOURCES}
-        libgrebe/core/cpu/cpu.cpp
-        libgrebe/core/cpu/cpu.hpp
+        libgrebe/core/cpu/control_unit.cpp
+        libgrebe/core/cpu/control_unit.hpp
         libgrebe/core/memory.cpp
         libgrebe/core/memory.hpp
         libgrebe/types.hpp
@@ -41,14 +41,14 @@ set_target_properties(libgrebe PROPERTIES PREFIX "")
 
 set(LIBGREBE_TEST_SOURCES
         ${LIBGREBE_TEST_SOURCES}
-        libgrebe/core/cpu/cpu.test.cpp
-        libgrebe/core/cpu/cpu_loads.test.cpp
-        libgrebe/core/cpu/cpu_alu.test.cpp
+        libgrebe/core/cpu/control_unit.test.cpp
+        libgrebe/core/cpu/control_unit_loads.test.cpp
+        libgrebe/core/cpu/control_unit_alu.test.cpp
         libgrebe/core/memory.test.cpp
         libgrebe/core/cpu/registers.test.cpp
-        libgrebe/core/cpu/cpu_bit_ops.test.cpp
-        libgrebe/core/cpu/cpu_control_flow.test.cpp
-        libgrebe/core/cpu/cpu.test.hpp
+        libgrebe/core/cpu/control_unit_bit_ops.test.cpp
+        libgrebe/core/cpu/control_unit_control_flow.test.cpp
+        libgrebe/core/cpu/control_unit.test.hpp
         libgrebe/core/core.test.hpp
         libgrebe/core/core.test.cpp
         )

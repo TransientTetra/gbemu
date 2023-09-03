@@ -3,7 +3,7 @@
 
 #include <cstdint>
 #include <functional>
-#include <libgrebe/core/memory.hpp>
+#include <libgrebe/core/mmu.hpp>
 #include <libgrebe/core/cpu/registers.hpp>
 #include <queue>
 #include <stack>
@@ -48,7 +48,7 @@ public:
     bool ime = false;
     std::stack<Byte> tmp;
     Registers registers;
-    Memory memory;
+    MMU mmu;
 
     bool operator==(const State& other) const;
 

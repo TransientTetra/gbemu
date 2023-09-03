@@ -4,7 +4,7 @@ bool State::operator==(const State& other) const
 {
     bool res = true;
     res &= registers == other.registers;
-    res &= memory == other.memory;
+    res &= mmu == other.mmu;
     res &= ime == other.ime;
     res &= imeScheduled == other.imeScheduled;
     res &= clockCycles == other.clockCycles;

@@ -3,7 +3,7 @@
 #include <libgrebe/memory_loader.hpp>
 #include <vector>
 
-void MemoryLoader::LoadBootRom(Memory& memory, const std::string& path)
+void MemoryLoader::LoadBootRom(MMU& memory, const std::string& path)
 {
     if (std::filesystem::exists(path))
     {

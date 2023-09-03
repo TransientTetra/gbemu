@@ -1,7 +1,7 @@
-#include <libgrebe/core/memory.hpp>
+#include <libgrebe/core/mmu.hpp>
 #include <libgrebe/utils.hpp>
 
-Memory::Memory()
+MMU::MMU()
 {
     write(LIBGREBE_REG_P1, 0xCF);
     write(LIBGREBE_REG_SB, 0x00);
@@ -58,17 +58,17 @@ Memory::Memory()
     write(LIBGREBE_REG_IE, 0x00);
 }
 
-const Byte& Memory::read(const Word& address) const
+const Byte& MMU::read(const Word& address) const
 {
     return map[address];
 }
 
-void Memory::write(const Word& address, const Byte& data)
+void MMU::write(const Word& address, const Byte& data)
 {
     map[address] = data;
 }
 
-bool Memory::operator==(const Memory& other) const
+bool MMU::operator==(const MMU& other) const
 {
     for (int i = 0; i < LIBGREBE_MEMORY_SIZE; ++i)
     {
@@ -78,7 +78,7 @@ bool Memory::operator==(const Memory& other) const
     return true;
 }
 
-Memory& Memory::operator=(const Memory& other) // NOLINT(bugprone-unhandled-self-assignment)
+MMU& MMU::operator=(const MMU& other) // NOLINT(bugprone-unhandled-self-assignment)
 {
     for (int i = 0; i < LIBGREBE_MEMORY_SIZE; ++i)
     {
@@ -87,12 +87,12 @@ Memory& Memory::operator=(const Memory& other) // NOLINT(bugprone-unhandled-self
     return *this;
 }
 
-Word Memory::readWord(const Word& address) const
+Word MMU::readWord(const Word& address) const
 {
     return toWord(read(address), read(address + 1));
 }
 
-void Memory::writeWord(const Word& address, const Word& data)
+void MMU::writeWord(const Word& address, const Word& data)
 {
     write(address, static_cast<Byte>(0x00ff & data));
     write(address + 1, static_cast<Byte>(data >> 8));

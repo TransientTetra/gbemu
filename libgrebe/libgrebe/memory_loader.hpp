@@ -1,6 +1,6 @@
 #ifndef LIBGREBE_MEMORY_LOADER_HPP
 #define LIBGREBE_MEMORY_LOADER_HPP
-#include <libgrebe/core/memory.hpp>
+#include <libgrebe/core/mmu.hpp>
 #include <string>
 
 struct InvalidBootRomException : public std::exception
@@ -14,7 +14,7 @@ struct InvalidBootRomException : public std::exception
 class MemoryLoader
 {
 public:
-    static void LoadBootRom(Memory& memory, const std::string& path);
+    static void LoadBootRom(MMU& memory, const std::string& path);
 };
 
 #endif // LIBGREBE_MEMORY_LOADER_HPP

@@ -40,7 +40,7 @@ protected:
     void testOpcode(Byte opcode)
     {
         // injecting opcode at pc
-        state.memory.write(state.registers.pc, opcode);
+        state.mmu.write(state.registers.pc, opcode);
         // saving cpu and memory state before executing the opcode
         expectedState = state;
         // fetch the opcode
@@ -53,7 +53,7 @@ protected:
         }
     }
 
-    static void compareMem(const Memory& mem1, const Memory& mem2)
+    static void compareMem(const MMU& mem1, const MMU& mem2)
     {
         if (mem1 == mem2)
             std::cerr << "Memories identical" << std::endl;
@@ -105,11 +105,11 @@ protected:
     void testOpcodeCB(Byte opcode)
     {
         // injecting opcode at pc
-        state.memory.write(state.registers.pc, 0xCB);
-        state.memory.write(state.registers.pc + 1, opcode);
+        state.mmu.write(state.registers.pc, 0xCB);
+        state.mmu.write(state.registers.pc + 1, opcode);
         // saving cpu and memory state before executing the opcode
         expectedState.registers = state.registers;
-        expectedState.memory = state.memory;
+        expectedState.mmu = state.mmu;
         // reading 0xCB
         machineCycle();
         // reading extended opcode

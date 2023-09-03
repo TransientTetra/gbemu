@@ -940,13 +940,13 @@ TEST_F(OpcodesAluTest, Test0x34)
     // 0x34 INC (HL)
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x34);
     // expected change in registers and memory
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 1;
-    expectedState.memory.write(0xdead, 1);
+    expectedState.mmu.write(0xdead, 1);
     expectedState.registers.resetZeroFlag();
     expectedState.registers.resetSubtractFlag();
     expectedState.registers.resetHalfCarryFlag();
@@ -955,13 +955,13 @@ TEST_F(OpcodesAluTest, Test0x34)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0xff);
+    state.mmu.write(0xdead, 0xff);
     // testing the opcode
     testOpcode(0x34);
     // expected change in registers and memory
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 1;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.resetZeroFlag();
     expectedState.registers.resetSubtractFlag();
     expectedState.registers.resetHalfCarryFlag();
@@ -972,13 +972,13 @@ TEST_F(OpcodesAluTest, Test0x34)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x0f);
+    state.mmu.write(0xdead, 0x0f);
     // testing the opcode
     testOpcode(0x34);
     // expected change in registers and memory
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 1;
-    expectedState.memory.write(0xdead, 0x10);
+    expectedState.mmu.write(0xdead, 0x10);
     expectedState.registers.resetZeroFlag();
     expectedState.registers.resetSubtractFlag();
     expectedState.registers.resetHalfCarryFlag();
@@ -1034,13 +1034,13 @@ TEST_F(OpcodesAluTest, Test0x35)
     // 0x35 DEC (HL)
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 3);
+    state.mmu.write(0xdead, 3);
     // testing the opcode
     testOpcode(0x35);
     // expected change in registers and memory
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 1;
-    expectedState.memory.write(0xdead, 2);
+    expectedState.mmu.write(0xdead, 2);
     expectedState.registers.resetZeroFlag();
     expectedState.registers.resetSubtractFlag();
     expectedState.registers.resetHalfCarryFlag();
@@ -1050,13 +1050,13 @@ TEST_F(OpcodesAluTest, Test0x35)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x35);
     // expected change in registers and memory
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 1;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.resetZeroFlag();
     expectedState.registers.resetSubtractFlag();
     expectedState.registers.resetHalfCarryFlag();
@@ -1067,13 +1067,13 @@ TEST_F(OpcodesAluTest, Test0x35)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x10);
+    state.mmu.write(0xdead, 0x10);
     // testing the opcode
     testOpcode(0x35);
     // expected change in registers and memory
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 1;
-    expectedState.memory.write(0xdead, 0x0f);
+    expectedState.mmu.write(0xdead, 0x0f);
     expectedState.registers.resetZeroFlag();
     expectedState.registers.resetSubtractFlag();
     expectedState.registers.resetHalfCarryFlag();
@@ -1149,7 +1149,7 @@ TEST_F(OpcodesAluTest, Test0x86)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x86);
     // expected change in registers and memory
@@ -1164,7 +1164,7 @@ TEST_F(OpcodesAluTest, Test0x86)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xff;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x86);
     // expected change in registers and memory
@@ -1181,7 +1181,7 @@ TEST_F(OpcodesAluTest, Test0x86)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x0f;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x86);
     // expected change in registers and memory
@@ -1196,7 +1196,7 @@ TEST_F(OpcodesAluTest, Test0x86)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xf0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x11);
+    state.mmu.write(0xdead, 0x11);
     // testing the opcode
     testOpcode(0x86);
     // expected change in registers and memory
@@ -1211,7 +1211,7 @@ TEST_F(OpcodesAluTest, Test0x86)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xf0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x11);
+    state.mmu.write(0xdead, 0x11);
     // testing the opcode
     testOpcode(0x86);
     // expected change in registers and memory
@@ -1287,7 +1287,7 @@ TEST_F(OpcodesAluTest, Test0xC6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xC6);
     // expected change in registers and memory
@@ -1302,7 +1302,7 @@ TEST_F(OpcodesAluTest, Test0xC6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xff;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xC6);
     // expected change in registers and memory
@@ -1319,7 +1319,7 @@ TEST_F(OpcodesAluTest, Test0xC6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x0f;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xC6);
     // expected change in registers and memory
@@ -1334,7 +1334,7 @@ TEST_F(OpcodesAluTest, Test0xC6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xf0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x11);
+    state.mmu.write(0xdeae, 0x11);
     // testing the opcode
     testOpcode(0xC6);
     // expected change in registers and memory
@@ -1390,7 +1390,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
     state.registers.clearFlags();
     state.registers.a = 0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1406,7 +1406,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
     state.registers.clearFlags();
     state.registers.a = 0xff;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1424,7 +1424,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
     state.registers.clearFlags();
     state.registers.a = 0x0f;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1440,7 +1440,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
     state.registers.clearFlags();
     state.registers.a = 0xf0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x11);
+    state.mmu.write(0xdead, 0x11);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1457,7 +1457,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
     state.registers.setCarryFlag();
     state.registers.a = 0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1473,7 +1473,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
     state.registers.setCarryFlag();
     state.registers.a = 0xff;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1491,7 +1491,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
     state.registers.setCarryFlag();
     state.registers.a = 0x0f;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1508,7 +1508,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
     state.registers.setCarryFlag();
     state.registers.a = 0xff;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1526,7 +1526,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
     state.registers.setCarryFlag();
     state.registers.a = 0xf0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x10);
+    state.mmu.write(0xdead, 0x10);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1663,7 +1663,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
     state.registers.clearFlags();
     state.registers.a = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1679,7 +1679,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
     state.registers.clearFlags();
     state.registers.a = 0xff;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1697,7 +1697,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
     state.registers.clearFlags();
     state.registers.a = 0x0f;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1713,7 +1713,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
     state.registers.clearFlags();
     state.registers.a = 0xf0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x11);
+    state.mmu.write(0xdeae, 0x11);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1730,7 +1730,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
     state.registers.setCarryFlag();
     state.registers.a = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1746,7 +1746,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
     state.registers.setCarryFlag();
     state.registers.a = 0xff;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1764,7 +1764,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
     state.registers.setCarryFlag();
     state.registers.a = 0x0f;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1781,7 +1781,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
     state.registers.setCarryFlag();
     state.registers.a = 0xff;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1799,7 +1799,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
     state.registers.setCarryFlag();
     state.registers.a = 0xf0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x10);
+    state.mmu.write(0xdeae, 0x10);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1854,7 +1854,7 @@ TEST_F(OpcodesAluTest, Test0x96)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x96);
     // expected change in registers and memory
@@ -1870,7 +1870,7 @@ TEST_F(OpcodesAluTest, Test0x96)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 2;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x96);
     // expected change in registers and memory
@@ -1886,7 +1886,7 @@ TEST_F(OpcodesAluTest, Test0x96)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 5;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x96);
     // expected change in registers and memory
@@ -1901,7 +1901,7 @@ TEST_F(OpcodesAluTest, Test0x96)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x00;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x96);
     // expected change in registers and memory
@@ -1918,7 +1918,7 @@ TEST_F(OpcodesAluTest, Test0x96)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x10;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x96);
     // expected change in registers and memory
@@ -1934,7 +1934,7 @@ TEST_F(OpcodesAluTest, Test0x96)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 1;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x11);
+    state.mmu.write(0xdead, 0x11);
     // testing the opcode
     testOpcode(0x96);
     // expected change in registers and memory
@@ -2000,7 +2000,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xD6);
     // expected change in registers and memory
@@ -2016,7 +2016,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 2;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xD6);
     // expected change in registers and memory
@@ -2032,7 +2032,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 5;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xD6);
     // expected change in registers and memory
@@ -2047,7 +2047,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x00;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xD6);
     // expected change in registers and memory
@@ -2064,7 +2064,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x10;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xD6);
     // expected change in registers and memory
@@ -2080,7 +2080,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 1;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x11);
+    state.mmu.write(0xdeae, 0x11);
     // testing the opcode
     testOpcode(0xD6);
     // expected change in registers and memory
@@ -2137,7 +2137,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     state.registers.clearFlags();
     state.registers.a = 0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2154,7 +2154,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     state.registers.clearFlags();
     state.registers.a = 2;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2171,7 +2171,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     state.registers.clearFlags();
     state.registers.a = 5;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2187,7 +2187,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     state.registers.clearFlags();
     state.registers.a = 0x00;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2205,7 +2205,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     state.registers.clearFlags();
     state.registers.a = 0x10;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2222,7 +2222,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     state.registers.clearFlags();
     state.registers.a = 1;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x11);
+    state.mmu.write(0xdead, 0x11);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2240,7 +2240,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     state.registers.setCarryFlag();
     state.registers.a = 1;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2258,7 +2258,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     state.registers.setCarryFlag();
     state.registers.a = 2;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2276,7 +2276,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     state.registers.setCarryFlag();
     state.registers.a = 5;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2293,7 +2293,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     state.registers.setCarryFlag();
     state.registers.a = 0x00;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2312,7 +2312,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     state.registers.setCarryFlag();
     state.registers.a = 0x10;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2330,7 +2330,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     state.registers.setCarryFlag();
     state.registers.a = 1;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x10);
+    state.mmu.write(0xdead, 0x10);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2454,7 +2454,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     state.registers.clearFlags();
     state.registers.a = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2471,7 +2471,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     state.registers.clearFlags();
     state.registers.a = 2;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2488,7 +2488,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     state.registers.clearFlags();
     state.registers.a = 5;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2504,7 +2504,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     state.registers.clearFlags();
     state.registers.a = 0x00;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2522,7 +2522,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     state.registers.clearFlags();
     state.registers.a = 0x10;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2539,7 +2539,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     state.registers.clearFlags();
     state.registers.a = 1;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x11);
+    state.mmu.write(0xdeae, 0x11);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2557,7 +2557,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     state.registers.setCarryFlag();
     state.registers.a = 1;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2575,7 +2575,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     state.registers.setCarryFlag();
     state.registers.a = 2;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2593,7 +2593,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     state.registers.setCarryFlag();
     state.registers.a = 5;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2610,7 +2610,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     state.registers.setCarryFlag();
     state.registers.a = 0x00;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2629,7 +2629,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     state.registers.setCarryFlag();
     state.registers.a = 0x10;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2647,7 +2647,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     state.registers.setCarryFlag();
     state.registers.a = 1;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x10);
+    state.mmu.write(0xdeae, 0x10);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2703,7 +2703,7 @@ TEST_F(OpcodesAluTest, Test0xA6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00000000);
+    state.mmu.write(0xdead, 0b00000000);
     // testing the opcode
     testOpcode(0xA6);
     // expected change in registers and memory
@@ -2719,7 +2719,7 @@ TEST_F(OpcodesAluTest, Test0xA6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00000000);
+    state.mmu.write(0xdead, 0b00000000);
     // testing the opcode
     testOpcode(0xA6);
     // expected change in registers and memory
@@ -2735,7 +2735,7 @@ TEST_F(OpcodesAluTest, Test0xA6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b11111111);
+    state.mmu.write(0xdead, 0b11111111);
     // testing the opcode
     testOpcode(0xA6);
     // expected change in registers and memory
@@ -2751,7 +2751,7 @@ TEST_F(OpcodesAluTest, Test0xA6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b01010101);
+    state.mmu.write(0xdead, 0b01010101);
     // testing the opcode
     testOpcode(0xA6);
     // expected change in registers and memory
@@ -2767,7 +2767,7 @@ TEST_F(OpcodesAluTest, Test0xA6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b01010101);
+    state.mmu.write(0xdead, 0b01010101);
     // testing the opcode
     testOpcode(0xA6);
     // expected change in registers and memory
@@ -2830,7 +2830,7 @@ TEST_F(OpcodesAluTest, Test0xE6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b00000000);
+    state.mmu.write(0xdeae, 0b00000000);
     // testing the opcode
     testOpcode(0xE6);
     // expected change in registers and memory
@@ -2846,7 +2846,7 @@ TEST_F(OpcodesAluTest, Test0xE6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b00000000);
+    state.mmu.write(0xdeae, 0b00000000);
     // testing the opcode
     testOpcode(0xE6);
     // expected change in registers and memory
@@ -2862,7 +2862,7 @@ TEST_F(OpcodesAluTest, Test0xE6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b11111111);
+    state.mmu.write(0xdeae, 0b11111111);
     // testing the opcode
     testOpcode(0xE6);
     // expected change in registers and memory
@@ -2878,7 +2878,7 @@ TEST_F(OpcodesAluTest, Test0xE6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b01010101);
+    state.mmu.write(0xdeae, 0b01010101);
     // testing the opcode
     testOpcode(0xE6);
     // expected change in registers and memory
@@ -2894,7 +2894,7 @@ TEST_F(OpcodesAluTest, Test0xE6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b01010101);
+    state.mmu.write(0xdeae, 0b01010101);
     // testing the opcode
     testOpcode(0xE6);
     // expected change in registers and memory
@@ -2949,7 +2949,7 @@ TEST_F(OpcodesAluTest, Test0xAE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00000000);
+    state.mmu.write(0xdead, 0b00000000);
     // testing the opcode
     testOpcode(0xAE);
     // expected change in registers and memory
@@ -2964,7 +2964,7 @@ TEST_F(OpcodesAluTest, Test0xAE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00000000);
+    state.mmu.write(0xdead, 0b00000000);
     // testing the opcode
     testOpcode(0xAE);
     // expected change in registers and memory
@@ -2978,7 +2978,7 @@ TEST_F(OpcodesAluTest, Test0xAE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b11111111);
+    state.mmu.write(0xdead, 0b11111111);
     // testing the opcode
     testOpcode(0xAE);
     // expected change in registers and memory
@@ -2992,7 +2992,7 @@ TEST_F(OpcodesAluTest, Test0xAE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b01010101);
+    state.mmu.write(0xdead, 0b01010101);
     // testing the opcode
     testOpcode(0xAE);
     // expected change in registers and memory
@@ -3006,7 +3006,7 @@ TEST_F(OpcodesAluTest, Test0xAE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b01010101);
+    state.mmu.write(0xdead, 0b01010101);
     // testing the opcode
     testOpcode(0xAE);
     // expected change in registers and memory
@@ -3068,7 +3068,7 @@ TEST_F(OpcodesAluTest, Test0xEE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b00000000);
+    state.mmu.write(0xdeae, 0b00000000);
     // testing the opcode
     testOpcode(0xEE);
     // expected change in registers and memory
@@ -3083,7 +3083,7 @@ TEST_F(OpcodesAluTest, Test0xEE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b00000000);
+    state.mmu.write(0xdeae, 0b00000000);
     // testing the opcode
     testOpcode(0xEE);
     // expected change in registers and memory
@@ -3097,7 +3097,7 @@ TEST_F(OpcodesAluTest, Test0xEE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b11111111);
+    state.mmu.write(0xdeae, 0b11111111);
     // testing the opcode
     testOpcode(0xEE);
     // expected change in registers and memory
@@ -3111,7 +3111,7 @@ TEST_F(OpcodesAluTest, Test0xEE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b01010101);
+    state.mmu.write(0xdeae, 0b01010101);
     // testing the opcode
     testOpcode(0xEE);
     // expected change in registers and memory
@@ -3125,7 +3125,7 @@ TEST_F(OpcodesAluTest, Test0xEE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b01010101);
+    state.mmu.write(0xdeae, 0b01010101);
     // testing the opcode
     testOpcode(0xEE);
     // expected change in registers and memory
@@ -3180,7 +3180,7 @@ TEST_F(OpcodesAluTest, Test0xB6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00000000);
+    state.mmu.write(0xdead, 0b00000000);
     // testing the opcode
     testOpcode(0xB6);
     // expected change in registers and memory
@@ -3195,7 +3195,7 @@ TEST_F(OpcodesAluTest, Test0xB6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00000000);
+    state.mmu.write(0xdead, 0b00000000);
     // testing the opcode
     testOpcode(0xB6);
     // expected change in registers and memory
@@ -3209,7 +3209,7 @@ TEST_F(OpcodesAluTest, Test0xB6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b11111111);
+    state.mmu.write(0xdead, 0b11111111);
     // testing the opcode
     testOpcode(0xB6);
     // expected change in registers and memory
@@ -3223,7 +3223,7 @@ TEST_F(OpcodesAluTest, Test0xB6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b01010101);
+    state.mmu.write(0xdead, 0b01010101);
     // testing the opcode
     testOpcode(0xB6);
     // expected change in registers and memory
@@ -3237,7 +3237,7 @@ TEST_F(OpcodesAluTest, Test0xB6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b01010101);
+    state.mmu.write(0xdead, 0b01010101);
     // testing the opcode
     testOpcode(0xB6);
     // expected change in registers and memory
@@ -3296,7 +3296,7 @@ TEST_F(OpcodesAluTest, Test0xF6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b00000000);
+    state.mmu.write(0xdeae, 0b00000000);
     // testing the opcode
     testOpcode(0xF6);
     // expected change in registers and memory
@@ -3311,7 +3311,7 @@ TEST_F(OpcodesAluTest, Test0xF6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b00000000);
+    state.mmu.write(0xdeae, 0b00000000);
     // testing the opcode
     testOpcode(0xF6);
     // expected change in registers and memory
@@ -3325,7 +3325,7 @@ TEST_F(OpcodesAluTest, Test0xF6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b11111111);
+    state.mmu.write(0xdeae, 0b11111111);
     // testing the opcode
     testOpcode(0xF6);
     // expected change in registers and memory
@@ -3339,7 +3339,7 @@ TEST_F(OpcodesAluTest, Test0xF6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b01010101);
+    state.mmu.write(0xdeae, 0b01010101);
     // testing the opcode
     testOpcode(0xF6);
     // expected change in registers and memory
@@ -3353,7 +3353,7 @@ TEST_F(OpcodesAluTest, Test0xF6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b01010101);
+    state.mmu.write(0xdeae, 0b01010101);
     // testing the opcode
     testOpcode(0xF6);
     // expected change in registers and memory
@@ -3407,7 +3407,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0xBE);
     // expected change in registers and memory
@@ -3422,7 +3422,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 2;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0xBE);
     // expected change in registers and memory
@@ -3437,7 +3437,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 5;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0xBE);
     // expected change in registers and memory
@@ -3451,7 +3451,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x00;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0xBE);
     // expected change in registers and memory
@@ -3467,7 +3467,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x10;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0xBE);
     // expected change in registers and memory
@@ -3482,7 +3482,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 1;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x11);
+    state.mmu.write(0xdead, 0x11);
     // testing the opcode
     testOpcode(0xBE);
     // expected change in registers and memory
@@ -3547,7 +3547,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xFE);
     // expected change in registers and memory
@@ -3562,7 +3562,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 2;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xFE);
     // expected change in registers and memory
@@ -3577,7 +3577,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 5;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xFE);
     // expected change in registers and memory
@@ -3591,7 +3591,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x00;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xFE);
     // expected change in registers and memory
@@ -3607,7 +3607,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x10;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xFE);
     // expected change in registers and memory
@@ -3622,7 +3622,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 1;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x11);
+    state.mmu.write(0xdeae, 0x11);
     // testing the opcode
     testOpcode(0xFE);
     // expected change in registers and memory
@@ -4364,7 +4364,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory
@@ -4377,7 +4377,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 3;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory
@@ -4391,7 +4391,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 3;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, -2);
+    state.mmu.write(0xdeae, -2);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory
@@ -4405,7 +4405,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 0xffff;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, -1);
+    state.mmu.write(0xdeae, -1);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory
@@ -4419,7 +4419,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 0x000f;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory
@@ -4434,7 +4434,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 0xffff;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory
@@ -4450,7 +4450,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 0x00f0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x0010);
+    state.mmu.write(0xdeae, 0x0010);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory

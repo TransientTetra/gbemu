@@ -7,7 +7,7 @@ int main(int argc, char** argv)
     {
         State state;
         MemoryLoader ml;
-        ml.LoadBootRom(state.memory, argv[1]);
+        ml.LoadBootRom(state.mmu, argv[1]);
         state.registers.pc = 0;
         Core core(state);
         while (true)

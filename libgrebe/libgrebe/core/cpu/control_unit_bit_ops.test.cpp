@@ -871,7 +871,7 @@ void OpcodesBitOperationsTest::testOpcodeBIThl(Byte opcode, Byte bit)
 {
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0xff & ~(1 << bit));
+    state.mmu.write(0xdead, 0xff & ~(1 << bit));
     // testing the opcode
     testOpcodeCB(opcode);
     // expected change in registers and memory
@@ -885,7 +885,7 @@ void OpcodesBitOperationsTest::testOpcodeBIThl(Byte opcode, Byte bit)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, (1 << bit));
+    state.mmu.write(0xdead, (1 << bit));
     // testing the opcode
     testOpcodeCB(opcode);
     // expected change in registers and memory
@@ -902,19 +902,19 @@ void OpcodesBitOperationsTest::testOpcodeREShl(Byte opcode, Byte bit)
 {
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0xff);
+    state.mmu.write(0xdead, 0xff);
     // testing the opcode
     testOpcodeCB(opcode);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0xff & ~(1 << bit));
+    expectedState.mmu.write(0xdead, 0xff & ~(1 << bit));
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcodeCB(opcode);
     // expected change in registers and memory
@@ -928,7 +928,7 @@ void OpcodesBitOperationsTest::testOpcodeSEThl(Byte opcode, Byte bit)
 {
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0xff);
+    state.mmu.write(0xdead, 0xff);
     // testing the opcode
     testOpcodeCB(opcode);
     // expected change in registers and memory
@@ -939,13 +939,13 @@ void OpcodesBitOperationsTest::testOpcodeSEThl(Byte opcode, Byte bit)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcodeCB(opcode);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 1 << bit);
+    expectedState.mmu.write(0xdead, 1 << bit);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }
@@ -1447,14 +1447,14 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB06)
     // 0x06 RLC (HL)
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x06);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
@@ -1462,28 +1462,28 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB06)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00001000);
+    state.mmu.write(0xdead, 0b00001000);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcodeCB(0x06);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00010000);
+    expectedState.mmu.write(0xdead, 0b00010000);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b10001000);
+    state.mmu.write(0xdead, 0b10001000);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x06);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00010001);
+    expectedState.mmu.write(0xdead, 0b00010001);
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
@@ -1492,7 +1492,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB06)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00100010);
+    expectedState.mmu.write(0xdead, 0b00100010);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1500,7 +1500,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB06)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b01000100);
+    expectedState.mmu.write(0xdead, 0b01000100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1508,7 +1508,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB06)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b10001000);
+    expectedState.mmu.write(0xdead, 0b10001000);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1516,7 +1516,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB06)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00010001);
+    expectedState.mmu.write(0xdead, 0b00010001);
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
@@ -1525,7 +1525,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB06)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00100010);
+    expectedState.mmu.write(0xdead, 0b00100010);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1533,7 +1533,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB06)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b01000100);
+    expectedState.mmu.write(0xdead, 0b01000100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1541,7 +1541,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB06)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b10001000);
+    expectedState.mmu.write(0xdead, 0b10001000);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1594,14 +1594,14 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB0E)
     // 0x0E RRC (HL)
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x0E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
@@ -1609,28 +1609,28 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB0E)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00001000);
+    state.mmu.write(0xdead, 0b00001000);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcodeCB(0x0E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00000100);
+    expectedState.mmu.write(0xdead, 0b00000100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b10001000);
+    state.mmu.write(0xdead, 0b10001000);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x0E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b01000100);
+    expectedState.mmu.write(0xdead, 0b01000100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1638,7 +1638,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB0E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00100010);
+    expectedState.mmu.write(0xdead, 0b00100010);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1646,7 +1646,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB0E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00010001);
+    expectedState.mmu.write(0xdead, 0b00010001);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1654,7 +1654,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB0E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b10001000);
+    expectedState.mmu.write(0xdead, 0b10001000);
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
@@ -1663,7 +1663,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB0E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b01000100);
+    expectedState.mmu.write(0xdead, 0b01000100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1671,7 +1671,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB0E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00100010);
+    expectedState.mmu.write(0xdead, 0b00100010);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1679,7 +1679,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB0E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00010001);
+    expectedState.mmu.write(0xdead, 0b00010001);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1687,7 +1687,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB0E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b10001000);
+    expectedState.mmu.write(0xdead, 0b10001000);
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
@@ -1741,14 +1741,14 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB16)
     // 0x16 RL (HL)
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x16);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
@@ -1756,28 +1756,28 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB16)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcodeCB(0x16);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 1);
+    expectedState.mmu.write(0xdead, 1);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b10000000);
+    state.mmu.write(0xdead, 0b10000000);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x16);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     expectedState.registers.setCarryFlag();
@@ -1786,28 +1786,28 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB16)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00001000);
+    state.mmu.write(0xdead, 0b00001000);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcodeCB(0x16);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00010001);
+    expectedState.mmu.write(0xdead, 0b00010001);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b10001000);
+    state.mmu.write(0xdead, 0b10001000);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x16);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00010000);
+    expectedState.mmu.write(0xdead, 0b00010000);
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
@@ -1816,7 +1816,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB16)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00100001);
+    expectedState.mmu.write(0xdead, 0b00100001);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1824,7 +1824,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB16)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b01000010);
+    expectedState.mmu.write(0xdead, 0b01000010);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1832,7 +1832,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB16)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b10000100);
+    expectedState.mmu.write(0xdead, 0b10000100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1840,7 +1840,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB16)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00001000);
+    expectedState.mmu.write(0xdead, 0b00001000);
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
@@ -1849,7 +1849,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB16)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00010001);
+    expectedState.mmu.write(0xdead, 0b00010001);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1857,7 +1857,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB16)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00100010);
+    expectedState.mmu.write(0xdead, 0b00100010);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1865,7 +1865,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB16)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b01000100);
+    expectedState.mmu.write(0xdead, 0b01000100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1873,7 +1873,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB16)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b10001000);
+    expectedState.mmu.write(0xdead, 0b10001000);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -1926,14 +1926,14 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB1E)
     // 0x1E RR (HL)
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x1E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
@@ -1941,28 +1941,28 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB1E)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcodeCB(0x1E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b10000000);
+    expectedState.mmu.write(0xdead, 0b10000000);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x1E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     expectedState.registers.setCarryFlag();
@@ -1971,81 +1971,81 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB1E)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00001000);
+    state.mmu.write(0xdead, 0b00001000);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcodeCB(0x1E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b10000100);
+    expectedState.mmu.write(0xdead, 0b10000100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b10001000);
+    state.mmu.write(0xdead, 0b10001000);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x1E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b01000100);
+    expectedState.mmu.write(0xdead, 0b01000100);
     expectedState.registers.clearFlags();
     // testing the opcode
     testOpcodeCB(0x1E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00100010);
+    expectedState.mmu.write(0xdead, 0b00100010);
     expectedState.registers.clearFlags();
     // testing the opcode
     testOpcodeCB(0x1E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00010001);
+    expectedState.mmu.write(0xdead, 0b00010001);
     expectedState.registers.clearFlags();
     // testing the opcode
     testOpcodeCB(0x1E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00001000);
+    expectedState.mmu.write(0xdead, 0b00001000);
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     testOpcodeCB(0x1E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b10000100);
+    expectedState.mmu.write(0xdead, 0b10000100);
     expectedState.registers.clearFlags();
     testOpcodeCB(0x1E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b01000010);
+    expectedState.mmu.write(0xdead, 0b01000010);
     expectedState.registers.clearFlags();
     testOpcodeCB(0x1E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00100001);
+    expectedState.mmu.write(0xdead, 0b00100001);
     expectedState.registers.clearFlags();
     testOpcodeCB(0x1E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00010000);
+    expectedState.mmu.write(0xdead, 0b00010000);
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     testOpcodeCB(0x1E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b10001000);
+    expectedState.mmu.write(0xdead, 0b10001000);
     expectedState.registers.clearFlags();
 }
 
@@ -2096,14 +2096,14 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB26)
     // 0x26 SLA (HL)
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x26);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
@@ -2111,28 +2111,28 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB26)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00001000);
+    state.mmu.write(0xdead, 0b00001000);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcodeCB(0x26);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00010000);
+    expectedState.mmu.write(0xdead, 0b00010000);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b10001000);
+    state.mmu.write(0xdead, 0b10001000);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x26);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00010000);
+    expectedState.mmu.write(0xdead, 0b00010000);
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
@@ -2141,7 +2141,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB26)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00100000);
+    expectedState.mmu.write(0xdead, 0b00100000);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2149,7 +2149,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB26)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b01000000);
+    expectedState.mmu.write(0xdead, 0b01000000);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2157,7 +2157,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB26)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b10000000);
+    expectedState.mmu.write(0xdead, 0b10000000);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2165,7 +2165,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB26)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00000000);
+    expectedState.mmu.write(0xdead, 0b00000000);
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     expectedState.registers.setCarryFlag();
@@ -2175,7 +2175,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB26)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00000000);
+    expectedState.mmu.write(0xdead, 0b00000000);
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
@@ -2229,14 +2229,14 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB2E)
     // 0x2E SRA (HL)
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x2E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
@@ -2244,28 +2244,28 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB2E)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00001000);
+    state.mmu.write(0xdead, 0b00001000);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcodeCB(0x2E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00000100);
+    expectedState.mmu.write(0xdead, 0b00000100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b10001000);
+    state.mmu.write(0xdead, 0b10001000);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x2E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b11000100);
+    expectedState.mmu.write(0xdead, 0b11000100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2273,7 +2273,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB2E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b11100010);
+    expectedState.mmu.write(0xdead, 0b11100010);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2281,7 +2281,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB2E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b11110001);
+    expectedState.mmu.write(0xdead, 0b11110001);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2289,7 +2289,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB2E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b11111000);
+    expectedState.mmu.write(0xdead, 0b11111000);
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
@@ -2298,7 +2298,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB2E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b11111100);
+    expectedState.mmu.write(0xdead, 0b11111100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2306,7 +2306,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB2E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b11111110);
+    expectedState.mmu.write(0xdead, 0b11111110);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2314,7 +2314,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB2E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b11111111);
+    expectedState.mmu.write(0xdead, 0b11111111);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2322,7 +2322,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB2E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b11111111);
+    expectedState.mmu.write(0xdead, 0b11111111);
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
@@ -2376,13 +2376,13 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB36)
     // 0x36 SWAP (HL)
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcodeCB(0x36);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
@@ -2390,13 +2390,13 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB36)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x69);
+    state.mmu.write(0xdead, 0x69);
     // testing the opcode
     testOpcodeCB(0x36);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0x96);
+    expectedState.mmu.write(0xdead, 0x96);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2449,14 +2449,14 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB3E)
     // 0x3E SRL (HL)
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x3E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
@@ -2464,28 +2464,28 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB3E)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00001000);
+    state.mmu.write(0xdead, 0b00001000);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcodeCB(0x3E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00000100);
+    expectedState.mmu.write(0xdead, 0b00000100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b10001000);
+    state.mmu.write(0xdead, 0b10001000);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcodeCB(0x3E);
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b01000100);
+    expectedState.mmu.write(0xdead, 0b01000100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2493,7 +2493,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB3E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00100010);
+    expectedState.mmu.write(0xdead, 0b00100010);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2501,7 +2501,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB3E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00010001);
+    expectedState.mmu.write(0xdead, 0b00010001);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2509,7 +2509,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB3E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00001000);
+    expectedState.mmu.write(0xdead, 0b00001000);
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
@@ -2518,7 +2518,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB3E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00000100);
+    expectedState.mmu.write(0xdead, 0b00000100);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2526,7 +2526,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB3E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00000010);
+    expectedState.mmu.write(0xdead, 0b00000010);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2534,7 +2534,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB3E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00000001);
+    expectedState.mmu.write(0xdead, 0b00000001);
     expectedState.registers.clearFlags();
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
@@ -2542,7 +2542,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB3E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00000000);
+    expectedState.mmu.write(0xdead, 0b00000000);
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     expectedState.registers.setZeroFlag();
@@ -2552,7 +2552,7 @@ TEST_F(OpcodesBitOperationsTest, Test0xCB3E)
     // expected change in registers and memory
     expectedState.clockCycles += 16;
     expectedState.registers.pc += 2;
-    expectedState.memory.write(0xdead, 0b00000000);
+    expectedState.mmu.write(0xdead, 0b00000000);
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change

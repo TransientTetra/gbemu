@@ -59,7 +59,7 @@ TEST_F(CoreTest, InterruptsTest)
     expectedState.registers.pc = LIBGREBE_INT_VBLANK;
     expectedState.registers.sp = 0xbeef - 2;
     expectedState.ime = false;
-    expectedState.mmu.writeWord(0xbeef - 2, 0xdead);
+    writeWord(expectedState, 0xbeef - 2, 0xdead);
     expectedState.mmu.write(LIBGREBE_REG_IF, 0);
     EXPECT_TRUE(expectedState == state);
 
@@ -78,7 +78,7 @@ TEST_F(CoreTest, InterruptsTest)
     expectedState.registers.pc = LIBGREBE_INT_STAT;
     expectedState.registers.sp = 0xbeef - 2;
     expectedState.ime = false;
-    expectedState.mmu.writeWord(0xbeef - 2, 0xdead);
+    writeWord(expectedState, 0xbeef - 2, 0xdead);
     expectedState.mmu.write(LIBGREBE_REG_IF, 0);
     EXPECT_TRUE(expectedState == state);
 
@@ -97,7 +97,7 @@ TEST_F(CoreTest, InterruptsTest)
     expectedState.registers.pc = LIBGREBE_INT_TIMER;
     expectedState.registers.sp = 0xbeef - 2;
     expectedState.ime = false;
-    expectedState.mmu.writeWord(0xbeef - 2, 0xdead);
+    writeWord(expectedState, 0xbeef - 2, 0xdead);
     expectedState.mmu.write(LIBGREBE_REG_IF, 0);
     EXPECT_TRUE(expectedState == state);
 
@@ -116,7 +116,7 @@ TEST_F(CoreTest, InterruptsTest)
     expectedState.registers.pc = LIBGREBE_INT_SERIAL;
     expectedState.registers.sp = 0xbeef - 2;
     expectedState.ime = false;
-    expectedState.mmu.writeWord(0xbeef - 2, 0xdead);
+    writeWord(expectedState, 0xbeef - 2, 0xdead);
     expectedState.mmu.write(LIBGREBE_REG_IF, 0);
     EXPECT_TRUE(expectedState == state);
 
@@ -135,7 +135,7 @@ TEST_F(CoreTest, InterruptsTest)
     expectedState.registers.pc = LIBGREBE_INT_JOYPAD;
     expectedState.registers.sp = 0xbeef - 2;
     expectedState.ime = false;
-    expectedState.mmu.writeWord(0xbeef - 2, 0xdead);
+    writeWord(expectedState, 0xbeef - 2, 0xdead);
     expectedState.mmu.write(LIBGREBE_REG_IF, 0);
     EXPECT_TRUE(expectedState == state);
 }

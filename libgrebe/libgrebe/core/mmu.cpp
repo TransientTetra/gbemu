@@ -86,14 +86,3 @@ MMU& MMU::operator=(const MMU& other) // NOLINT(bugprone-unhandled-self-assignme
     }
     return *this;
 }
-
-Word MMU::readWord(const Word& address) const
-{
-    return toWord(read(address), read(address + 1));
-}
-
-void MMU::writeWord(const Word& address, const Word& data)
-{
-    write(address, static_cast<Byte>(0x00ff & data));
-    write(address + 1, static_cast<Byte>(data >> 8));
-}

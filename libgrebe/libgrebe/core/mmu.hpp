@@ -18,7 +18,6 @@ public:
     const Byte& read(const Word& address) const;
     Word readWord(const Word& address) const;
     void write(const Word& address, const Byte& data);
-    void writeWord(const Word& address, const Word& data);
     bool operator==(const MMU& other) const;
     MMU& operator=(const MMU& other);
 };

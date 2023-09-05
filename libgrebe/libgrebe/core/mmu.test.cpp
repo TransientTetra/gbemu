@@ -97,18 +97,4 @@ TEST_F(MMUTest, ReadWriteWholeTest)
     }
 }
 
-TEST_F(MMUTest, ReadWordTest)
-{
-    mmu.write(0, 0xad);
-    mmu.write(1, 0xde);
-    EXPECT_EQ(0xdead, mmu.readWord(0));
-}
-
-TEST_F(MMUTest, WriteWordTest)
-{
-    mmu.writeWord(0, 0xbeef);
-    EXPECT_EQ(mmu.read(0), 0xef);
-    EXPECT_EQ(mmu.read(1), 0xbe);
-}
-
 #pragma clang diagnostic pop

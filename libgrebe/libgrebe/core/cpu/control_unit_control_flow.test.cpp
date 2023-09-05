@@ -239,7 +239,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC2)
     // 0xC2 JP NZ, nn
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.setZeroFlag();
     // testing the opcode
     testOpcode(0xC2);
@@ -251,7 +251,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC2)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.resetZeroFlag();
     // testing the opcode
     testOpcode(0xC2);
@@ -267,7 +267,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD2)
     // 0xD2 JP NC, nn
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcode(0xD2);
@@ -279,7 +279,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD2)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcode(0xD2);
@@ -295,7 +295,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC3)
     // 0xC3 JP nn
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     // testing the opcode
     testOpcode(0xC3);
     // expected change in registers and memory
@@ -325,7 +325,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCA)
     // 0xCA JP Z, nn
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.resetZeroFlag();
     // testing the opcode
     testOpcode(0xCA);
@@ -337,7 +337,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCA)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.setZeroFlag();
     // testing the opcode
     testOpcode(0xCA);
@@ -353,7 +353,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDA)
     // 0xDA JP C, nn
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcode(0xDA);
@@ -365,7 +365,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDA)
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcode(0xDA);
@@ -382,7 +382,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCD)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6969;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.resetZeroFlag();
     // testing the opcode
     testOpcode(0xCD);
@@ -390,7 +390,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCD)
     expectedState.clockCycles += 24;
     expectedState.registers.sp = 0x6967;
     expectedState.registers.pc = 0xbeef;
-    expectedState.mmu.writeWord(0x6967, 0xdead + 3);
+    writeWord(expectedState, 0x6967, 0xdead + 3);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }
@@ -401,7 +401,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCC)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6969;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.resetZeroFlag();
     // testing the opcode
     testOpcode(0xCC);
@@ -414,7 +414,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCC)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6969;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.setZeroFlag();
     // testing the opcode
     testOpcode(0xCC);
@@ -422,7 +422,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCC)
     expectedState.clockCycles += 24;
     expectedState.registers.sp = 0x6967;
     expectedState.registers.pc = 0xbeef;
-    expectedState.mmu.writeWord(0x6967, 0xdead + 3);
+    writeWord(expectedState, 0x6967, 0xdead + 3);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }
@@ -433,7 +433,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDC)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6969;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcode(0xDC);
@@ -446,7 +446,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDC)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6969;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcode(0xDC);
@@ -454,7 +454,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDC)
     expectedState.clockCycles += 24;
     expectedState.registers.sp = 0x6967;
     expectedState.registers.pc = 0xbeef;
-    expectedState.mmu.writeWord(0x6967, 0xdead + 3);
+    writeWord(expectedState, 0x6967, 0xdead + 3);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }
@@ -465,7 +465,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC4)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6969;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.setZeroFlag();
     // testing the opcode
     testOpcode(0xC4);
@@ -478,7 +478,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC4)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6969;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.resetZeroFlag();
     // testing the opcode
     testOpcode(0xC4);
@@ -486,7 +486,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC4)
     expectedState.clockCycles += 24;
     expectedState.registers.sp = 0x6967;
     expectedState.registers.pc = 0xbeef;
-    expectedState.mmu.writeWord(0x6967, 0xdead + 3);
+    writeWord(expectedState, 0x6967, 0xdead + 3);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }
@@ -497,7 +497,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD4)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6969;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcode(0xD4);
@@ -510,7 +510,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD4)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6969;
-    state.mmu.writeWord(0xdeae, 0xbeef);
+    writeWord(state, 0xdeae, 0xbeef);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcode(0xD4);
@@ -518,7 +518,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD4)
     expectedState.clockCycles += 24;
     expectedState.registers.sp = 0x6967;
     expectedState.registers.pc = 0xbeef;
-    expectedState.mmu.writeWord(0x6967, 0xdead + 3);
+    writeWord(expectedState, 0x6967, 0xdead + 3);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }
@@ -529,7 +529,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC0)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6969;
-    state.mmu.writeWord(0x6969, 0xbeef);
+    writeWord(state, 0x6969, 0xbeef);
     state.registers.setZeroFlag();
     // testing the opcode
     testOpcode(0xC0);
@@ -542,7 +542,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC0)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6969;
-    state.mmu.writeWord(0x6969, 0xbeef);
+    writeWord(state, 0x6969, 0xbeef);
     state.registers.resetZeroFlag();
     // testing the opcode
     testOpcode(0xC0);
@@ -560,7 +560,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD0)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6969;
-    state.mmu.writeWord(0x6969, 0xbeef);
+    writeWord(state, 0x6969, 0xbeef);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcode(0xD0);
@@ -573,7 +573,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD0)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6969;
-    state.mmu.writeWord(0x6969, 0xbeef);
+    writeWord(state, 0x6969, 0xbeef);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcode(0xD0);
@@ -591,7 +591,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC8)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6967;
-    state.mmu.writeWord(0x6967, 0xbeef);
+    writeWord(state, 0x6967, 0xbeef);
     state.registers.resetZeroFlag();
     // testing the opcode
     testOpcode(0xC8);
@@ -604,7 +604,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC8)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6967;
-    state.mmu.writeWord(0x6967, 0xbeef);
+    writeWord(state, 0x6967, 0xbeef);
     state.registers.setZeroFlag();
     // testing the opcode
     testOpcode(0xC8);
@@ -622,7 +622,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD8)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6967;
-    state.mmu.writeWord(0x6967, 0xbeef);
+    writeWord(state, 0x6967, 0xbeef);
     state.registers.resetCarryFlag();
     // testing the opcode
     testOpcode(0xD8);
@@ -635,7 +635,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD8)
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6967;
-    state.mmu.writeWord(0x6967, 0xbeef);
+    writeWord(state, 0x6967, 0xbeef);
     state.registers.setCarryFlag();
     // testing the opcode
     testOpcode(0xD8);
@@ -654,7 +654,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC9)
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6967;
     state.ime = false;
-    state.mmu.writeWord(0x6967, 0xbeef);
+    writeWord(state, 0x6967, 0xbeef);
     // testing the opcode
     testOpcode(0xC9);
     // expected change in registers and memory
@@ -672,7 +672,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD9)
     state.registers.pc = 0xdead;
     state.registers.sp = 0x6967;
     state.ime = false;
-    state.mmu.writeWord(0x6967, 0xbeef);
+    writeWord(state, 0x6967, 0xbeef);
     // testing the opcode
     testOpcode(0xD9);
     // expected change in registers and memory
@@ -696,7 +696,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC7)
     expectedState.clockCycles += 16;
     expectedState.registers.pc = 0x00;
     expectedState.registers.sp = 0x6967;
-    expectedState.mmu.writeWord(0x6967, 0xdeae);
+    writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }
@@ -713,7 +713,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD7)
     expectedState.clockCycles += 16;
     expectedState.registers.pc = 0x10;
     expectedState.registers.sp = 0x6967;
-    expectedState.mmu.writeWord(0x6967, 0xdeae);
+    writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }
@@ -730,7 +730,7 @@ TEST_F(OpcodesControlFlowTest, Test0xE7)
     expectedState.clockCycles += 16;
     expectedState.registers.pc = 0x20;
     expectedState.registers.sp = 0x6967;
-    expectedState.mmu.writeWord(0x6967, 0xdeae);
+    writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }
@@ -747,7 +747,7 @@ TEST_F(OpcodesControlFlowTest, Test0xF7)
     expectedState.clockCycles += 16;
     expectedState.registers.pc = 0x30;
     expectedState.registers.sp = 0x6967;
-    expectedState.mmu.writeWord(0x6967, 0xdeae);
+    writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }
@@ -764,7 +764,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCF)
     expectedState.clockCycles += 16;
     expectedState.registers.pc = 0x08;
     expectedState.registers.sp = 0x6967;
-    expectedState.mmu.writeWord(0x6967, 0xdeae);
+    writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }
@@ -781,7 +781,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDF)
     expectedState.clockCycles += 16;
     expectedState.registers.pc = 0x18;
     expectedState.registers.sp = 0x6967;
-    expectedState.mmu.writeWord(0x6967, 0xdeae);
+    writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }
@@ -798,7 +798,7 @@ TEST_F(OpcodesControlFlowTest, Test0xEF)
     expectedState.clockCycles += 16;
     expectedState.registers.pc = 0x28;
     expectedState.registers.sp = 0x6967;
-    expectedState.mmu.writeWord(0x6967, 0xdeae);
+    writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }
@@ -815,7 +815,7 @@ TEST_F(OpcodesControlFlowTest, Test0xFF)
     expectedState.clockCycles += 16;
     expectedState.registers.pc = 0x38;
     expectedState.registers.sp = 0x6967;
-    expectedState.mmu.writeWord(0x6967, 0xdeae);
+    writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
     EXPECT_TRUE(expectedState == state);
 }

@@ -36,6 +36,7 @@ set(LIBGREBE_SOURCES
         libgrebe/core/core.cpp
         libgrebe/core/cpu/cpu.cpp
         libgrebe/core/cpu/cpu.hpp
+        libgrebe/common/addressable.hpp
         )
 
 add_library(libgrebe STATIC ${LIBGREBE_SOURCES})

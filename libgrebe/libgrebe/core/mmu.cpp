@@ -58,14 +58,28 @@ MMU::MMU()
     write(LIBGREBE_REG_IE, 0x00);
 }
 
-const Byte& MMU::read(const Word& address) const
+ Byte MMU::read(const Word& address) const
 {
-    return map[address];
+    for (auto&& item : addressables)
+    {
+        if (item.contains(address))
+        {
+            return item.read(address); // return from first applicable addressable
+        }
+    }
+    return 0xff;
 }
 
 void MMU::write(const Word& address, const Byte& data)
 {
-    map[address] = data;
+    for (auto&& item : addressables)
+    {
+        if (item.contains(address))
+        {
+            item.write(address, data);
+            return; // only write on first eligible addressable
+        }
+    }
 }
 
 bool MMU::operator==(const MMU& other) const
@@ -82,7 +96,7 @@ MMU& MMU::operator=(const MMU& other) // NOLINT(bugprone-unhandled-self-assignme
 {
     for (int i = 0; i < LIBGREBE_MEMORY_SIZE; ++i)
     {
-        write(i, other.read(i));
+        write(i, other.read(i)); // this can have unexpected results since writes can affect state
     }
     return *this;
 }

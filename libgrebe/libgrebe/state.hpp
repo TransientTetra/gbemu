@@ -3,7 +3,7 @@
 
 #include <cstdint>
 #include <functional>
-#include <libgrebe/core/mmu.hpp>
+#include <libgrebe/core/mmu/mmu.hpp>
 #include <libgrebe/core/cpu/registers.hpp>
 #include <queue>
 #include <stack>

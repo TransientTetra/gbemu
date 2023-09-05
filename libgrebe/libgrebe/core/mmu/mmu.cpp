@@ -1,4 +1,4 @@
-#include <libgrebe/core/mmu.hpp>
+#include <libgrebe/core/mmu/mmu.hpp>
 #include <libgrebe/utils.hpp>
 
 MMU::MMU()

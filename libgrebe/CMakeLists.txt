@@ -8,8 +8,8 @@ set(LIBGREBE_SOURCES
         ${LIBGREBE_SOURCES}
         libgrebe/core/cpu/control_unit.cpp
         libgrebe/core/cpu/control_unit.hpp
-        libgrebe/core/mmu.cpp
-        libgrebe/core/mmu.hpp
+        libgrebe/core/mmu/mmu.cpp
+        libgrebe/core/mmu/mmu.hpp
         libgrebe/types.hpp
         libgrebe/core/cpu/registers.cpp
         libgrebe/core/cpu/registers.hpp
@@ -47,7 +47,7 @@ set(LIBGREBE_TEST_SOURCES
         libgrebe/core/cpu/control_unit.test.cpp
         libgrebe/core/cpu/control_unit_loads.test.cpp
         libgrebe/core/cpu/control_unit_alu.test.cpp
-        libgrebe/core/mmu.test.cpp
+        libgrebe/core/mmu/mmu.test.cpp
         libgrebe/core/cpu/registers.test.cpp
         libgrebe/core/cpu/control_unit_bit_ops.test.cpp
         libgrebe/core/cpu/control_unit_control_flow.test.cpp

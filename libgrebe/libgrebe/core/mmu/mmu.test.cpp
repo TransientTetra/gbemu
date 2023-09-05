@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <libgrebe/core/mmu.hpp>
+#include <libgrebe/core/mmu/mmu.hpp>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wconstant-conversion"

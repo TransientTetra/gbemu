@@ -36,8 +36,6 @@ public:
     Word& de = reinterpret_cast<Word&>(bytes[4]);
     Word& hl = reinterpret_cast<Word&>(bytes[6]);
 
-    Registers();
-
     void clearFlags();
 
     bool getZeroFlag();

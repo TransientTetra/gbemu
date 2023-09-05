@@ -16,7 +16,6 @@ private:
     std::vector<Addressable> addressables;
 
 public:
-    MMU();
     Byte read(const Word& address) const;
     void write(const Word& address, const Byte& data);
     bool operator==(const MMU& other) const;

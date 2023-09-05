@@ -17,6 +17,8 @@ private:
 public:
     Core(State& state);
     void tick() override;
+    // initialize Core to the state after bootrom
+    void init();
 };
 
 #endif // LIBGREBE_CORE_HPP

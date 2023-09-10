@@ -1,7 +1,7 @@
 #ifndef LIBGREBE_ADDRESSABLE_HPP
 #define LIBGREBE_ADDRESSABLE_HPP
 
-#include "libgrebe/types.hpp"
+#include <libgrebe/types.hpp>
 class Addressable
 {
 private:

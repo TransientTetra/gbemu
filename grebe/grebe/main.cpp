@@ -1,19 +1,19 @@
 #include <libgrebe/core/core.hpp>
-#include <libgrebe/memory_loader.hpp>
+#include <string>
 
 int main(int argc, char** argv)
 {
     if (argc > 1)
     {
-        State state;
-        MemoryLoader ml;
-        ml.LoadBootRom(state.mmu, argv[1]);
-        state.registers.pc = 0;
-        Core core(state);
-        while (true)
-        {
-            core.tick();
-        }
+        Core core(argv[1]);
+        bool alive = true;
+        core.run(alive);
+    }
+    else
+    {
+        Core core;
+        bool alive = true;
+        core.run(alive);
     }
     return 0;
 }

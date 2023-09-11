@@ -7,7 +7,7 @@
 class Bootrom : public Addressable
 {
 private:
-    std::array<Byte, 0xFF> rom;
+    std::array<Byte, 256> rom;
 
 public:
     // contains; returns whether address belongs to this addressable

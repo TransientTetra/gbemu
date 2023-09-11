@@ -1,18 +1,11 @@
 #include <libgrebe/core/core.hpp>
+#include <libgrebe/core/mmu/bootrom.hpp>
+#include <libgrebe/memory_loader.hpp>
+#include <memory>
 
-Core::Core(State& state) : StateMutator(state), cpu(state), ppu(state)
+Core::Core() : cpu(state), ppu(state)
 {
-}
-
-void Core::tick()
-{
-    cpu.tick();
-    ppu.tick();
-    // state.tick();
-}
-
-void Core::init()
-{
+    // don't register bootrom here
     state.registers.a = 1;
     state.registers.setZeroFlag();
     state.registers.resetSubtractFlag();
@@ -80,4 +73,27 @@ void Core::init()
     state.mmu.write(LIBGREBE_REG_OCPD, 0xFF);
     state.mmu.write(LIBGREBE_REG_SVBK, 0xFF);
     state.mmu.write(LIBGREBE_REG_IE, 0x00);
+}
+
+Core::Core(const std::string& bootromPath) : cpu(state), ppu(state)
+{
+    // register bootrom here
+    state.mmu.registerAddressable(std::make_unique<Bootrom>());
+    MemoryLoader::LoadBootRom(state.mmu, bootromPath);
+    state.registers.pc = 0x00;
+}
+
+void Core::tick()
+{
+    cpu.tick();
+    ppu.tick();
+    // state.tick();
+}
+
+void Core::run(bool& run)
+{
+    while (run)
+    {
+        tick();
+    }
 }

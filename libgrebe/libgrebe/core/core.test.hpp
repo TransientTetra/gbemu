@@ -13,11 +13,11 @@ class CoreTest : public ::testing::Test
 {
 protected:
     std::unique_ptr<Core> core;
-    State state, expectedState;
+    State expectedState;
 
     void SetUp() override
     {
-      core = std::make_unique<Core>(state);
+        core = std::make_unique<Core>();
     }
 
     void TearDown() override
@@ -33,13 +33,13 @@ protected:
     void machineCycle()
     {
         core->tick();
-        ++state.clockCycles;
+        ++core->state.clockCycles;
         core->tick();
-        ++state.clockCycles;
+        ++core->state.clockCycles;
         core->tick();
-        ++state.clockCycles;
+        ++core->state.clockCycles;
         core->tick();
-        ++state.clockCycles;
+        ++core->state.clockCycles;
     }
 };
 

@@ -105,5 +105,6 @@ void Core::run(bool& run)
     while (run)
     {
         tick();
+        ++state.clockCycles;
     }
 }

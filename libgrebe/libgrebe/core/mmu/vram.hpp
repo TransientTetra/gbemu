@@ -1,13 +1,12 @@
-#ifndef LIBGREBE_BOOTROM_HPP
-#define LIBGREBE_BOOTROM_HPP
-
+#ifndef LIBGREBE_VRAM_HPP
+#define LIBGREBE_VRAM_HPP
 #include <array>
 #include <libgrebe/common/addressable.hpp>
 
-class Bootrom : public Addressable
+class VRAM : public Addressable
 {
 private:
-    std::array<Byte, 256> rom;
+    std::array<Byte, 8192> mem;
 
 public:
     // contains; returns whether address belongs to this addressable
@@ -18,4 +17,4 @@ public:
     void write(const Word& address, const Byte& data) override;
 };
 
-#endif // LIBGREBE_BOOTROM_HPP
+#endif // LIBGREBE_VRAM_HPP

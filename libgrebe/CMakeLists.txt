@@ -39,6 +39,10 @@ set(LIBGREBE_SOURCES
         libgrebe/common/addressable.hpp
         libgrebe/core/mmu/bootrom.hpp
         libgrebe/core/mmu/bootrom.cpp
+        libgrebe/core/mmu/vram.hpp
+        libgrebe/core/mmu/vram.cpp
+        libgrebe/core/mmu/hram.hpp
+        libgrebe/core/mmu/hram.cpp
         )
 
 add_library(libgrebe STATIC ${LIBGREBE_SOURCES})

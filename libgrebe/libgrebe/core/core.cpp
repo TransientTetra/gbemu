@@ -1,3 +1,5 @@
+#include <libgrebe/core/mmu/hram.hpp>
+#include <libgrebe/core/mmu/vram.hpp>
 #include <libgrebe/core/core.hpp>
 #include <libgrebe/core/mmu/bootrom.hpp>
 #include <libgrebe/memory_loader.hpp>
@@ -6,6 +8,7 @@
 Core::Core() : cpu(state), ppu(state)
 {
     // don't register bootrom here
+    initCommon();
     state.registers.a = 1;
     state.registers.setZeroFlag();
     state.registers.resetSubtractFlag();
@@ -79,8 +82,15 @@ Core::Core(const std::string& bootromPath) : cpu(state), ppu(state)
 {
     // register bootrom here
     state.mmu.registerAddressable(std::make_unique<Bootrom>());
+    initCommon();
     MemoryLoader::LoadBootRom(state.mmu, bootromPath);
     state.registers.pc = 0x00;
+}
+
+void Core::initCommon()
+{
+    state.mmu.registerAddressable(std::make_unique<HRAM>());
+    state.mmu.registerAddressable(std::make_unique<VRAM>());
 }
 
 void Core::tick()

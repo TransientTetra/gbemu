@@ -14,7 +14,7 @@ TEST_F(OpcodesLoadsTest, Test0x02)
     expectedState.registers.pc += 1;
     expectedState.mmu.write(state.registers.bc, 0x69);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x06)
@@ -30,7 +30,7 @@ TEST_F(OpcodesLoadsTest, Test0x06)
     expectedState.registers.pc += 2;
     expectedState.registers.b = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x0A)
@@ -47,7 +47,7 @@ TEST_F(OpcodesLoadsTest, Test0x0A)
     expectedState.registers.pc += 1;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x0E)
@@ -63,7 +63,7 @@ TEST_F(OpcodesLoadsTest, Test0x0E)
     expectedState.registers.pc += 2;
     expectedState.registers.c = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x12)
@@ -80,7 +80,7 @@ TEST_F(OpcodesLoadsTest, Test0x12)
     expectedState.registers.pc += 1;
     expectedState.mmu.write(state.registers.de, 0x69);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x16)
@@ -96,7 +96,7 @@ TEST_F(OpcodesLoadsTest, Test0x16)
     expectedState.registers.pc += 2;
     expectedState.registers.d = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x1A)
@@ -113,7 +113,7 @@ TEST_F(OpcodesLoadsTest, Test0x1A)
     expectedState.registers.pc += 1;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x1E)
@@ -129,7 +129,7 @@ TEST_F(OpcodesLoadsTest, Test0x1E)
     expectedState.registers.pc += 2;
     expectedState.registers.e = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x22)
@@ -147,7 +147,7 @@ TEST_F(OpcodesLoadsTest, Test0x22)
     expectedState.registers.hl = 0xdead + 1;
     expectedState.mmu.write(0xdead, 0x69);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x26)
@@ -163,7 +163,7 @@ TEST_F(OpcodesLoadsTest, Test0x26)
     expectedState.registers.pc += 2;
     expectedState.registers.h = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x2A)
@@ -181,7 +181,7 @@ TEST_F(OpcodesLoadsTest, Test0x2A)
     expectedState.registers.hl = 0xdead + 1;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x2E)
@@ -197,7 +197,7 @@ TEST_F(OpcodesLoadsTest, Test0x2E)
     expectedState.registers.pc += 2;
     expectedState.registers.l = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x32)
@@ -215,7 +215,7 @@ TEST_F(OpcodesLoadsTest, Test0x32)
     expectedState.registers.hl = 0xdead - 1;
     expectedState.mmu.write(0xdead, 0x69);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x36)
@@ -232,7 +232,7 @@ TEST_F(OpcodesLoadsTest, Test0x36)
     expectedState.registers.pc += 2;
     expectedState.mmu.write(0xdead, 0x69);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x3A)
@@ -250,7 +250,7 @@ TEST_F(OpcodesLoadsTest, Test0x3A)
     expectedState.registers.hl = 0xdead - 1;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x3E)
@@ -266,7 +266,7 @@ TEST_F(OpcodesLoadsTest, Test0x3E)
     expectedState.registers.pc += 2;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x40)
@@ -281,7 +281,7 @@ TEST_F(OpcodesLoadsTest, Test0x40)
     expectedState.registers.pc += 1;
     expectedState.registers.b = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x41)
@@ -297,7 +297,7 @@ TEST_F(OpcodesLoadsTest, Test0x41)
     expectedState.registers.pc += 1;
     expectedState.registers.b = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x42)
@@ -313,7 +313,7 @@ TEST_F(OpcodesLoadsTest, Test0x42)
     expectedState.registers.pc += 1;
     expectedState.registers.b = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x43)
@@ -329,7 +329,7 @@ TEST_F(OpcodesLoadsTest, Test0x43)
     expectedState.registers.pc += 1;
     expectedState.registers.b = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x44)
@@ -345,7 +345,7 @@ TEST_F(OpcodesLoadsTest, Test0x44)
     expectedState.registers.pc += 1;
     expectedState.registers.b = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x45)
@@ -361,7 +361,7 @@ TEST_F(OpcodesLoadsTest, Test0x45)
     expectedState.registers.pc += 1;
     expectedState.registers.b = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x46)
@@ -378,7 +378,7 @@ TEST_F(OpcodesLoadsTest, Test0x46)
     expectedState.registers.pc += 1;
     expectedState.registers.b = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x47)
@@ -394,7 +394,7 @@ TEST_F(OpcodesLoadsTest, Test0x47)
     expectedState.registers.pc += 1;
     expectedState.registers.b = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x48)
@@ -410,7 +410,7 @@ TEST_F(OpcodesLoadsTest, Test0x48)
     expectedState.registers.pc += 1;
     expectedState.registers.c = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x49)
@@ -426,7 +426,7 @@ TEST_F(OpcodesLoadsTest, Test0x49)
     expectedState.registers.pc += 1;
     expectedState.registers.c = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x4A)
@@ -442,7 +442,7 @@ TEST_F(OpcodesLoadsTest, Test0x4A)
     expectedState.registers.pc += 1;
     expectedState.registers.c = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x4B)
@@ -458,7 +458,7 @@ TEST_F(OpcodesLoadsTest, Test0x4B)
     expectedState.registers.pc += 1;
     expectedState.registers.c = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x4C)
@@ -474,7 +474,7 @@ TEST_F(OpcodesLoadsTest, Test0x4C)
     expectedState.registers.pc += 1;
     expectedState.registers.c = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x4D)
@@ -490,7 +490,7 @@ TEST_F(OpcodesLoadsTest, Test0x4D)
     expectedState.registers.pc += 1;
     expectedState.registers.c = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x4E)
@@ -507,7 +507,7 @@ TEST_F(OpcodesLoadsTest, Test0x4E)
     expectedState.registers.pc += 1;
     expectedState.registers.c = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x4F)
@@ -523,7 +523,7 @@ TEST_F(OpcodesLoadsTest, Test0x4F)
     expectedState.registers.pc += 1;
     expectedState.registers.c = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x50)
@@ -539,7 +539,7 @@ TEST_F(OpcodesLoadsTest, Test0x50)
     expectedState.registers.pc += 1;
     expectedState.registers.d = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x51)
@@ -555,7 +555,7 @@ TEST_F(OpcodesLoadsTest, Test0x51)
     expectedState.registers.pc += 1;
     expectedState.registers.d = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x52)
@@ -571,7 +571,7 @@ TEST_F(OpcodesLoadsTest, Test0x52)
     expectedState.registers.pc += 1;
     expectedState.registers.d = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x53)
@@ -587,7 +587,7 @@ TEST_F(OpcodesLoadsTest, Test0x53)
     expectedState.registers.pc += 1;
     expectedState.registers.d = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x54)
@@ -603,7 +603,7 @@ TEST_F(OpcodesLoadsTest, Test0x54)
     expectedState.registers.pc += 1;
     expectedState.registers.d = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x55)
@@ -619,7 +619,7 @@ TEST_F(OpcodesLoadsTest, Test0x55)
     expectedState.registers.pc += 1;
     expectedState.registers.d = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x56)
@@ -636,7 +636,7 @@ TEST_F(OpcodesLoadsTest, Test0x56)
     expectedState.registers.pc += 1;
     expectedState.registers.d = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x57)
@@ -652,7 +652,7 @@ TEST_F(OpcodesLoadsTest, Test0x57)
     expectedState.registers.pc += 1;
     expectedState.registers.d = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x58)
@@ -668,7 +668,7 @@ TEST_F(OpcodesLoadsTest, Test0x58)
     expectedState.registers.pc += 1;
     expectedState.registers.e = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x59)
@@ -684,7 +684,7 @@ TEST_F(OpcodesLoadsTest, Test0x59)
     expectedState.registers.pc += 1;
     expectedState.registers.e = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x5A)
@@ -700,7 +700,7 @@ TEST_F(OpcodesLoadsTest, Test0x5A)
     expectedState.registers.pc += 1;
     expectedState.registers.e = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x5B)
@@ -716,7 +716,7 @@ TEST_F(OpcodesLoadsTest, Test0x5B)
     expectedState.registers.pc += 1;
     expectedState.registers.e = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x5C)
@@ -732,7 +732,7 @@ TEST_F(OpcodesLoadsTest, Test0x5C)
     expectedState.registers.pc += 1;
     expectedState.registers.e = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x5D)
@@ -748,7 +748,7 @@ TEST_F(OpcodesLoadsTest, Test0x5D)
     expectedState.registers.pc += 1;
     expectedState.registers.e = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x5E)
@@ -765,7 +765,7 @@ TEST_F(OpcodesLoadsTest, Test0x5E)
     expectedState.registers.pc += 1;
     expectedState.registers.e = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x5F)
@@ -781,7 +781,7 @@ TEST_F(OpcodesLoadsTest, Test0x5F)
     expectedState.registers.pc += 1;
     expectedState.registers.e = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x60)
@@ -797,7 +797,7 @@ TEST_F(OpcodesLoadsTest, Test0x60)
     expectedState.registers.pc += 1;
     expectedState.registers.h = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x61)
@@ -813,7 +813,7 @@ TEST_F(OpcodesLoadsTest, Test0x61)
     expectedState.registers.pc += 1;
     expectedState.registers.h = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x62)
@@ -829,7 +829,7 @@ TEST_F(OpcodesLoadsTest, Test0x62)
     expectedState.registers.pc += 1;
     expectedState.registers.h = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x63)
@@ -845,7 +845,7 @@ TEST_F(OpcodesLoadsTest, Test0x63)
     expectedState.registers.pc += 1;
     expectedState.registers.h = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x64)
@@ -861,7 +861,7 @@ TEST_F(OpcodesLoadsTest, Test0x64)
     expectedState.registers.pc += 1;
     expectedState.registers.h = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x65)
@@ -877,7 +877,7 @@ TEST_F(OpcodesLoadsTest, Test0x65)
     expectedState.registers.pc += 1;
     expectedState.registers.h = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x66)
@@ -894,7 +894,7 @@ TEST_F(OpcodesLoadsTest, Test0x66)
     expectedState.registers.pc += 1;
     expectedState.registers.h = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x67)
@@ -910,7 +910,7 @@ TEST_F(OpcodesLoadsTest, Test0x67)
     expectedState.registers.pc += 1;
     expectedState.registers.h = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x68)
@@ -926,7 +926,7 @@ TEST_F(OpcodesLoadsTest, Test0x68)
     expectedState.registers.pc += 1;
     expectedState.registers.l = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x69)
@@ -942,7 +942,7 @@ TEST_F(OpcodesLoadsTest, Test0x69)
     expectedState.registers.pc += 1;
     expectedState.registers.l = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x6A)
@@ -958,7 +958,7 @@ TEST_F(OpcodesLoadsTest, Test0x6A)
     expectedState.registers.pc += 1;
     expectedState.registers.l = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x6B)
@@ -974,7 +974,7 @@ TEST_F(OpcodesLoadsTest, Test0x6B)
     expectedState.registers.pc += 1;
     expectedState.registers.l = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x6C)
@@ -990,7 +990,7 @@ TEST_F(OpcodesLoadsTest, Test0x6C)
     expectedState.registers.pc += 1;
     expectedState.registers.l = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x6D)
@@ -1006,7 +1006,7 @@ TEST_F(OpcodesLoadsTest, Test0x6D)
     expectedState.registers.pc += 1;
     expectedState.registers.l = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x6E)
@@ -1023,7 +1023,7 @@ TEST_F(OpcodesLoadsTest, Test0x6E)
     expectedState.registers.pc += 1;
     expectedState.registers.l = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x6F)
@@ -1039,7 +1039,7 @@ TEST_F(OpcodesLoadsTest, Test0x6F)
     expectedState.registers.pc += 1;
     expectedState.registers.l = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x70)
@@ -1056,7 +1056,7 @@ TEST_F(OpcodesLoadsTest, Test0x70)
     expectedState.registers.pc += 1;
     expectedState.mmu.write(0xdead, 0x69);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x71)
@@ -1073,7 +1073,7 @@ TEST_F(OpcodesLoadsTest, Test0x71)
     expectedState.registers.pc += 1;
     expectedState.mmu.write(0xdead, 0x69);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x72)
@@ -1090,7 +1090,7 @@ TEST_F(OpcodesLoadsTest, Test0x72)
     expectedState.registers.pc += 1;
     expectedState.mmu.write(0xdead, 0x69);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x73)
@@ -1107,7 +1107,7 @@ TEST_F(OpcodesLoadsTest, Test0x73)
     expectedState.registers.pc += 1;
     expectedState.mmu.write(0xdead, 0x69);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x74)
@@ -1123,7 +1123,7 @@ TEST_F(OpcodesLoadsTest, Test0x74)
     expectedState.registers.pc += 1;
     expectedState.mmu.write(0xdead, 0xde);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x75)
@@ -1139,7 +1139,7 @@ TEST_F(OpcodesLoadsTest, Test0x75)
     expectedState.registers.pc += 1;
     expectedState.mmu.write(0xdead, 0xad);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x77)
@@ -1156,7 +1156,7 @@ TEST_F(OpcodesLoadsTest, Test0x77)
     expectedState.registers.pc += 1;
     expectedState.mmu.write(0xdead, 0x69);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x78)
@@ -1172,7 +1172,7 @@ TEST_F(OpcodesLoadsTest, Test0x78)
     expectedState.registers.pc += 1;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x79)
@@ -1188,7 +1188,7 @@ TEST_F(OpcodesLoadsTest, Test0x79)
     expectedState.registers.pc += 1;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x7A)
@@ -1204,7 +1204,7 @@ TEST_F(OpcodesLoadsTest, Test0x7A)
     expectedState.registers.pc += 1;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x7B)
@@ -1220,7 +1220,7 @@ TEST_F(OpcodesLoadsTest, Test0x7B)
     expectedState.registers.pc += 1;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x7C)
@@ -1236,7 +1236,7 @@ TEST_F(OpcodesLoadsTest, Test0x7C)
     expectedState.registers.pc += 1;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x7D)
@@ -1252,7 +1252,7 @@ TEST_F(OpcodesLoadsTest, Test0x7D)
     expectedState.registers.pc += 1;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x7E)
@@ -1269,7 +1269,7 @@ TEST_F(OpcodesLoadsTest, Test0x7E)
     expectedState.registers.pc += 1;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x7F)
@@ -1285,7 +1285,7 @@ TEST_F(OpcodesLoadsTest, Test0x7F)
     expectedState.registers.pc += 1;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xE0)
@@ -1302,7 +1302,7 @@ TEST_F(OpcodesLoadsTest, Test0xE0)
     expectedState.registers.pc += 2;
     expectedState.mmu.write(0xFF42, 0x69);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xE2)
@@ -1319,7 +1319,7 @@ TEST_F(OpcodesLoadsTest, Test0xE2)
     expectedState.registers.pc += 1;
     expectedState.mmu.write(0xFF42, 0x69);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xEA)
@@ -1337,7 +1337,7 @@ TEST_F(OpcodesLoadsTest, Test0xEA)
     expectedState.registers.pc += 3;
     expectedState.mmu.write(0xbeef, 0x69);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xF0)
@@ -1354,7 +1354,7 @@ TEST_F(OpcodesLoadsTest, Test0xF0)
     expectedState.registers.pc += 2;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xF2)
@@ -1370,7 +1370,7 @@ TEST_F(OpcodesLoadsTest, Test0xF2)
     expectedState.registers.pc += 1;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xFA)
@@ -1388,7 +1388,7 @@ TEST_F(OpcodesLoadsTest, Test0xFA)
     expectedState.registers.pc += 3;
     expectedState.registers.a = 0x69;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x01)
@@ -1404,7 +1404,7 @@ TEST_F(OpcodesLoadsTest, Test0x01)
     expectedState.registers.pc += 3;
     expectedState.registers.bc = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x08)
@@ -1422,7 +1422,7 @@ TEST_F(OpcodesLoadsTest, Test0x08)
     expectedState.registers.pc += 3;
     writeWord(expectedState, 0xbeef, 0xd00d);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x11)
@@ -1438,7 +1438,7 @@ TEST_F(OpcodesLoadsTest, Test0x11)
     expectedState.registers.pc += 3;
     expectedState.registers.de = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x21)
@@ -1454,7 +1454,7 @@ TEST_F(OpcodesLoadsTest, Test0x21)
     expectedState.registers.pc += 3;
     expectedState.registers.hl = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0x31)
@@ -1470,7 +1470,7 @@ TEST_F(OpcodesLoadsTest, Test0x31)
     expectedState.registers.pc += 3;
     expectedState.registers.sp = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xC1)
@@ -1488,7 +1488,7 @@ TEST_F(OpcodesLoadsTest, Test0xC1)
     expectedState.registers.sp += 2;
     expectedState.registers.bc = 0xdead;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xD1)
@@ -1506,7 +1506,7 @@ TEST_F(OpcodesLoadsTest, Test0xD1)
     expectedState.registers.sp += 2;
     expectedState.registers.de = 0xdead;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xE1)
@@ -1524,7 +1524,7 @@ TEST_F(OpcodesLoadsTest, Test0xE1)
     expectedState.registers.sp += 2;
     expectedState.registers.hl = 0xdead;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xF1)
@@ -1542,7 +1542,7 @@ TEST_F(OpcodesLoadsTest, Test0xF1)
     expectedState.registers.sp += 2;
     expectedState.registers.af = 0xdead;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xC5)
@@ -1560,7 +1560,7 @@ TEST_F(OpcodesLoadsTest, Test0xC5)
     expectedState.registers.sp -= 2;
     writeWord(expectedState, 0xbeef - 2, 0xdead);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xD5)
@@ -1578,7 +1578,7 @@ TEST_F(OpcodesLoadsTest, Test0xD5)
     expectedState.registers.sp -= 2;
     writeWord(expectedState, 0xbeef - 2, 0xdead);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xE5)
@@ -1596,7 +1596,7 @@ TEST_F(OpcodesLoadsTest, Test0xE5)
     expectedState.registers.sp -= 2;
     writeWord(expectedState, 0xbeef - 2, 0xdead);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xF5)
@@ -1614,7 +1614,7 @@ TEST_F(OpcodesLoadsTest, Test0xF5)
     expectedState.registers.sp -= 2;
     writeWord(expectedState, 0xbeef - 2, 0xdead);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xF8)
@@ -1632,7 +1632,7 @@ TEST_F(OpcodesLoadsTest, Test0xF8)
     expectedState.registers.hl = 0xdead + 1;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     state.registers.hl = 0;
     state.registers.sp = 3;
@@ -1645,7 +1645,7 @@ TEST_F(OpcodesLoadsTest, Test0xF8)
     expectedState.registers.hl = 5;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     state.registers.hl = 0;
     state.registers.sp = 3;
@@ -1658,7 +1658,7 @@ TEST_F(OpcodesLoadsTest, Test0xF8)
     expectedState.registers.hl = 1;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     state.registers.hl = 0;
     state.registers.sp = 0xffff;
@@ -1671,7 +1671,7 @@ TEST_F(OpcodesLoadsTest, Test0xF8)
     expectedState.registers.hl = 0xfffe;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     state.registers.hl = 0;
     state.registers.sp = 0x000f;
@@ -1685,7 +1685,7 @@ TEST_F(OpcodesLoadsTest, Test0xF8)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     state.registers.hl = 0;
     state.registers.sp = 0xffff;
@@ -1700,7 +1700,7 @@ TEST_F(OpcodesLoadsTest, Test0xF8)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     state.registers.hl = 0;
     state.registers.sp = 0x00f0;
@@ -1714,7 +1714,7 @@ TEST_F(OpcodesLoadsTest, Test0xF8)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesLoadsTest, Test0xF9)
@@ -1730,5 +1730,5 @@ TEST_F(OpcodesLoadsTest, Test0xF9)
     expectedState.registers.pc += 1;
     expectedState.registers.sp = 0xdead;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }

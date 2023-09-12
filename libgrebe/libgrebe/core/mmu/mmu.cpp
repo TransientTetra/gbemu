@@ -2,6 +2,10 @@
 #include <libgrebe/utils.hpp>
 #include <memory>
 
+MMU::MMU()
+{
+}
+
 void MMU::registerAddressable(std::unique_ptr<Addressable> addressable)
 {
     addressables.emplace_back(std::move(addressable));
@@ -29,23 +33,4 @@ void MMU::write(const Word& address, const Byte& data)
             return; // only write on first eligible addressable
         }
     }
-}
-
-bool MMU::operator==(const MMU& other) const
-{
-    for (int i = 0; i < LIBGREBE_MEMORY_SIZE; ++i)
-    {
-        if (read(i) != other.read(i))
-            return false;
-    }
-    return true;
-}
-
-MMU& MMU::operator=(const MMU& other) // NOLINT(bugprone-unhandled-self-assignment)
-{
-    for (int i = 0; i < LIBGREBE_MEMORY_SIZE; ++i)
-    {
-        write(i, other.read(i)); // this can have unexpected results since writes can affect state
-    }
-    return *this;
 }

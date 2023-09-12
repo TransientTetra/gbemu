@@ -1,4 +1,5 @@
 #include <libgrebe/core/core.test.hpp>
+#include <libgrebe/core/common.test.hpp>
 
 TEST_F(CoreTest, InterruptsTest)
 {
@@ -9,12 +10,12 @@ TEST_F(CoreTest, InterruptsTest)
     // injecting opcode at pc
     core->state.mmu.write(core->state.registers.pc, 0x00);
     // saving cpu and memory core->state before executing the opcode
-    expectedState = core->state;
+    copyState(expectedState, core->state);
     // execute the opcode
     machineCycle();
     expectedState.clockCycles += 4;
     expectedState.registers.pc += 1;
-    EXPECT_TRUE(expectedState == core->state);
+    EXPECT_TRUE(compareState(expectedState, core->state));
 
     core->state.registers.pc = 0xdead;
     core->state.ime = true;
@@ -23,12 +24,12 @@ TEST_F(CoreTest, InterruptsTest)
     // injecting opcode at pc
     core->state.mmu.write(core->state.registers.pc, 0x00);
     // saving cpu and memory core->state before executing the opcode
-    expectedState = core->state;
+    copyState(expectedState, core->state);
     // execute the opcode
     machineCycle();
     expectedState.clockCycles += 4;
     expectedState.registers.pc += 1;
-    EXPECT_TRUE(expectedState == core->state);
+    EXPECT_TRUE(compareState(expectedState, core->state));
 
     core->state.registers.pc = 0xdead;
     core->state.ime = true;
@@ -37,19 +38,19 @@ TEST_F(CoreTest, InterruptsTest)
     // injecting opcode at pc
     core->state.mmu.write(core->state.registers.pc, 0x00);
     // saving cpu and memory core->state before executing the opcode
-    expectedState = core->state;
+    copyState(expectedState, core->state);
     // execute the opcode
     machineCycle();
     expectedState.clockCycles += 4;
     expectedState.registers.pc += 1;
-    EXPECT_TRUE(expectedState == core->state);
+    EXPECT_TRUE(compareState(expectedState, core->state));
 
     core->state.registers.pc = 0xdead;
     core->state.registers.sp = 0xbeef;
     core->state.ime = true;
     core->state.mmu.write(LIBGREBE_REG_IE, 1);
     core->state.mmu.write(LIBGREBE_REG_IF, 1);
-    expectedState = core->state;
+    copyState(expectedState, core->state);
     machineCycle();
     machineCycle();
     machineCycle();
@@ -61,14 +62,14 @@ TEST_F(CoreTest, InterruptsTest)
     expectedState.ime = false;
     writeWord(expectedState, 0xbeef - 2, 0xdead);
     expectedState.mmu.write(LIBGREBE_REG_IF, 0);
-    EXPECT_TRUE(expectedState == core->state);
+    EXPECT_TRUE(compareState(expectedState, core->state));
 
     core->state.registers.pc = 0xdead;
     core->state.registers.sp = 0xbeef;
     core->state.ime = true;
     core->state.mmu.write(LIBGREBE_REG_IE, 2);
     core->state.mmu.write(LIBGREBE_REG_IF, 2);
-    expectedState = core->state;
+    copyState(expectedState, core->state);
     machineCycle();
     machineCycle();
     machineCycle();
@@ -80,14 +81,14 @@ TEST_F(CoreTest, InterruptsTest)
     expectedState.ime = false;
     writeWord(expectedState, 0xbeef - 2, 0xdead);
     expectedState.mmu.write(LIBGREBE_REG_IF, 0);
-    EXPECT_TRUE(expectedState == core->state);
+    EXPECT_TRUE(compareState(expectedState, core->state));
 
     core->state.registers.pc = 0xdead;
     core->state.registers.sp = 0xbeef;
     core->state.ime = true;
     core->state.mmu.write(LIBGREBE_REG_IE, 4);
     core->state.mmu.write(LIBGREBE_REG_IF, 4);
-    expectedState = core->state;
+    copyState(expectedState, core->state);
     machineCycle();
     machineCycle();
     machineCycle();
@@ -99,14 +100,14 @@ TEST_F(CoreTest, InterruptsTest)
     expectedState.ime = false;
     writeWord(expectedState, 0xbeef - 2, 0xdead);
     expectedState.mmu.write(LIBGREBE_REG_IF, 0);
-    EXPECT_TRUE(expectedState == core->state);
+    EXPECT_TRUE(compareState(expectedState, core->state));
 
     core->state.registers.pc = 0xdead;
     core->state.registers.sp = 0xbeef;
     core->state.ime = true;
     core->state.mmu.write(LIBGREBE_REG_IE, 8);
     core->state.mmu.write(LIBGREBE_REG_IF, 8);
-    expectedState = core->state;
+    copyState(expectedState, core->state);
     machineCycle();
     machineCycle();
     machineCycle();
@@ -118,14 +119,14 @@ TEST_F(CoreTest, InterruptsTest)
     expectedState.ime = false;
     writeWord(expectedState, 0xbeef - 2, 0xdead);
     expectedState.mmu.write(LIBGREBE_REG_IF, 0);
-    EXPECT_TRUE(expectedState == core->state);
+    EXPECT_TRUE(compareState(expectedState, core->state));
 
     core->state.registers.pc = 0xdead;
     core->state.registers.sp = 0xbeef;
     core->state.ime = true;
     core->state.mmu.write(LIBGREBE_REG_IE, 16);
     core->state.mmu.write(LIBGREBE_REG_IF, 16);
-    expectedState = core->state;
+    copyState(expectedState, core->state);
     machineCycle();
     machineCycle();
     machineCycle();
@@ -137,7 +138,7 @@ TEST_F(CoreTest, InterruptsTest)
     expectedState.ime = false;
     writeWord(expectedState, 0xbeef - 2, 0xdead);
     expectedState.mmu.write(LIBGREBE_REG_IF, 0);
-    EXPECT_TRUE(expectedState == core->state);
+    EXPECT_TRUE(compareState(expectedState, core->state));
 }
 
 TEST_F(CoreTest, TestEI)
@@ -150,17 +151,17 @@ TEST_F(CoreTest, TestEI)
     // injecting opcode at pc
     core->state.mmu.write(core->state.registers.pc, 0xFB);
     // saving cpu and memory core->state before executing the opcode
-    expectedState = core->state;
+    copyState(expectedState, core->state);
     machineCycle();
     // expected change in registers and memory
     expectedState.clockCycles += 4;
     expectedState.registers.pc += 1;
     expectedState.imeScheduled = true;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == core->state);
+    EXPECT_TRUE(compareState(expectedState, core->state));
     // testing the opcode
     core->state.mmu.write(core->state.registers.pc, 0x00);
-    expectedState = core->state;
+    copyState(expectedState, core->state);
     machineCycle();
     // expected change in registers and memory
     expectedState.clockCycles += 4;
@@ -168,5 +169,5 @@ TEST_F(CoreTest, TestEI)
     expectedState.imeScheduled = false;
     expectedState.ime = true;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == core->state);
+    EXPECT_TRUE(compareState(expectedState, core->state));
 }

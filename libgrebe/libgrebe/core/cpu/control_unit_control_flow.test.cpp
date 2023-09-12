@@ -13,7 +13,7 @@ TEST_F(OpcodesControlFlowTest, Test0x20)
     expectedState.clockCycles += 8;
     expectedState.registers.pc = 0xdeaf;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -25,7 +25,7 @@ TEST_F(OpcodesControlFlowTest, Test0x20)
     expectedState.clockCycles += 12;
     expectedState.registers.pc = 0xdeb1;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -37,7 +37,7 @@ TEST_F(OpcodesControlFlowTest, Test0x20)
     expectedState.clockCycles += 8;
     expectedState.registers.pc = 0xdeaf;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -49,7 +49,7 @@ TEST_F(OpcodesControlFlowTest, Test0x20)
     expectedState.clockCycles += 12;
     expectedState.registers.pc = 0xdead;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0x30)
@@ -65,7 +65,7 @@ TEST_F(OpcodesControlFlowTest, Test0x30)
     expectedState.clockCycles += 8;
     expectedState.registers.pc = 0xdeaf;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -77,7 +77,7 @@ TEST_F(OpcodesControlFlowTest, Test0x30)
     expectedState.clockCycles += 12;
     expectedState.registers.pc = 0xdeb1;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -89,7 +89,7 @@ TEST_F(OpcodesControlFlowTest, Test0x30)
     expectedState.clockCycles += 8;
     expectedState.registers.pc = 0xdeaf;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -101,7 +101,7 @@ TEST_F(OpcodesControlFlowTest, Test0x30)
     expectedState.clockCycles += 12;
     expectedState.registers.pc = 0xdead;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0x18)
@@ -116,7 +116,7 @@ TEST_F(OpcodesControlFlowTest, Test0x18)
     expectedState.clockCycles += 12;
     expectedState.registers.pc = 0xdeb1;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -127,7 +127,7 @@ TEST_F(OpcodesControlFlowTest, Test0x18)
     expectedState.clockCycles += 12;
     expectedState.registers.pc = 0xdead;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0x28)
@@ -143,7 +143,7 @@ TEST_F(OpcodesControlFlowTest, Test0x28)
     expectedState.clockCycles += 8;
     expectedState.registers.pc = 0xdeaf;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -155,7 +155,7 @@ TEST_F(OpcodesControlFlowTest, Test0x28)
     expectedState.clockCycles += 12;
     expectedState.registers.pc = 0xdeb1;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -167,7 +167,7 @@ TEST_F(OpcodesControlFlowTest, Test0x28)
     expectedState.clockCycles += 8;
     expectedState.registers.pc = 0xdeaf;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -179,7 +179,7 @@ TEST_F(OpcodesControlFlowTest, Test0x28)
     expectedState.clockCycles += 12;
     expectedState.registers.pc = 0xdead;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0x38)
@@ -195,7 +195,7 @@ TEST_F(OpcodesControlFlowTest, Test0x38)
     expectedState.clockCycles += 8;
     expectedState.registers.pc = 0xdeaf;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -207,7 +207,7 @@ TEST_F(OpcodesControlFlowTest, Test0x38)
     expectedState.clockCycles += 12;
     expectedState.registers.pc = 0xdeb1;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -219,7 +219,7 @@ TEST_F(OpcodesControlFlowTest, Test0x38)
     expectedState.clockCycles += 8;
     expectedState.registers.pc = 0xdeaf;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -231,7 +231,7 @@ TEST_F(OpcodesControlFlowTest, Test0x38)
     expectedState.clockCycles += 12;
     expectedState.registers.pc = 0xdead;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xC2)
@@ -247,7 +247,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC2)
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 3;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -259,7 +259,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC2)
     expectedState.clockCycles += 16;
     expectedState.registers.pc = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xD2)
@@ -275,7 +275,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD2)
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 3;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -287,7 +287,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD2)
     expectedState.clockCycles += 16;
     expectedState.registers.pc = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xC3)
@@ -302,7 +302,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC3)
     expectedState.clockCycles += 16;
     expectedState.registers.pc = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xE9)
@@ -317,7 +317,7 @@ TEST_F(OpcodesControlFlowTest, Test0xE9)
     expectedState.clockCycles += 4;
     expectedState.registers.pc = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xCA)
@@ -333,7 +333,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCA)
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 3;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -345,7 +345,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCA)
     expectedState.clockCycles += 16;
     expectedState.registers.pc = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xDA)
@@ -361,7 +361,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDA)
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 3;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -373,7 +373,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDA)
     expectedState.clockCycles += 16;
     expectedState.registers.pc = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xCD)
@@ -392,7 +392,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCD)
     expectedState.registers.pc = 0xbeef;
     writeWord(expectedState, 0x6967, 0xdead + 3);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xCC)
@@ -409,7 +409,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCC)
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 3;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -424,7 +424,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCC)
     expectedState.registers.pc = 0xbeef;
     writeWord(expectedState, 0x6967, 0xdead + 3);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xDC)
@@ -441,7 +441,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDC)
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 3;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -456,7 +456,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDC)
     expectedState.registers.pc = 0xbeef;
     writeWord(expectedState, 0x6967, 0xdead + 3);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xC4)
@@ -473,7 +473,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC4)
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 3;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -488,7 +488,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC4)
     expectedState.registers.pc = 0xbeef;
     writeWord(expectedState, 0x6967, 0xdead + 3);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xD4)
@@ -505,7 +505,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD4)
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 3;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -520,7 +520,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD4)
     expectedState.registers.pc = 0xbeef;
     writeWord(expectedState, 0x6967, 0xdead + 3);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xC0)
@@ -537,7 +537,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC0)
     expectedState.clockCycles += 8;
     expectedState.registers.pc += 1;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -551,7 +551,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC0)
     expectedState.registers.pc = 0xbeef;
     expectedState.registers.sp = 0x696B;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xD0)
@@ -568,7 +568,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD0)
     expectedState.clockCycles += 8;
     expectedState.registers.pc += 1;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -582,7 +582,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD0)
     expectedState.registers.pc = 0xbeef;
     expectedState.registers.sp = 0x696B;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xC8)
@@ -599,7 +599,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC8)
     expectedState.clockCycles += 8;
     expectedState.registers.pc += 1;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -613,7 +613,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC8)
     expectedState.registers.sp = 0x6969;
     expectedState.registers.pc = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xD8)
@@ -630,7 +630,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD8)
     expectedState.clockCycles += 8;
     expectedState.registers.pc += 1;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.pc = 0xdead;
@@ -644,7 +644,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD8)
     expectedState.registers.sp = 0x6969;
     expectedState.registers.pc = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xC9)
@@ -662,7 +662,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC9)
     expectedState.registers.sp = 0x6969;
     expectedState.registers.pc = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xD9)
@@ -681,7 +681,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD9)
     expectedState.registers.sp = 0x6969;
     expectedState.registers.pc = 0xbeef;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xC7)
@@ -698,7 +698,7 @@ TEST_F(OpcodesControlFlowTest, Test0xC7)
     expectedState.registers.sp = 0x6967;
     writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xD7)
@@ -715,7 +715,7 @@ TEST_F(OpcodesControlFlowTest, Test0xD7)
     expectedState.registers.sp = 0x6967;
     writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xE7)
@@ -732,7 +732,7 @@ TEST_F(OpcodesControlFlowTest, Test0xE7)
     expectedState.registers.sp = 0x6967;
     writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xF7)
@@ -749,7 +749,7 @@ TEST_F(OpcodesControlFlowTest, Test0xF7)
     expectedState.registers.sp = 0x6967;
     writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xCF)
@@ -766,7 +766,7 @@ TEST_F(OpcodesControlFlowTest, Test0xCF)
     expectedState.registers.sp = 0x6967;
     writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xDF)
@@ -783,7 +783,7 @@ TEST_F(OpcodesControlFlowTest, Test0xDF)
     expectedState.registers.sp = 0x6967;
     writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xEF)
@@ -800,7 +800,7 @@ TEST_F(OpcodesControlFlowTest, Test0xEF)
     expectedState.registers.sp = 0x6967;
     writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesControlFlowTest, Test0xFF)
@@ -817,5 +817,5 @@ TEST_F(OpcodesControlFlowTest, Test0xFF)
     expectedState.registers.sp = 0x6967;
     writeWord(expectedState, 0x6967, 0xdeae);
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }

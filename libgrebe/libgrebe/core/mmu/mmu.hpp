@@ -20,8 +20,10 @@ public:
     void registerAddressable(std::unique_ptr<Addressable> addressable);
     Byte read(const Word& address) const;
     void write(const Word& address, const Byte& data);
-    bool operator==(const MMU& other) const;
-    MMU& operator=(const MMU& other);
+
+    MMU();
+    MMU(const MMU&) = delete;
+    MMU& operator=(const MMU&) = delete;
 };
 
 #endif // LIBGREBE_MEMORY_HPP

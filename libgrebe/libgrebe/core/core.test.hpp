@@ -13,11 +13,12 @@ class CoreTest : public ::testing::Test
 {
 protected:
     std::unique_ptr<Core> core;
-    State expectedState;
+    std::unique_ptr<Core> expectedCore;
 
     void SetUp() override
     {
         core = std::make_unique<Core>();
+        expectedCore = std::make_unique<Core>();
     }
 
     void TearDown() override

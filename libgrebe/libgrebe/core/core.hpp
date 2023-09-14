@@ -7,6 +7,7 @@
 
 // todo add hardware registers addressable along with the logic to turn off the bootrom
 // (remove it from the vector? do it like in tigris?); ime in state as a bool?? should be an addressable in mmu, no?
+// mmu -> reads return const Byte&; dfeault read member var
 // Sharp LR35902 SOC models the whole system on a chip
 class Core : public SynchronousComponent
 {

@@ -145,6 +145,7 @@ TEST_F(CoreTest, TestEI)
 {
     // 0xFB EI
     // preparing cpu and memory core->state before executing the opcode
+    core->state.registers.pc = 0xdead;
     core->state.ime = false;
     core->state.imeScheduled = false;
     // testing the opcode

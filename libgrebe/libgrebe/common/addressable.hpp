@@ -1,7 +1,25 @@
 #ifndef LIBGREBE_ADDRESSABLE_HPP
 #define LIBGREBE_ADDRESSABLE_HPP
 
+#include <exception>
 #include <libgrebe/types.hpp>
+
+struct IllegalAddressableReadException : public std::exception
+{
+    [[nodiscard]] const char* what() const noexcept override
+    {
+        return "Illegal read on addressable";
+    }
+};
+
+struct IllegalAddressableWriteException : public std::exception
+{
+    [[nodiscard]] const char* what() const noexcept override
+    {
+        return "Illegal write on addressable";
+    }
+};
+
 class Addressable
 {
 private:

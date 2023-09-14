@@ -19,7 +19,7 @@
 //	$0100-$014F 	Cartridge Header Area
 //	$0000-$00FF 	Restart and Interrupt Vectors
 
-// Registers
+// Hardware registers
 #define LIBGREBE_REG_P1 0xFF00
 #define LIBGREBE_REG_SB 0xFF01
 #define LIBGREBE_REG_SC 0xFF02
@@ -61,6 +61,10 @@
 #define LIBGREBE_REG_OBP1 0xFF49
 #define LIBGREBE_REG_WY 0xFF4A
 #define LIBGREBE_REG_WX 0xFF4B
+#define LIBGREBE_REG_BOOTROM_ENABLE 0xFF50
+#define LIBGREBE_REG_IE 0xFFFF
+
+// CGB only
 #define LIBGREBE_REG_KEY1 0xFF4D
 #define LIBGREBE_REG_VBK 0xFF4F
 #define LIBGREBE_REG_HDMA1 0xFF51
@@ -74,7 +78,8 @@
 #define LIBGREBE_REG_OCPS 0xFF6A
 #define LIBGREBE_REG_OCPD 0xFF6B
 #define LIBGREBE_REG_SVBK 0xFF70
-#define LIBGREBE_REG_IE 0xFFFF
+#define LIBGREBE_REG_PCM12 0xFF76
+#define LIBGREBE_REG_PCM34 0xFF77
 
 // Interrupt jump vectors
 #define LIBGREBE_INT_VBLANK 0x40

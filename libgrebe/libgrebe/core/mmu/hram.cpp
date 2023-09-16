@@ -2,15 +2,15 @@
 
 bool HRAM::contains(const Word& address) const
 {
-    return address >= 0xC000 && address <= 0xDFFF;
+    return address >= 0xFF80 && address <= 0xFFFE;
 }
 
 const Byte& HRAM::read(const Word& address) const
 {
-    return mem.at(address - 0xC000);
+    return mem.at(address - 0xFF80);
 }
 
 void HRAM::write(const Word& address, const Byte& data)
 {
-    mem.at(address - 0xC000) = data;
+    mem.at(address - 0xFF80) = data;
 }

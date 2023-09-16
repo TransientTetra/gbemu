@@ -1,12 +1,12 @@
-#ifndef LIBGREBE_HRAM_HPP
-#define LIBGREBE_HRAM_HPP
+#ifndef LIBGREBE_WRAM_HPP
+#define LIBGREBE_WRAM_HPP
 #include <array>
 #include <libgrebe/common/addressable.hpp>
 
-class HRAM : public Addressable
+class WRAM : public Addressable
 {
 private:
-    std::array<Byte, 127> mem;
+    std::array<Byte, 8192> mem;
 
 public:
     // contains; returns whether address belongs to this addressable
@@ -17,4 +17,4 @@ public:
     void write(const Word& address, const Byte& data) override;
 };
 
-#endif // LIBGREBE_HRAM_HPP
+#endif // LIBGREBE_WRAM_HPP

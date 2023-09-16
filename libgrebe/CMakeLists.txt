@@ -43,6 +43,8 @@ set(LIBGREBE_SOURCES
         libgrebe/core/mmu/vram.cpp
         libgrebe/core/mmu/hram.hpp
         libgrebe/core/mmu/hram.cpp
+        libgrebe/core/mmu/wram.hpp
+        libgrebe/core/mmu/wram.cpp
         libgrebe/core/mmu/hardware_registers.hpp
         libgrebe/core/mmu/hardware_registers.cpp
         )
@@ -55,6 +57,7 @@ set(LIBGREBE_TEST_SOURCES
         libgrebe/core/cpu/control_unit.test.cpp
         libgrebe/core/cpu/control_unit_loads.test.cpp
         libgrebe/core/cpu/control_unit_alu.test.cpp
+        libgrebe/core/mmu/mmu.test.hpp
         libgrebe/core/mmu/mmu.test.cpp
         libgrebe/core/cpu/registers.test.cpp
         libgrebe/core/cpu/control_unit_bit_ops.test.cpp

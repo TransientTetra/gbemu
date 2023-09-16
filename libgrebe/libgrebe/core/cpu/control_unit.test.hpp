@@ -13,26 +13,6 @@
 
 #include <libgrebe/core/cpu/control_unit.hpp>
 
-class FakeMem : public Addressable
-{
-private:
-    Byte mem[LIBGREBE_MEMORY_SIZE];
-
-public:
-    virtual bool contains(const Word& address) const override
-    {
-        return true;
-    }
-    virtual const Byte& read(const Word& address) const override
-    {
-        return mem[address];
-    }
-    virtual void write(const Word& address, const Byte& data) override
-    {
-        mem[address] = data;
-    }
-};
-
 class ControlUnitTest : public ::testing::Test
 {
 protected:
@@ -41,8 +21,8 @@ protected:
 
     void SetUp() override
     {
-        state.mmu.registerAddressable(std::make_unique<FakeMem>());
-        expectedState.mmu.registerAddressable(std::make_unique<FakeMem>());
+        state.mmu.registerAddressable(std::make_unique<FakeAddressable>());
+        expectedState.mmu.registerAddressable(std::make_unique<FakeAddressable>());
         cpu = std::make_unique<ControlUnit>(state);
     }
 

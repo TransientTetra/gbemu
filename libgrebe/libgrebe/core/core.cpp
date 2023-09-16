@@ -3,6 +3,7 @@
 #include <libgrebe/core/mmu/hardware_registers.hpp>
 #include <libgrebe/core/mmu/hram.hpp>
 #include <libgrebe/core/mmu/vram.hpp>
+#include <libgrebe/core/mmu/wram.hpp>
 #include <libgrebe/memory_loader.hpp>
 #include <memory>
 
@@ -90,8 +91,9 @@ Core::Core(const std::string& bootromPath) : cpu(state), ppu(state)
 
 void Core::initCommon()
 {
-    state.mmu.registerAddressable(std::make_unique<HRAM>());
+    state.mmu.registerAddressable(std::make_unique<WRAM>());
     state.mmu.registerAddressable(std::make_unique<VRAM>());
+    state.mmu.registerAddressable(std::make_unique<HRAM>());
     state.mmu.registerAddressable(std::make_unique<HardwareRegisters>());
 }
 

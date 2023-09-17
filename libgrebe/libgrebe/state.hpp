@@ -3,8 +3,8 @@
 
 #include <cstdint>
 #include <functional>
-#include <libgrebe/core/memory.hpp>
 #include <libgrebe/core/cpu/registers.hpp>
+#include <libgrebe/core/mmu/mmu.hpp>
 #include <queue>
 #include <stack>
 
@@ -48,11 +48,11 @@ public:
     bool ime = false;
     std::stack<Byte> tmp;
     Registers registers;
-    Memory memory;
+    MMU mmu;
 
-    bool operator==(const State& other) const;
-
-    State& operator=(const State& other);
+    State();
+    State(const State&) = delete;
+    State& operator=(const State&) = delete;
 };
 
 #endif // LIBGREBE_STATE_HPP

@@ -18,8 +18,8 @@ void Instructions::LD_BC_d16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.c = state.memory.read(state.registers.pc++); });
-    state.cpuQueue.push([](State& state) { state.registers.b = state.memory.read(state.registers.pc++); });
+    state.cpuQueue.push([](State& state) { state.registers.c = state.mmu.read(state.registers.pc++); });
+    state.cpuQueue.push([](State& state) { state.registers.b = state.mmu.read(state.registers.pc++); });
 }
 
 void Instructions::LD_MEM_AT_BC_A(State& state)
@@ -27,7 +27,7 @@ void Instructions::LD_MEM_AT_BC_A(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(state.registers.bc, state.registers.a); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(state.registers.bc, state.registers.a); });
 }
 
 void Instructions::INC_BC(State& state)
@@ -79,7 +79,7 @@ void Instructions::LD_B_d8(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.b = state.memory.read(state.registers.pc++); });
+    state.cpuQueue.push([](State& state) { state.registers.b = state.mmu.read(state.registers.pc++); });
 }
 
 void Instructions::RLCA(State& state)
@@ -97,21 +97,21 @@ void Instructions::LD_MEM_AT_a16_SP(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
         Byte tmp2 = state.tmp.top();
         state.tmp.pop();
         Byte tmp1 = state.tmp.top();
         state.tmp.push(tmp2);
-        state.memory.write(toWord(tmp1, tmp2), lsb(state.registers.sp));
+        state.mmu.write(toWord(tmp1, tmp2), lsb(state.registers.sp));
     });
     state.cpuQueue.push([](State& state) {
         Byte tmp2 = state.tmp.top();
         state.tmp.pop();
         Byte tmp1 = state.tmp.top();
         state.tmp.pop();
-        state.memory.write(toWord(tmp1, tmp2) + 1, msb(state.registers.sp));
+        state.mmu.write(toWord(tmp1, tmp2) + 1, msb(state.registers.sp));
     });
 }
 
@@ -145,7 +145,7 @@ void Instructions::LD_A_MEM_AT_BC(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.a = state.memory.read(state.registers.bc); });
+    state.cpuQueue.push([](State& state) { state.registers.a = state.mmu.read(state.registers.bc); });
 }
 
 void Instructions::DEC_BC(State& state)
@@ -197,7 +197,7 @@ void Instructions::LD_C_d8(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.c = state.memory.read(state.registers.pc++); });
+    state.cpuQueue.push([](State& state) { state.registers.c = state.mmu.read(state.registers.pc++); });
 }
 
 void Instructions::RRCA(State& state)
@@ -223,8 +223,8 @@ void Instructions::LD_DE_d16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.e = state.memory.read(state.registers.pc++); });
-    state.cpuQueue.push([](State& state) { state.registers.d = state.memory.read(state.registers.pc++); });
+    state.cpuQueue.push([](State& state) { state.registers.e = state.mmu.read(state.registers.pc++); });
+    state.cpuQueue.push([](State& state) { state.registers.d = state.mmu.read(state.registers.pc++); });
 }
 
 void Instructions::LD_MEM_AT_DE_A(State& state)
@@ -232,7 +232,7 @@ void Instructions::LD_MEM_AT_DE_A(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(state.registers.de, state.registers.a); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(state.registers.de, state.registers.a); });
 }
 
 void Instructions::INC_DE(State& state)
@@ -284,7 +284,7 @@ void Instructions::LD_D_d8(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.d = state.memory.read(state.registers.pc++); });
+    state.cpuQueue.push([](State& state) { state.registers.d = state.mmu.read(state.registers.pc++); });
 }
 
 void Instructions::RLA(State& state)
@@ -304,7 +304,7 @@ void Instructions::JR_r8(State& state)
         // fetch
     });
     state.cpuQueue.push(
-        [](State& state) { state.registers.pc += static_cast<SignedByte>(state.memory.read(state.registers.pc++)); });
+        [](State& state) { state.registers.pc += static_cast<SignedByte>(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
         // NOP
     });
@@ -340,7 +340,7 @@ void Instructions::LD_A_MEM_AT_DE(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.a = state.memory.read(state.registers.de); });
+    state.cpuQueue.push([](State& state) { state.registers.a = state.mmu.read(state.registers.de); });
 }
 
 void Instructions::DEC_DE(State& state)
@@ -392,7 +392,7 @@ void Instructions::LD_E_d8(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.e = state.memory.read(state.registers.pc++); });
+    state.cpuQueue.push([](State& state) { state.registers.e = state.mmu.read(state.registers.pc++); });
 }
 
 void Instructions::RRA(State& state)
@@ -412,7 +412,7 @@ void Instructions::JR_NZ_r8(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        SignedByte e = static_cast<SignedByte>(state.memory.read(state.registers.pc++));
+        SignedByte e = static_cast<SignedByte>(state.mmu.read(state.registers.pc++));
         if (!state.registers.getZeroFlag())
         {
             state.registers.pc += e;
@@ -428,8 +428,8 @@ void Instructions::LD_HL_d16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.l = state.memory.read(state.registers.pc++); });
-    state.cpuQueue.push([](State& state) { state.registers.h = state.memory.read(state.registers.pc++); });
+    state.cpuQueue.push([](State& state) { state.registers.l = state.mmu.read(state.registers.pc++); });
+    state.cpuQueue.push([](State& state) { state.registers.h = state.mmu.read(state.registers.pc++); });
 }
 
 void Instructions::LDI_MEM_AT_HL_A(State& state)
@@ -437,7 +437,7 @@ void Instructions::LDI_MEM_AT_HL_A(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(state.registers.hl++, state.registers.a); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(state.registers.hl++, state.registers.a); });
 }
 
 void Instructions::INC_HL(State& state)
@@ -489,7 +489,7 @@ void Instructions::LD_H_d8(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.h = state.memory.read(state.registers.pc++); });
+    state.cpuQueue.push([](State& state) { state.registers.h = state.mmu.read(state.registers.pc++); });
 }
 
 void Instructions::DAA(State& state)
@@ -526,7 +526,7 @@ void Instructions::JR_Z_r8(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        SignedByte e = static_cast<SignedByte>(state.memory.read(state.registers.pc++));
+        SignedByte e = static_cast<SignedByte>(state.mmu.read(state.registers.pc++));
         if (state.registers.getZeroFlag())
         {
             state.registers.pc += e;
@@ -567,7 +567,7 @@ void Instructions::LDI_A_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.a = state.memory.read(state.registers.hl++); });
+    state.cpuQueue.push([](State& state) { state.registers.a = state.mmu.read(state.registers.hl++); });
 }
 
 void Instructions::DEC_HL(State& state)
@@ -619,7 +619,7 @@ void Instructions::LD_L_d8(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.l = state.memory.read(state.registers.pc++); });
+    state.cpuQueue.push([](State& state) { state.registers.l = state.mmu.read(state.registers.pc++); });
 }
 
 void Instructions::CPL(State& state)
@@ -637,7 +637,7 @@ void Instructions::JR_NC_r8(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        SignedByte e = static_cast<SignedByte>(state.memory.read(state.registers.pc++));
+        SignedByte e = static_cast<SignedByte>(state.mmu.read(state.registers.pc++));
         if (!state.registers.getCarryFlag())
         {
             state.registers.pc += e;
@@ -653,9 +653,9 @@ void Instructions::LD_SP_d16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
-        state.registers.sp = toWord(state.tmp.top(), state.memory.read(state.registers.pc++));
+        state.registers.sp = toWord(state.tmp.top(), state.mmu.read(state.registers.pc++));
         state.tmp.pop();
     });
 }
@@ -665,7 +665,7 @@ void Instructions::LDD_MEM_AT_HL_A(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(state.registers.hl--, state.registers.a); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(state.registers.hl--, state.registers.a); });
 }
 
 void Instructions::INC_SP(State& state)
@@ -695,14 +695,14 @@ void Instructions::INC_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
         state.registers.resetZeroFlag();
         state.registers.resetSubtractFlag();
         state.registers.resetHalfCarryFlag();
         if (((state.tmp.top() & 0xf) + 1) > 0xf)
             state.registers.setHalfCarryFlag();
-        state.memory.write(state.registers.hl, state.tmp.top() + 1);
+        state.mmu.write(state.registers.hl, state.tmp.top() + 1);
         if (((state.tmp.top() + 1) & 0xff) == 0)
             state.registers.setZeroFlag();
         state.tmp.pop();
@@ -714,14 +714,14 @@ void Instructions::DEC_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
         state.registers.resetZeroFlag();
         state.registers.setSubtractFlag();
         state.registers.resetHalfCarryFlag();
         if ((((state.tmp.top() & 0xf) - 1) & 0xf) >= (state.tmp.top() & 0xf))
             state.registers.setHalfCarryFlag();
-        state.memory.write(state.registers.hl, state.tmp.top() - 1);
+        state.mmu.write(state.registers.hl, state.tmp.top() - 1);
         if (((state.tmp.top() - 1) & 0xff) == 0)
             state.registers.setZeroFlag();
         state.tmp.pop();
@@ -733,9 +733,9 @@ void Instructions::LD_MEM_AT_HL_d8(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top());
+        state.mmu.write(state.registers.hl, state.tmp.top());
         state.tmp.pop();
     });
 }
@@ -755,7 +755,7 @@ void Instructions::JR_C_r8(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        SignedByte e = static_cast<SignedByte>(state.memory.read(state.registers.pc++));
+        SignedByte e = static_cast<SignedByte>(state.mmu.read(state.registers.pc++));
         if (state.registers.getCarryFlag())
         {
             state.registers.pc += e;
@@ -798,7 +798,7 @@ void Instructions::LDD_A_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.a = state.memory.read(state.registers.hl--); });
+    state.cpuQueue.push([](State& state) { state.registers.a = state.mmu.read(state.registers.hl--); });
 }
 
 void Instructions::DEC_SP(State& state)
@@ -856,7 +856,7 @@ void Instructions::LD_A_d8(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.a = state.memory.read(state.registers.pc++); });
+    state.cpuQueue.push([](State& state) { state.registers.a = state.mmu.read(state.registers.pc++); });
 }
 
 void Instructions::CCF(State& state)
@@ -906,7 +906,7 @@ void Instructions::LD_B_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.b = state.memory.read(state.registers.hl); });
+    state.cpuQueue.push([](State& state) { state.registers.b = state.mmu.read(state.registers.hl); });
 }
 
 void Instructions::LD_B_A(State& state)
@@ -949,7 +949,7 @@ void Instructions::LD_C_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.c = state.memory.read(state.registers.hl); });
+    state.cpuQueue.push([](State& state) { state.registers.c = state.mmu.read(state.registers.hl); });
 }
 
 void Instructions::LD_C_A(State& state)
@@ -992,7 +992,7 @@ void Instructions::LD_D_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.d = state.memory.read(state.registers.hl); });
+    state.cpuQueue.push([](State& state) { state.registers.d = state.mmu.read(state.registers.hl); });
 }
 
 void Instructions::LD_D_A(State& state)
@@ -1035,7 +1035,7 @@ void Instructions::LD_E_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.e = state.memory.read(state.registers.hl); });
+    state.cpuQueue.push([](State& state) { state.registers.e = state.mmu.read(state.registers.hl); });
 }
 
 void Instructions::LD_E_A(State& state)
@@ -1078,7 +1078,7 @@ void Instructions::LD_H_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.h = state.memory.read(state.registers.hl); });
+    state.cpuQueue.push([](State& state) { state.registers.h = state.mmu.read(state.registers.hl); });
 }
 
 void Instructions::LD_H_A(State& state)
@@ -1121,7 +1121,7 @@ void Instructions::LD_L_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.l = state.memory.read(state.registers.hl); });
+    state.cpuQueue.push([](State& state) { state.registers.l = state.mmu.read(state.registers.hl); });
 }
 
 void Instructions::LD_L_A(State& state)
@@ -1134,7 +1134,7 @@ void Instructions::LD_MEM_AT_HL_B(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(state.registers.hl, state.registers.b); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(state.registers.hl, state.registers.b); });
 }
 
 void Instructions::LD_MEM_AT_HL_C(State& state)
@@ -1142,7 +1142,7 @@ void Instructions::LD_MEM_AT_HL_C(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(state.registers.hl, state.registers.c); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(state.registers.hl, state.registers.c); });
 }
 
 void Instructions::LD_MEM_AT_HL_D(State& state)
@@ -1150,7 +1150,7 @@ void Instructions::LD_MEM_AT_HL_D(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(state.registers.hl, state.registers.d); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(state.registers.hl, state.registers.d); });
 }
 
 void Instructions::LD_MEM_AT_HL_E(State& state)
@@ -1158,7 +1158,7 @@ void Instructions::LD_MEM_AT_HL_E(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(state.registers.hl, state.registers.e); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(state.registers.hl, state.registers.e); });
 }
 
 void Instructions::LD_MEM_AT_HL_H(State& state)
@@ -1166,7 +1166,7 @@ void Instructions::LD_MEM_AT_HL_H(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(state.registers.hl, state.registers.h); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(state.registers.hl, state.registers.h); });
 }
 
 void Instructions::LD_MEM_AT_HL_L(State& state)
@@ -1174,14 +1174,14 @@ void Instructions::LD_MEM_AT_HL_L(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(state.registers.hl, state.registers.l); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(state.registers.hl, state.registers.l); });
 }
 
 void Instructions::HALT(State& state)
 {
     state.cpuQueue.push([](State& state) {
-        const Byte& IE = state.memory.read(LIBGREBE_REG_IE);
-        const Byte& IF = state.memory.read(LIBGREBE_REG_IF);
+        const Byte& IE = state.mmu.read(LIBGREBE_REG_IE);
+        const Byte& IF = state.mmu.read(LIBGREBE_REG_IF);
         if (state.ime)
         {
             state.cpuState = CPUState::HALT;
@@ -1201,7 +1201,7 @@ void Instructions::LD_MEM_AT_HL_A(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(state.registers.hl, state.registers.a); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(state.registers.hl, state.registers.a); });
 }
 
 void Instructions::LD_A_B(State& state)
@@ -1239,7 +1239,7 @@ void Instructions::LD_A_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.a = state.memory.read(state.registers.hl); });
+    state.cpuQueue.push([](State& state) { state.registers.a = state.mmu.read(state.registers.hl); });
 }
 
 void Instructions::LD_A_A(State& state)
@@ -1338,11 +1338,11 @@ void Instructions::ADD_A_MEM_AT_HL(State& state)
     });
     state.cpuQueue.push([](State& state) {
         state.registers.clearFlags();
-        if (((state.registers.a & 0xf) + (state.memory.read(state.registers.hl) & 0xf)) & 0x10)
+        if (((state.registers.a & 0xf) + (state.mmu.read(state.registers.hl) & 0xf)) & 0x10)
             state.registers.setHalfCarryFlag();
-        if (((state.registers.a & 0xff) + (state.memory.read(state.registers.hl) & 0xff)) & 0x100)
+        if (((state.registers.a & 0xff) + (state.mmu.read(state.registers.hl) & 0xff)) & 0x100)
             state.registers.setCarryFlag();
-        state.registers.a += state.memory.read(state.registers.hl);
+        state.registers.a += state.mmu.read(state.registers.hl);
         if (state.registers.a == 0)
             state.registers.setZeroFlag();
     });
@@ -1460,11 +1460,11 @@ void Instructions::ADC_A_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         Byte carry = state.registers.getCarryFlag();
         state.registers.clearFlags();
-        if (((state.registers.a & 0xf) + (state.memory.read(state.registers.hl) & 0xf) + (carry & 0xf)) & 0x10)
+        if (((state.registers.a & 0xf) + (state.mmu.read(state.registers.hl) & 0xf) + (carry & 0xf)) & 0x10)
             state.registers.setHalfCarryFlag();
-        if (((state.registers.a & 0xff) + (state.memory.read(state.registers.hl) & 0xff) + (carry & 0xff)) & 0x100)
+        if (((state.registers.a & 0xff) + (state.mmu.read(state.registers.hl) & 0xff) + (carry & 0xff)) & 0x100)
             state.registers.setCarryFlag();
-        state.registers.a += state.memory.read(state.registers.hl) + carry;
+        state.registers.a += state.mmu.read(state.registers.hl) + carry;
         if (state.registers.a == 0)
             state.registers.setZeroFlag();
     });
@@ -1583,11 +1583,11 @@ void Instructions::SUB_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         state.registers.clearFlags();
         state.registers.setSubtractFlag();
-        if (((state.registers.a & 0xf) - (state.memory.read(state.registers.hl) & 0xf)) & 0x10)
+        if (((state.registers.a & 0xf) - (state.mmu.read(state.registers.hl) & 0xf)) & 0x10)
             state.registers.setHalfCarryFlag();
-        if (((state.registers.a & 0xff) - (state.memory.read(state.registers.hl) & 0xff)) & 0x100)
+        if (((state.registers.a & 0xff) - (state.mmu.read(state.registers.hl) & 0xff)) & 0x100)
             state.registers.setCarryFlag();
-        state.registers.a -= state.memory.read(state.registers.hl);
+        state.registers.a -= state.mmu.read(state.registers.hl);
         if (state.registers.a == 0)
             state.registers.setZeroFlag();
     });
@@ -1716,7 +1716,7 @@ void Instructions::SBC_A_MEM_AT_HL(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.hl);
+        const Byte& operand = state.mmu.read(state.registers.hl);
         Byte carry = state.registers.getCarryFlag();
         state.registers.clearFlags();
         state.registers.setSubtractFlag();
@@ -1825,7 +1825,7 @@ void Instructions::AND_MEM_AT_HL(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.hl);
+        const Byte& operand = state.mmu.read(state.registers.hl);
         state.registers.a &= operand;
         state.registers.clearFlags();
         state.registers.setHalfCarryFlag();
@@ -1918,7 +1918,7 @@ void Instructions::XOR_MEM_AT_HL(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.hl);
+        const Byte& operand = state.mmu.read(state.registers.hl);
         state.registers.a ^= operand;
         state.registers.clearFlags();
         if (state.registers.a == 0)
@@ -2009,7 +2009,7 @@ void Instructions::OR_MEM_AT_HL(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.hl);
+        const Byte& operand = state.mmu.read(state.registers.hl);
         state.registers.a |= operand;
         state.registers.clearFlags();
         if (state.registers.a == 0)
@@ -2124,7 +2124,7 @@ void Instructions::CP_MEM_AT_HL(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.hl);
+        const Byte& operand = state.mmu.read(state.registers.hl);
         state.registers.clearFlags();
         state.registers.setSubtractFlag();
         if (((state.registers.a & 0xf) - (operand & 0xf)) & 0x10)
@@ -2160,9 +2160,9 @@ void Instructions::RET_NZ(State& state)
         // NOP
         if (!state.registers.getZeroFlag())
         {
-            state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.sp++)); });
+            state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.sp++)); });
             state.cpuQueue.push([](State& state) {
-                state.registers.pc = toWord(state.tmp.top(), state.memory.read(state.registers.sp++));
+                state.registers.pc = toWord(state.tmp.top(), state.mmu.read(state.registers.sp++));
                 state.tmp.pop();
             });
             state.cpuQueue.push([](State& state) {
@@ -2177,9 +2177,9 @@ void Instructions::POP_BC(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.sp++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.sp++)); });
     state.cpuQueue.push([](State& state) {
-        state.registers.bc = toWord(state.tmp.top(), state.memory.read(state.registers.sp++));
+        state.registers.bc = toWord(state.tmp.top(), state.mmu.read(state.registers.sp++));
         state.tmp.pop();
     });
 }
@@ -2189,9 +2189,9 @@ void Instructions::JP_NZ_a16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
-        Byte d = state.memory.read(state.registers.pc++);
+        Byte d = state.mmu.read(state.registers.pc++);
         if (!state.registers.getZeroFlag())
         {
             state.registers.pc = toWord(state.tmp.top(), d);
@@ -2210,9 +2210,9 @@ void Instructions::JP_a16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
-        state.registers.pc = toWord(state.tmp.top(), state.memory.read(state.registers.pc++));
+        state.registers.pc = toWord(state.tmp.top(), state.mmu.read(state.registers.pc++));
         state.tmp.pop();
     });
     state.cpuQueue.push([](State& state) {
@@ -2225,18 +2225,18 @@ void Instructions::CALL_NZ_a16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
-        state.tmp.push(state.memory.read(state.registers.pc++));
+        state.tmp.push(state.mmu.read(state.registers.pc++));
         if (!state.registers.getZeroFlag())
         {
             state.cpuQueue.push([](State& state) {
                 // NOP
             });
             state.cpuQueue.push(
-                [](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.pc)); });
+                [](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.pc)); });
             state.cpuQueue.push([](State& state) {
-                state.memory.write(--state.registers.sp, lsb(state.registers.pc));
+                state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
                 Byte tmp2 = state.tmp.top();
                 state.tmp.pop();
                 Byte tmp1 = state.tmp.top();
@@ -2260,8 +2260,8 @@ void Instructions::PUSH_BC(State& state)
     state.cpuQueue.push([](State& state) {
         // NOP
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.bc)); });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, lsb(state.registers.bc)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.bc)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, lsb(state.registers.bc)); });
 }
 
 void Instructions::ADD_A_d8(State& state)
@@ -2270,7 +2270,7 @@ void Instructions::ADD_A_d8(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.pc);
+        const Byte& operand = state.mmu.read(state.registers.pc);
         state.registers.clearFlags();
         if (((state.registers.a & 0xf) + (operand & 0xf)) & 0x10)
             state.registers.setHalfCarryFlag();
@@ -2291,9 +2291,9 @@ void Instructions::RST_00H(State& state)
     state.cpuQueue.push([](State& state) {
         // NOP
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.pc)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.pc)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(--state.registers.sp, lsb(state.registers.pc));
+        state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
         state.registers.pc = 0;
     });
 }
@@ -2307,9 +2307,9 @@ void Instructions::RET_Z(State& state)
         // NOP
         if (state.registers.getZeroFlag())
         {
-            state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.sp++)); });
+            state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.sp++)); });
             state.cpuQueue.push([](State& state) {
-                state.registers.pc = toWord(state.tmp.top(), state.memory.read(state.registers.sp++));
+                state.registers.pc = toWord(state.tmp.top(), state.mmu.read(state.registers.sp++));
                 state.tmp.pop();
             });
             state.cpuQueue.push([](State& state) {
@@ -2324,9 +2324,9 @@ void Instructions::RET(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.sp++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.sp++)); });
     state.cpuQueue.push([](State& state) {
-        state.registers.pc = toWord(state.tmp.top(), state.memory.read(state.registers.sp++));
+        state.registers.pc = toWord(state.tmp.top(), state.mmu.read(state.registers.sp++));
         state.tmp.pop();
     });
     state.cpuQueue.push([](State& state) {
@@ -2339,9 +2339,9 @@ void Instructions::JP_Z_a16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
-        Byte d = state.memory.read(state.registers.pc++);
+        Byte d = state.mmu.read(state.registers.pc++);
         if (state.registers.getZeroFlag())
         {
             state.registers.pc = toWord(state.tmp.top(), d);
@@ -2365,18 +2365,18 @@ void Instructions::CALL_Z_a16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
-        state.tmp.push(state.memory.read(state.registers.pc++));
+        state.tmp.push(state.mmu.read(state.registers.pc++));
         if (state.registers.getZeroFlag())
         {
             state.cpuQueue.push([](State& state) {
                 // NOP
             });
             state.cpuQueue.push(
-                [](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.pc)); });
+                [](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.pc)); });
             state.cpuQueue.push([](State& state) {
-                state.memory.write(--state.registers.sp, lsb(state.registers.pc));
+                state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
 
                 Byte tmp2 = state.tmp.top();
                 state.tmp.pop();
@@ -2398,14 +2398,14 @@ void Instructions::CALL_a16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
         // NOP
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.pc)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.pc)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(--state.registers.sp, lsb(state.registers.pc));
+        state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
 
         Byte tmp2 = state.tmp.top();
         state.tmp.pop();
@@ -2422,7 +2422,7 @@ void Instructions::ADC_A_d8(State& state)
     });
     state.cpuQueue.push([](State& state) {
         Byte carry = state.registers.getCarryFlag();
-        const Byte& operand = state.memory.read(state.registers.pc);
+        const Byte& operand = state.mmu.read(state.registers.pc);
         state.registers.clearFlags();
         if (((state.registers.a & 0xf) + (operand & 0xf) + (carry & 0xf)) & 0x10)
             state.registers.setHalfCarryFlag();
@@ -2443,9 +2443,9 @@ void Instructions::RST_08H(State& state)
     state.cpuQueue.push([](State& state) {
         // NOP
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.pc)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.pc)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(--state.registers.sp, lsb(state.registers.pc));
+        state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
         state.registers.pc = 0x08;
     });
 }
@@ -2459,9 +2459,9 @@ void Instructions::RET_NC(State& state)
         // NOP
         if (!state.registers.getCarryFlag())
         {
-            state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.sp++)); });
+            state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.sp++)); });
             state.cpuQueue.push([](State& state) {
-                state.registers.pc = toWord(state.tmp.top(), state.memory.read(state.registers.sp++));
+                state.registers.pc = toWord(state.tmp.top(), state.mmu.read(state.registers.sp++));
                 state.tmp.pop();
             });
             state.cpuQueue.push([](State& state) {
@@ -2476,9 +2476,9 @@ void Instructions::POP_DE(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.sp++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.sp++)); });
     state.cpuQueue.push([](State& state) {
-        state.registers.de = toWord(state.tmp.top(), state.memory.read(state.registers.sp++));
+        state.registers.de = toWord(state.tmp.top(), state.mmu.read(state.registers.sp++));
         state.tmp.pop();
     });
 }
@@ -2488,9 +2488,9 @@ void Instructions::JP_NC_a16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
-        Byte d = state.memory.read(state.registers.pc++);
+        Byte d = state.mmu.read(state.registers.pc++);
         if (!state.registers.getCarryFlag())
         {
             state.registers.pc = toWord(state.tmp.top(), d);
@@ -2509,18 +2509,18 @@ void Instructions::CALL_NC_a16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
-        state.tmp.push(state.memory.read(state.registers.pc++));
+        state.tmp.push(state.mmu.read(state.registers.pc++));
         if (!state.registers.getCarryFlag())
         {
             state.cpuQueue.push([](State& state) {
                 // NOP
             });
             state.cpuQueue.push(
-                [](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.pc)); });
+                [](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.pc)); });
             state.cpuQueue.push([](State& state) {
-                state.memory.write(--state.registers.sp, lsb(state.registers.pc));
+                state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
 
                 Byte tmp2 = state.tmp.top();
                 state.tmp.pop();
@@ -2545,8 +2545,8 @@ void Instructions::PUSH_DE(State& state)
     state.cpuQueue.push([](State& state) {
         // NOP
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.de)); });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, lsb(state.registers.de)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.de)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, lsb(state.registers.de)); });
 }
 
 void Instructions::SUB_d8(State& state)
@@ -2557,7 +2557,7 @@ void Instructions::SUB_d8(State& state)
     state.cpuQueue.push([](State& state) {
         state.registers.clearFlags();
         state.registers.setSubtractFlag();
-        const Byte& operand = state.memory.read(state.registers.pc);
+        const Byte& operand = state.mmu.read(state.registers.pc);
         if (((state.registers.a & 0xf) - (operand & 0xf)) & 0x10)
             state.registers.setHalfCarryFlag();
         if (((state.registers.a & 0xff) - (operand & 0xff)) & 0x100)
@@ -2577,9 +2577,9 @@ void Instructions::RST_10H(State& state)
     state.cpuQueue.push([](State& state) {
         // NOP
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.pc)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.pc)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(--state.registers.sp, lsb(state.registers.pc));
+        state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
         state.registers.pc = 0x10;
     });
 }
@@ -2593,9 +2593,9 @@ void Instructions::RET_C(State& state)
         // NOP
         if (state.registers.getCarryFlag())
         {
-            state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.sp++)); });
+            state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.sp++)); });
             state.cpuQueue.push([](State& state) {
-                state.registers.pc = toWord(state.tmp.top(), state.memory.read(state.registers.sp++));
+                state.registers.pc = toWord(state.tmp.top(), state.mmu.read(state.registers.sp++));
                 state.tmp.pop();
             });
             state.cpuQueue.push([](State& state) {
@@ -2610,9 +2610,9 @@ void Instructions::RETI(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.sp++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.sp++)); });
     state.cpuQueue.push([](State& state) {
-        state.registers.pc = toWord(state.tmp.top(), state.memory.read(state.registers.sp++));
+        state.registers.pc = toWord(state.tmp.top(), state.mmu.read(state.registers.sp++));
         state.tmp.pop();
         state.ime = true;
     });
@@ -2626,9 +2626,9 @@ void Instructions::JP_C_a16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
-        Byte d = state.memory.read(state.registers.pc++);
+        Byte d = state.mmu.read(state.registers.pc++);
         if (state.registers.getCarryFlag())
         {
             state.registers.pc = toWord(state.tmp.top(), d);
@@ -2647,18 +2647,18 @@ void Instructions::CALL_C_a16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
-        state.tmp.push(state.memory.read(state.registers.pc++));
+        state.tmp.push(state.mmu.read(state.registers.pc++));
         if (state.registers.getCarryFlag())
         {
             state.cpuQueue.push([](State& state) {
                 // NOP
             });
             state.cpuQueue.push(
-                [](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.pc)); });
+                [](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.pc)); });
             state.cpuQueue.push([](State& state) {
-                state.memory.write(--state.registers.sp, lsb(state.registers.pc));
+                state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
 
                 Byte tmp2 = state.tmp.top();
                 state.tmp.pop();
@@ -2681,7 +2681,7 @@ void Instructions::SBC_A_d8(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.pc);
+        const Byte& operand = state.mmu.read(state.registers.pc);
         Byte carry = state.registers.getCarryFlag();
         state.registers.clearFlags();
         state.registers.setSubtractFlag();
@@ -2704,9 +2704,9 @@ void Instructions::RST_18H(State& state)
     state.cpuQueue.push([](State& state) {
         // NOP
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.pc)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.pc)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(--state.registers.sp, lsb(state.registers.pc));
+        state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
         state.registers.pc = 0x18;
     });
 }
@@ -2716,9 +2716,9 @@ void Instructions::LDH_MEM_AT_a8_A(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(0xff00 | state.tmp.top(), state.registers.a);
+        state.mmu.write(0xff00 | state.tmp.top(), state.registers.a);
         state.tmp.pop();
     });
 }
@@ -2728,9 +2728,9 @@ void Instructions::POP_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.sp++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.sp++)); });
     state.cpuQueue.push([](State& state) {
-        state.registers.hl = toWord(state.tmp.top(), state.memory.read(state.registers.sp++));
+        state.registers.hl = toWord(state.tmp.top(), state.mmu.read(state.registers.sp++));
         state.tmp.pop();
     });
 }
@@ -2740,7 +2740,7 @@ void Instructions::LD_MEM_AT_C_A(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(0xff00 | state.registers.c, state.registers.a); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(0xff00 | state.registers.c, state.registers.a); });
 }
 
 void Instructions::PUSH_HL(State& state)
@@ -2751,8 +2751,8 @@ void Instructions::PUSH_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // NOP
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.hl)); });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, lsb(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, lsb(state.registers.hl)); });
 }
 
 void Instructions::AND_d8(State& state)
@@ -2761,7 +2761,7 @@ void Instructions::AND_d8(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.pc);
+        const Byte& operand = state.mmu.read(state.registers.pc);
         state.registers.a &= operand;
         state.registers.clearFlags();
         state.registers.setHalfCarryFlag();
@@ -2779,9 +2779,9 @@ void Instructions::RST_20H(State& state)
     state.cpuQueue.push([](State& state) {
         // NOP
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.pc)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.pc)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(--state.registers.sp, lsb(state.registers.pc));
+        state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
         state.registers.pc = 0x20;
     });
 }
@@ -2793,7 +2793,7 @@ void Instructions::ADD_SP_r8(State& state)
         // fetch
     });
     state.cpuQueue.push(
-        [](State& state) { state.tmp.push(static_cast<SignedByte>(state.memory.read(state.registers.pc++))); });
+        [](State& state) { state.tmp.push(static_cast<SignedByte>(state.mmu.read(state.registers.pc++))); });
     state.cpuQueue.push([](State& state) {
         state.registers.clearFlags();
         const SignedByte& e = static_cast<SignedByte>(state.tmp.top());
@@ -2829,14 +2829,14 @@ void Instructions::LD_MEM_AT_a16_A(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
         Byte tmp2 = state.tmp.top();
         state.tmp.pop();
         Byte tmp1 = state.tmp.top();
         state.tmp.pop();
-        state.memory.write(toWord(tmp1, tmp2), state.registers.a);
+        state.mmu.write(toWord(tmp1, tmp2), state.registers.a);
     });
 }
 
@@ -2846,7 +2846,7 @@ void Instructions::XOR_d8(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.pc);
+        const Byte& operand = state.mmu.read(state.registers.pc);
         state.registers.a ^= operand;
         state.registers.clearFlags();
         if (state.registers.a == 0)
@@ -2863,9 +2863,9 @@ void Instructions::RST_28H(State& state)
     state.cpuQueue.push([](State& state) {
         // NOP
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.pc)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.pc)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(--state.registers.sp, lsb(state.registers.pc));
+        state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
         state.registers.pc = 0x28;
     });
 }
@@ -2875,9 +2875,9 @@ void Instructions::LDH_A_MEM_AT_a8(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
-        state.registers.a = state.memory.read(0xff00 | state.tmp.top());
+        state.registers.a = state.mmu.read(0xff00 | state.tmp.top());
         state.tmp.pop();
     });
 }
@@ -2887,9 +2887,9 @@ void Instructions::POP_AF(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.sp++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.sp++)); });
     state.cpuQueue.push([](State& state) {
-        state.registers.af = toWord(state.tmp.top(), state.memory.read(state.registers.sp++));
+        state.registers.af = toWord(state.tmp.top(), state.mmu.read(state.registers.sp++));
         state.tmp.pop();
     });
 }
@@ -2899,7 +2899,7 @@ void Instructions::LD_A_MEM_AT_C(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.registers.a = state.memory.read(0xff00 | state.registers.c); });
+    state.cpuQueue.push([](State& state) { state.registers.a = state.mmu.read(0xff00 | state.registers.c); });
 }
 
 void Instructions::DI(State& state)
@@ -2918,8 +2918,8 @@ void Instructions::PUSH_AF(State& state)
     state.cpuQueue.push([](State& state) {
         // NOP
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.af)); });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, lsb(state.registers.af)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.af)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, lsb(state.registers.af)); });
 }
 
 void Instructions::OR_d8(State& state)
@@ -2928,7 +2928,7 @@ void Instructions::OR_d8(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.pc);
+        const Byte& operand = state.mmu.read(state.registers.pc);
         state.registers.a |= operand;
         state.registers.clearFlags();
         if (state.registers.a == 0)
@@ -2945,9 +2945,9 @@ void Instructions::RST_30H(State& state)
     state.cpuQueue.push([](State& state) {
         // NOP
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.pc)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.pc)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(--state.registers.sp, lsb(state.registers.pc));
+        state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
         state.registers.pc = 0x30;
     });
 }
@@ -2959,7 +2959,7 @@ void Instructions::LD_HL_SP_r8(State& state)
         // fetch
     });
     state.cpuQueue.push(
-        [](State& state) { state.tmp.push(static_cast<SignedByte>(state.memory.read(state.registers.pc++))); });
+        [](State& state) { state.tmp.push(static_cast<SignedByte>(state.mmu.read(state.registers.pc++))); });
     state.cpuQueue.push([](State& state) {
         state.registers.clearFlags();
         const SignedByte& e = static_cast<SignedByte>(state.tmp.top());
@@ -2995,14 +2995,14 @@ void Instructions::LD_A_MEM_AT_a16(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.pc++)); });
     state.cpuQueue.push([](State& state) {
         Byte tmp2 = state.tmp.top();
         state.tmp.pop();
         Byte tmp1 = state.tmp.top();
         state.tmp.pop();
-        state.registers.a = state.memory.read(toWord(tmp1, tmp2));
+        state.registers.a = state.mmu.read(toWord(tmp1, tmp2));
     });
 }
 
@@ -3017,7 +3017,7 @@ void Instructions::CP_d8(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.pc);
+        const Byte& operand = state.mmu.read(state.registers.pc);
         state.registers.clearFlags();
         state.registers.setSubtractFlag();
         if (((state.registers.a & 0xf) - (operand & 0xf)) & 0x10)
@@ -3038,9 +3038,9 @@ void Instructions::RST_38H(State& state)
     state.cpuQueue.push([](State& state) {
         // NOP
     });
-    state.cpuQueue.push([](State& state) { state.memory.write(--state.registers.sp, msb(state.registers.pc)); });
+    state.cpuQueue.push([](State& state) { state.mmu.write(--state.registers.sp, msb(state.registers.pc)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(--state.registers.sp, lsb(state.registers.pc));
+        state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
         state.registers.pc = 0x38;
     });
 }
@@ -3129,14 +3129,14 @@ void Instructions::RLC_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
         state.registers.clearFlags();
         Byte& operand = state.tmp.top();
         if (operand & 0b10000000)
             state.registers.setCarryFlag();
         operand = operand << 1 | (operand >> 7);
-        state.memory.write(state.registers.hl, operand);
+        state.mmu.write(state.registers.hl, operand);
         if (operand == 0)
             state.registers.setZeroFlag();
         state.tmp.pop();
@@ -3239,7 +3239,7 @@ void Instructions::RRC_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
         state.registers.clearFlags();
         Byte& operand = state.tmp.top();
@@ -3247,7 +3247,7 @@ void Instructions::RRC_MEM_AT_HL(State& state)
         if (operand & 1)
             state.registers.setCarryFlag();
         operand = operand >> 1 | (operand << 7);
-        state.memory.write(state.registers.hl, operand);
+        state.mmu.write(state.registers.hl, operand);
         if (operand == 0)
             state.registers.setZeroFlag();
         state.tmp.pop();
@@ -3356,7 +3356,7 @@ void Instructions::RL_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
         bool carry = state.registers.getCarryFlag();
         Byte& operand = state.tmp.top();
@@ -3364,7 +3364,7 @@ void Instructions::RL_MEM_AT_HL(State& state)
         if (operand & 0b10000000)
             state.registers.setCarryFlag();
         operand = operand << 1 | carry;
-        state.memory.write(state.registers.hl, operand);
+        state.mmu.write(state.registers.hl, operand);
         if (operand == 0)
             state.registers.setZeroFlag();
         state.tmp.pop();
@@ -3474,7 +3474,7 @@ void Instructions::RR_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
         bool carry = state.registers.getCarryFlag();
         Byte& operand = state.tmp.top();
@@ -3482,7 +3482,7 @@ void Instructions::RR_MEM_AT_HL(State& state)
         if (operand & 1)
             state.registers.setCarryFlag();
         operand = operand >> 1 | carry << 7;
-        state.memory.write(state.registers.hl, operand);
+        state.mmu.write(state.registers.hl, operand);
         if (operand == 0)
             state.registers.setZeroFlag();
         state.tmp.pop();
@@ -3586,14 +3586,14 @@ void Instructions::SLA_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
         Byte& operand = state.tmp.top();
         state.registers.clearFlags();
         if (operand & 0b10000000)
             state.registers.setCarryFlag();
         operand <<= 1;
-        state.memory.write(state.registers.hl, operand);
+        state.mmu.write(state.registers.hl, operand);
         if (operand == 0)
             state.registers.setZeroFlag();
         state.tmp.pop();
@@ -3696,14 +3696,14 @@ void Instructions::SRA_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
         Byte& operand = state.tmp.top();
         state.registers.clearFlags();
         if (operand & 1)
             state.registers.setCarryFlag();
         operand = operand >> 1 | operand & 0b10000000;
-        state.memory.write(state.registers.hl, operand);
+        state.mmu.write(state.registers.hl, operand);
         if (operand == 0)
             state.registers.setZeroFlag();
         state.tmp.pop();
@@ -3794,12 +3794,12 @@ void Instructions::SWAP_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
         Byte& operand = state.tmp.top();
         operand = operand >> 4 | operand << 4;
         state.registers.clearFlags();
-        state.memory.write(state.registers.hl, operand);
+        state.mmu.write(state.registers.hl, operand);
         if (operand == 0)
             state.registers.setZeroFlag();
         state.tmp.pop();
@@ -3900,14 +3900,14 @@ void Instructions::SRL_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
         Byte& operand = state.tmp.top();
         state.registers.clearFlags();
         if (operand & 1)
             state.registers.setCarryFlag();
         operand >>= 1;
-        state.memory.write(state.registers.hl, operand);
+        state.mmu.write(state.registers.hl, operand);
         if (operand == 0)
             state.registers.setZeroFlag();
         state.tmp.pop();
@@ -4005,7 +4005,7 @@ void Instructions::BIT_0_MEM_AT_HL(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.hl);
+        const Byte& operand = state.mmu.read(state.registers.hl);
         state.registers.resetSubtractFlag();
         state.registers.setHalfCarryFlag();
         state.registers.setZeroFlag();
@@ -4104,7 +4104,7 @@ void Instructions::BIT_1_MEM_AT_HL(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.hl);
+        const Byte& operand = state.mmu.read(state.registers.hl);
         state.registers.resetSubtractFlag();
         state.registers.setHalfCarryFlag();
         state.registers.setZeroFlag();
@@ -4203,7 +4203,7 @@ void Instructions::BIT_2_MEM_AT_HL(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.hl);
+        const Byte& operand = state.mmu.read(state.registers.hl);
         state.registers.resetSubtractFlag();
         state.registers.setHalfCarryFlag();
         state.registers.setZeroFlag();
@@ -4302,7 +4302,7 @@ void Instructions::BIT_3_MEM_AT_HL(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.hl);
+        const Byte& operand = state.mmu.read(state.registers.hl);
         state.registers.resetSubtractFlag();
         state.registers.setHalfCarryFlag();
         state.registers.setZeroFlag();
@@ -4401,7 +4401,7 @@ void Instructions::BIT_4_MEM_AT_HL(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.hl);
+        const Byte& operand = state.mmu.read(state.registers.hl);
         state.registers.resetSubtractFlag();
         state.registers.setHalfCarryFlag();
         state.registers.setZeroFlag();
@@ -4500,7 +4500,7 @@ void Instructions::BIT_5_MEM_AT_HL(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.hl);
+        const Byte& operand = state.mmu.read(state.registers.hl);
         state.registers.resetSubtractFlag();
         state.registers.setHalfCarryFlag();
         state.registers.setZeroFlag();
@@ -4599,7 +4599,7 @@ void Instructions::BIT_6_MEM_AT_HL(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.hl);
+        const Byte& operand = state.mmu.read(state.registers.hl);
         state.registers.resetSubtractFlag();
         state.registers.setHalfCarryFlag();
         state.registers.setZeroFlag();
@@ -4698,7 +4698,7 @@ void Instructions::BIT_7_MEM_AT_HL(State& state)
         // fetch
     });
     state.cpuQueue.push([](State& state) {
-        const Byte& operand = state.memory.read(state.registers.hl);
+        const Byte& operand = state.mmu.read(state.registers.hl);
         state.registers.resetSubtractFlag();
         state.registers.setHalfCarryFlag();
         state.registers.setZeroFlag();
@@ -4754,9 +4754,9 @@ void Instructions::RES_0_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() & ~(1 << 0));
+        state.mmu.write(state.registers.hl, state.tmp.top() & ~(1 << 0));
         state.tmp.pop();
     });
 }
@@ -4801,9 +4801,9 @@ void Instructions::RES_1_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() & ~(1 << 1));
+        state.mmu.write(state.registers.hl, state.tmp.top() & ~(1 << 1));
         state.tmp.pop();
     });
 }
@@ -4848,9 +4848,9 @@ void Instructions::RES_2_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() & ~(1 << 2));
+        state.mmu.write(state.registers.hl, state.tmp.top() & ~(1 << 2));
         state.tmp.pop();
     });
 }
@@ -4895,9 +4895,9 @@ void Instructions::RES_3_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() & ~(1 << 3));
+        state.mmu.write(state.registers.hl, state.tmp.top() & ~(1 << 3));
         state.tmp.pop();
     });
 }
@@ -4942,9 +4942,9 @@ void Instructions::RES_4_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() & ~(1 << 4));
+        state.mmu.write(state.registers.hl, state.tmp.top() & ~(1 << 4));
         state.tmp.pop();
     });
 }
@@ -4989,9 +4989,9 @@ void Instructions::RES_5_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() & ~(1 << 5));
+        state.mmu.write(state.registers.hl, state.tmp.top() & ~(1 << 5));
         state.tmp.pop();
     });
 }
@@ -5036,9 +5036,9 @@ void Instructions::RES_6_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() & ~(1 << 6));
+        state.mmu.write(state.registers.hl, state.tmp.top() & ~(1 << 6));
         state.tmp.pop();
     });
 }
@@ -5083,9 +5083,9 @@ void Instructions::RES_7_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() & ~(1 << 7));
+        state.mmu.write(state.registers.hl, state.tmp.top() & ~(1 << 7));
         state.tmp.pop();
     });
 }
@@ -5130,9 +5130,9 @@ void Instructions::SET_0_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() | (1 << 0));
+        state.mmu.write(state.registers.hl, state.tmp.top() | (1 << 0));
         state.tmp.pop();
     });
 }
@@ -5177,9 +5177,9 @@ void Instructions::SET_1_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() | (1 << 1));
+        state.mmu.write(state.registers.hl, state.tmp.top() | (1 << 1));
         state.tmp.pop();
     });
 }
@@ -5224,9 +5224,9 @@ void Instructions::SET_2_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() | (1 << 2));
+        state.mmu.write(state.registers.hl, state.tmp.top() | (1 << 2));
         state.tmp.pop();
     });
 }
@@ -5271,9 +5271,9 @@ void Instructions::SET_3_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() | (1 << 3));
+        state.mmu.write(state.registers.hl, state.tmp.top() | (1 << 3));
         state.tmp.pop();
     });
 }
@@ -5318,9 +5318,9 @@ void Instructions::SET_4_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() | (1 << 4));
+        state.mmu.write(state.registers.hl, state.tmp.top() | (1 << 4));
         state.tmp.pop();
     });
 }
@@ -5365,9 +5365,9 @@ void Instructions::SET_5_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() | (1 << 5));
+        state.mmu.write(state.registers.hl, state.tmp.top() | (1 << 5));
         state.tmp.pop();
     });
 }
@@ -5412,9 +5412,9 @@ void Instructions::SET_6_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() | (1 << 6));
+        state.mmu.write(state.registers.hl, state.tmp.top() | (1 << 6));
         state.tmp.pop();
     });
 }
@@ -5459,9 +5459,9 @@ void Instructions::SET_7_MEM_AT_HL(State& state)
     state.cpuQueue.push([](State& state) {
         // fetch
     });
-    state.cpuQueue.push([](State& state) { state.tmp.push(state.memory.read(state.registers.hl)); });
+    state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.hl)); });
     state.cpuQueue.push([](State& state) {
-        state.memory.write(state.registers.hl, state.tmp.top() | (1 << 7));
+        state.mmu.write(state.registers.hl, state.tmp.top() | (1 << 7));
         state.tmp.pop();
     });
 }

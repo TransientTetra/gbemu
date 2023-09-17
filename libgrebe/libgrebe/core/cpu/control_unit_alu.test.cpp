@@ -14,7 +14,7 @@ void OpcodesAluTest::incTest(Byte opcode, Byte& reg, Byte& expectedReg)
     expectedState.registers.resetSubtractFlag();
     expectedState.registers.resetHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     reg = 0xff;
@@ -30,7 +30,7 @@ void OpcodesAluTest::incTest(Byte opcode, Byte& reg, Byte& expectedReg)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     reg = 0x0f;
@@ -45,7 +45,7 @@ void OpcodesAluTest::incTest(Byte opcode, Byte& reg, Byte& expectedReg)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 void OpcodesAluTest::decTest(Byte opcode, Byte& reg, Byte& expectedReg)
@@ -63,7 +63,7 @@ void OpcodesAluTest::decTest(Byte opcode, Byte& reg, Byte& expectedReg)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     reg = 1;
@@ -79,7 +79,7 @@ void OpcodesAluTest::decTest(Byte opcode, Byte& reg, Byte& expectedReg)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     reg = 0x10;
@@ -95,7 +95,7 @@ void OpcodesAluTest::decTest(Byte opcode, Byte& reg, Byte& expectedReg)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 void OpcodesAluTest::addTest(Byte opcode, Byte& operand)
@@ -112,7 +112,7 @@ void OpcodesAluTest::addTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xff;
@@ -128,7 +128,7 @@ void OpcodesAluTest::addTest(Byte opcode, Byte& operand)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xff;
@@ -143,7 +143,7 @@ void OpcodesAluTest::addTest(Byte opcode, Byte& operand)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x0f;
@@ -157,7 +157,7 @@ void OpcodesAluTest::addTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xf0;
@@ -171,7 +171,7 @@ void OpcodesAluTest::addTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
@@ -189,7 +189,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -206,7 +206,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -221,7 +221,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -236,7 +236,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -251,7 +251,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
     expectedState.registers.a = 1;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -268,7 +268,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -284,7 +284,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -301,7 +301,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -317,7 +317,7 @@ void OpcodesAluTest::adcTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 void OpcodesAluTest::subTest(Byte opcode, Byte& operand)
@@ -335,7 +335,7 @@ void OpcodesAluTest::subTest(Byte opcode, Byte& operand)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 2;
@@ -350,7 +350,7 @@ void OpcodesAluTest::subTest(Byte opcode, Byte& operand)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 5;
@@ -364,7 +364,7 @@ void OpcodesAluTest::subTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x00;
@@ -380,7 +380,7 @@ void OpcodesAluTest::subTest(Byte opcode, Byte& operand)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x10;
@@ -395,7 +395,7 @@ void OpcodesAluTest::subTest(Byte opcode, Byte& operand)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 1;
@@ -410,7 +410,7 @@ void OpcodesAluTest::subTest(Byte opcode, Byte& operand)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
@@ -429,7 +429,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -445,7 +445,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -460,7 +460,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -477,7 +477,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -493,7 +493,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -509,7 +509,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -526,7 +526,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -543,7 +543,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -559,7 +559,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -577,7 +577,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -594,7 +594,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -611,7 +611,7 @@ void OpcodesAluTest::sbcTest(Byte opcode, Byte& operand)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 void OpcodesAluTest::andTest(Byte opcode, Byte& operand)
@@ -629,7 +629,7 @@ void OpcodesAluTest::andTest(Byte opcode, Byte& operand)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
@@ -644,7 +644,7 @@ void OpcodesAluTest::andTest(Byte opcode, Byte& operand)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
@@ -659,7 +659,7 @@ void OpcodesAluTest::andTest(Byte opcode, Byte& operand)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
@@ -674,7 +674,7 @@ void OpcodesAluTest::andTest(Byte opcode, Byte& operand)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
@@ -688,7 +688,7 @@ void OpcodesAluTest::andTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 void OpcodesAluTest::xorTest(Byte opcode, Byte& operand)
@@ -705,7 +705,7 @@ void OpcodesAluTest::xorTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
@@ -718,7 +718,7 @@ void OpcodesAluTest::xorTest(Byte opcode, Byte& operand)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
@@ -731,7 +731,7 @@ void OpcodesAluTest::xorTest(Byte opcode, Byte& operand)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
@@ -744,7 +744,7 @@ void OpcodesAluTest::xorTest(Byte opcode, Byte& operand)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
@@ -758,7 +758,7 @@ void OpcodesAluTest::xorTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 void OpcodesAluTest::orTest(Byte opcode, Byte& operand)
@@ -775,7 +775,7 @@ void OpcodesAluTest::orTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
@@ -788,7 +788,7 @@ void OpcodesAluTest::orTest(Byte opcode, Byte& operand)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
@@ -801,7 +801,7 @@ void OpcodesAluTest::orTest(Byte opcode, Byte& operand)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
@@ -814,7 +814,7 @@ void OpcodesAluTest::orTest(Byte opcode, Byte& operand)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
@@ -827,7 +827,7 @@ void OpcodesAluTest::orTest(Byte opcode, Byte& operand)
     expectedState.registers.a = 0b01010101;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 void OpcodesAluTest::cpTest(Byte opcode, Byte& operand)
@@ -844,7 +844,7 @@ void OpcodesAluTest::cpTest(Byte opcode, Byte& operand)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 2;
@@ -858,7 +858,7 @@ void OpcodesAluTest::cpTest(Byte opcode, Byte& operand)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 5;
@@ -871,7 +871,7 @@ void OpcodesAluTest::cpTest(Byte opcode, Byte& operand)
     expectedState.registers.clearFlags();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x00;
@@ -886,7 +886,7 @@ void OpcodesAluTest::cpTest(Byte opcode, Byte& operand)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x10;
@@ -900,7 +900,7 @@ void OpcodesAluTest::cpTest(Byte opcode, Byte& operand)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 1;
@@ -914,7 +914,7 @@ void OpcodesAluTest::cpTest(Byte opcode, Byte& operand)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x04)
@@ -940,51 +940,51 @@ TEST_F(OpcodesAluTest, Test0x34)
     // 0x34 INC (HL)
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x34);
     // expected change in registers and memory
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 1;
-    expectedState.memory.write(0xdead, 1);
+    expectedState.mmu.write(0xdead, 1);
     expectedState.registers.resetZeroFlag();
     expectedState.registers.resetSubtractFlag();
     expectedState.registers.resetHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0xff);
+    state.mmu.write(0xdead, 0xff);
     // testing the opcode
     testOpcode(0x34);
     // expected change in registers and memory
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 1;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.resetZeroFlag();
     expectedState.registers.resetSubtractFlag();
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x0f);
+    state.mmu.write(0xdead, 0x0f);
     // testing the opcode
     testOpcode(0x34);
     // expected change in registers and memory
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 1;
-    expectedState.memory.write(0xdead, 0x10);
+    expectedState.mmu.write(0xdead, 0x10);
     expectedState.registers.resetZeroFlag();
     expectedState.registers.resetSubtractFlag();
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x0C)
@@ -1034,53 +1034,53 @@ TEST_F(OpcodesAluTest, Test0x35)
     // 0x35 DEC (HL)
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 3);
+    state.mmu.write(0xdead, 3);
     // testing the opcode
     testOpcode(0x35);
     // expected change in registers and memory
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 1;
-    expectedState.memory.write(0xdead, 2);
+    expectedState.mmu.write(0xdead, 2);
     expectedState.registers.resetZeroFlag();
     expectedState.registers.resetSubtractFlag();
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x35);
     // expected change in registers and memory
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 1;
-    expectedState.memory.write(0xdead, 0);
+    expectedState.mmu.write(0xdead, 0);
     expectedState.registers.resetZeroFlag();
     expectedState.registers.resetSubtractFlag();
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x10);
+    state.mmu.write(0xdead, 0x10);
     // testing the opcode
     testOpcode(0x35);
     // expected change in registers and memory
     expectedState.clockCycles += 12;
     expectedState.registers.pc += 1;
-    expectedState.memory.write(0xdead, 0x0f);
+    expectedState.mmu.write(0xdead, 0x0f);
     expectedState.registers.resetZeroFlag();
     expectedState.registers.resetSubtractFlag();
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x0D)
@@ -1149,7 +1149,7 @@ TEST_F(OpcodesAluTest, Test0x86)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x86);
     // expected change in registers and memory
@@ -1159,12 +1159,12 @@ TEST_F(OpcodesAluTest, Test0x86)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xff;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x86);
     // expected change in registers and memory
@@ -1176,12 +1176,12 @@ TEST_F(OpcodesAluTest, Test0x86)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x0f;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x86);
     // expected change in registers and memory
@@ -1191,12 +1191,12 @@ TEST_F(OpcodesAluTest, Test0x86)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xf0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x11);
+    state.mmu.write(0xdead, 0x11);
     // testing the opcode
     testOpcode(0x86);
     // expected change in registers and memory
@@ -1206,12 +1206,12 @@ TEST_F(OpcodesAluTest, Test0x86)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xf0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x11);
+    state.mmu.write(0xdead, 0x11);
     // testing the opcode
     testOpcode(0x86);
     // expected change in registers and memory
@@ -1221,7 +1221,7 @@ TEST_F(OpcodesAluTest, Test0x86)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x87)
@@ -1238,7 +1238,7 @@ TEST_F(OpcodesAluTest, Test0x87)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x0f;
@@ -1251,7 +1251,7 @@ TEST_F(OpcodesAluTest, Test0x87)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xff;
@@ -1265,7 +1265,7 @@ TEST_F(OpcodesAluTest, Test0x87)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xf0;
@@ -1278,7 +1278,7 @@ TEST_F(OpcodesAluTest, Test0x87)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xC6)
@@ -1287,7 +1287,7 @@ TEST_F(OpcodesAluTest, Test0xC6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xC6);
     // expected change in registers and memory
@@ -1297,12 +1297,12 @@ TEST_F(OpcodesAluTest, Test0xC6)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xff;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xC6);
     // expected change in registers and memory
@@ -1314,12 +1314,12 @@ TEST_F(OpcodesAluTest, Test0xC6)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x0f;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xC6);
     // expected change in registers and memory
@@ -1329,12 +1329,12 @@ TEST_F(OpcodesAluTest, Test0xC6)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xf0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x11);
+    state.mmu.write(0xdeae, 0x11);
     // testing the opcode
     testOpcode(0xC6);
     // expected change in registers and memory
@@ -1344,7 +1344,7 @@ TEST_F(OpcodesAluTest, Test0xC6)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x88)
@@ -1390,7 +1390,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
     state.registers.clearFlags();
     state.registers.a = 0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1400,13 +1400,13 @@ TEST_F(OpcodesAluTest, Test0x8E)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 0xff;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1418,13 +1418,13 @@ TEST_F(OpcodesAluTest, Test0x8E)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 0x0f;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1434,13 +1434,13 @@ TEST_F(OpcodesAluTest, Test0x8E)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 0xf0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x11);
+    state.mmu.write(0xdead, 0x11);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1450,14 +1450,14 @@ TEST_F(OpcodesAluTest, Test0x8E)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1466,14 +1466,14 @@ TEST_F(OpcodesAluTest, Test0x8E)
     expectedState.registers.a = 1;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0xff;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1484,14 +1484,14 @@ TEST_F(OpcodesAluTest, Test0x8E)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0x0f;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1501,14 +1501,14 @@ TEST_F(OpcodesAluTest, Test0x8E)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0xff;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1519,14 +1519,14 @@ TEST_F(OpcodesAluTest, Test0x8E)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0xf0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x10);
+    state.mmu.write(0xdead, 0x10);
     // testing the opcode
     testOpcode(0x8E);
     // expected change in registers and memory
@@ -1536,7 +1536,7 @@ TEST_F(OpcodesAluTest, Test0x8E)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x8F)
@@ -1554,7 +1554,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.resetCarryFlag();
@@ -1568,7 +1568,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.resetCarryFlag();
@@ -1583,7 +1583,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.resetCarryFlag();
@@ -1597,7 +1597,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.setCarryFlag();
@@ -1610,7 +1610,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
     expectedState.registers.a = 1;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.setCarryFlag();
@@ -1624,7 +1624,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.setCarryFlag();
@@ -1639,7 +1639,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.setCarryFlag();
@@ -1653,7 +1653,7 @@ TEST_F(OpcodesAluTest, Test0x8F)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xCE)
@@ -1663,7 +1663,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
     state.registers.clearFlags();
     state.registers.a = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1673,13 +1673,13 @@ TEST_F(OpcodesAluTest, Test0xCE)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 0xff;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1691,13 +1691,13 @@ TEST_F(OpcodesAluTest, Test0xCE)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 0x0f;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1707,13 +1707,13 @@ TEST_F(OpcodesAluTest, Test0xCE)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 0xf0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x11);
+    state.mmu.write(0xdeae, 0x11);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1723,14 +1723,14 @@ TEST_F(OpcodesAluTest, Test0xCE)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1739,14 +1739,14 @@ TEST_F(OpcodesAluTest, Test0xCE)
     expectedState.registers.a = 1;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0xff;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1757,14 +1757,14 @@ TEST_F(OpcodesAluTest, Test0xCE)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0x0f;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1774,14 +1774,14 @@ TEST_F(OpcodesAluTest, Test0xCE)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0xff;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1792,14 +1792,14 @@ TEST_F(OpcodesAluTest, Test0xCE)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0xf0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x10);
+    state.mmu.write(0xdeae, 0x10);
     // testing the opcode
     testOpcode(0xCE);
     // expected change in registers and memory
@@ -1809,7 +1809,7 @@ TEST_F(OpcodesAluTest, Test0xCE)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x90)
@@ -1854,7 +1854,7 @@ TEST_F(OpcodesAluTest, Test0x96)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x96);
     // expected change in registers and memory
@@ -1865,12 +1865,12 @@ TEST_F(OpcodesAluTest, Test0x96)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 2;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x96);
     // expected change in registers and memory
@@ -1881,12 +1881,12 @@ TEST_F(OpcodesAluTest, Test0x96)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 5;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x96);
     // expected change in registers and memory
@@ -1896,12 +1896,12 @@ TEST_F(OpcodesAluTest, Test0x96)
     expectedState.registers.clearFlags();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x00;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x96);
     // expected change in registers and memory
@@ -1913,12 +1913,12 @@ TEST_F(OpcodesAluTest, Test0x96)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x10;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x96);
     // expected change in registers and memory
@@ -1929,12 +1929,12 @@ TEST_F(OpcodesAluTest, Test0x96)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 1;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x11);
+    state.mmu.write(0xdead, 0x11);
     // testing the opcode
     testOpcode(0x96);
     // expected change in registers and memory
@@ -1945,7 +1945,7 @@ TEST_F(OpcodesAluTest, Test0x96)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x97)
@@ -1963,7 +1963,7 @@ TEST_F(OpcodesAluTest, Test0x97)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 2;
@@ -1977,7 +1977,7 @@ TEST_F(OpcodesAluTest, Test0x97)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xff;
@@ -1991,7 +1991,7 @@ TEST_F(OpcodesAluTest, Test0x97)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xD6)
@@ -2000,7 +2000,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xD6);
     // expected change in registers and memory
@@ -2011,12 +2011,12 @@ TEST_F(OpcodesAluTest, Test0xD6)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 2;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xD6);
     // expected change in registers and memory
@@ -2027,12 +2027,12 @@ TEST_F(OpcodesAluTest, Test0xD6)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 5;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xD6);
     // expected change in registers and memory
@@ -2042,12 +2042,12 @@ TEST_F(OpcodesAluTest, Test0xD6)
     expectedState.registers.clearFlags();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x00;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xD6);
     // expected change in registers and memory
@@ -2059,12 +2059,12 @@ TEST_F(OpcodesAluTest, Test0xD6)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x10;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xD6);
     // expected change in registers and memory
@@ -2075,12 +2075,12 @@ TEST_F(OpcodesAluTest, Test0xD6)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 1;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x11);
+    state.mmu.write(0xdeae, 0x11);
     // testing the opcode
     testOpcode(0xD6);
     // expected change in registers and memory
@@ -2091,7 +2091,7 @@ TEST_F(OpcodesAluTest, Test0xD6)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x98)
@@ -2137,7 +2137,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     state.registers.clearFlags();
     state.registers.a = 0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2148,13 +2148,13 @@ TEST_F(OpcodesAluTest, Test0x9E)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 2;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2165,13 +2165,13 @@ TEST_F(OpcodesAluTest, Test0x9E)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 5;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2181,13 +2181,13 @@ TEST_F(OpcodesAluTest, Test0x9E)
     expectedState.registers.clearFlags();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 0x00;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2199,13 +2199,13 @@ TEST_F(OpcodesAluTest, Test0x9E)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 0x10;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2216,13 +2216,13 @@ TEST_F(OpcodesAluTest, Test0x9E)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 1;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x11);
+    state.mmu.write(0xdead, 0x11);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2233,14 +2233,14 @@ TEST_F(OpcodesAluTest, Test0x9E)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 1;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2251,14 +2251,14 @@ TEST_F(OpcodesAluTest, Test0x9E)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 2;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2269,14 +2269,14 @@ TEST_F(OpcodesAluTest, Test0x9E)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 5;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2286,14 +2286,14 @@ TEST_F(OpcodesAluTest, Test0x9E)
     expectedState.registers.clearFlags();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0x00;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2305,14 +2305,14 @@ TEST_F(OpcodesAluTest, Test0x9E)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0x10;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2323,14 +2323,14 @@ TEST_F(OpcodesAluTest, Test0x9E)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 1;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x10);
+    state.mmu.write(0xdead, 0x10);
     // testing the opcode
     testOpcode(0x9E);
     // expected change in registers and memory
@@ -2341,7 +2341,7 @@ TEST_F(OpcodesAluTest, Test0x9E)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x9F)
@@ -2360,7 +2360,7 @@ TEST_F(OpcodesAluTest, Test0x9F)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -2375,7 +2375,7 @@ TEST_F(OpcodesAluTest, Test0x9F)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
@@ -2390,7 +2390,7 @@ TEST_F(OpcodesAluTest, Test0x9F)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // 0x9F SBC A
     // preparing cpu and memory state before executing the opcode
@@ -2408,7 +2408,7 @@ TEST_F(OpcodesAluTest, Test0x9F)
     expectedState.registers.setCarryFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // 0x9F SBC A
     // preparing cpu and memory state before executing the opcode
@@ -2426,7 +2426,7 @@ TEST_F(OpcodesAluTest, Test0x9F)
     expectedState.registers.setCarryFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // 0x9F SBC A
     // preparing cpu and memory state before executing the opcode
@@ -2444,7 +2444,7 @@ TEST_F(OpcodesAluTest, Test0x9F)
     expectedState.registers.setCarryFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xDE)
@@ -2454,7 +2454,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     state.registers.clearFlags();
     state.registers.a = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2465,13 +2465,13 @@ TEST_F(OpcodesAluTest, Test0xDE)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 2;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2482,13 +2482,13 @@ TEST_F(OpcodesAluTest, Test0xDE)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 5;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2498,13 +2498,13 @@ TEST_F(OpcodesAluTest, Test0xDE)
     expectedState.registers.clearFlags();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 0x00;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2516,13 +2516,13 @@ TEST_F(OpcodesAluTest, Test0xDE)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 0x10;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2533,13 +2533,13 @@ TEST_F(OpcodesAluTest, Test0xDE)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.a = 1;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x11);
+    state.mmu.write(0xdeae, 0x11);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2550,14 +2550,14 @@ TEST_F(OpcodesAluTest, Test0xDE)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 1;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2568,14 +2568,14 @@ TEST_F(OpcodesAluTest, Test0xDE)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 2;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2586,14 +2586,14 @@ TEST_F(OpcodesAluTest, Test0xDE)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 5;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2603,14 +2603,14 @@ TEST_F(OpcodesAluTest, Test0xDE)
     expectedState.registers.clearFlags();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0x00;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2622,14 +2622,14 @@ TEST_F(OpcodesAluTest, Test0xDE)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 0x10;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2640,14 +2640,14 @@ TEST_F(OpcodesAluTest, Test0xDE)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.clearFlags();
     state.registers.setCarryFlag();
     state.registers.a = 1;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x10);
+    state.mmu.write(0xdeae, 0x10);
     // testing the opcode
     testOpcode(0xDE);
     // expected change in registers and memory
@@ -2658,7 +2658,7 @@ TEST_F(OpcodesAluTest, Test0xDE)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xA0)
@@ -2703,7 +2703,7 @@ TEST_F(OpcodesAluTest, Test0xA6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00000000);
+    state.mmu.write(0xdead, 0b00000000);
     // testing the opcode
     testOpcode(0xA6);
     // expected change in registers and memory
@@ -2714,12 +2714,12 @@ TEST_F(OpcodesAluTest, Test0xA6)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00000000);
+    state.mmu.write(0xdead, 0b00000000);
     // testing the opcode
     testOpcode(0xA6);
     // expected change in registers and memory
@@ -2730,12 +2730,12 @@ TEST_F(OpcodesAluTest, Test0xA6)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b11111111);
+    state.mmu.write(0xdead, 0b11111111);
     // testing the opcode
     testOpcode(0xA6);
     // expected change in registers and memory
@@ -2746,12 +2746,12 @@ TEST_F(OpcodesAluTest, Test0xA6)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b01010101);
+    state.mmu.write(0xdead, 0b01010101);
     // testing the opcode
     testOpcode(0xA6);
     // expected change in registers and memory
@@ -2762,12 +2762,12 @@ TEST_F(OpcodesAluTest, Test0xA6)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b01010101);
+    state.mmu.write(0xdead, 0b01010101);
     // testing the opcode
     testOpcode(0xA6);
     // expected change in registers and memory
@@ -2777,7 +2777,7 @@ TEST_F(OpcodesAluTest, Test0xA6)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xA7)
@@ -2795,7 +2795,7 @@ TEST_F(OpcodesAluTest, Test0xA7)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
@@ -2808,7 +2808,7 @@ TEST_F(OpcodesAluTest, Test0xA7)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
@@ -2821,7 +2821,7 @@ TEST_F(OpcodesAluTest, Test0xA7)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xE6)
@@ -2830,7 +2830,7 @@ TEST_F(OpcodesAluTest, Test0xE6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b00000000);
+    state.mmu.write(0xdeae, 0b00000000);
     // testing the opcode
     testOpcode(0xE6);
     // expected change in registers and memory
@@ -2841,12 +2841,12 @@ TEST_F(OpcodesAluTest, Test0xE6)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b00000000);
+    state.mmu.write(0xdeae, 0b00000000);
     // testing the opcode
     testOpcode(0xE6);
     // expected change in registers and memory
@@ -2857,12 +2857,12 @@ TEST_F(OpcodesAluTest, Test0xE6)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b11111111);
+    state.mmu.write(0xdeae, 0b11111111);
     // testing the opcode
     testOpcode(0xE6);
     // expected change in registers and memory
@@ -2873,12 +2873,12 @@ TEST_F(OpcodesAluTest, Test0xE6)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b01010101);
+    state.mmu.write(0xdeae, 0b01010101);
     // testing the opcode
     testOpcode(0xE6);
     // expected change in registers and memory
@@ -2889,12 +2889,12 @@ TEST_F(OpcodesAluTest, Test0xE6)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b01010101);
+    state.mmu.write(0xdeae, 0b01010101);
     // testing the opcode
     testOpcode(0xE6);
     // expected change in registers and memory
@@ -2904,7 +2904,7 @@ TEST_F(OpcodesAluTest, Test0xE6)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xA8)
@@ -2949,7 +2949,7 @@ TEST_F(OpcodesAluTest, Test0xAE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00000000);
+    state.mmu.write(0xdead, 0b00000000);
     // testing the opcode
     testOpcode(0xAE);
     // expected change in registers and memory
@@ -2959,12 +2959,12 @@ TEST_F(OpcodesAluTest, Test0xAE)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00000000);
+    state.mmu.write(0xdead, 0b00000000);
     // testing the opcode
     testOpcode(0xAE);
     // expected change in registers and memory
@@ -2973,12 +2973,12 @@ TEST_F(OpcodesAluTest, Test0xAE)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b11111111);
+    state.mmu.write(0xdead, 0b11111111);
     // testing the opcode
     testOpcode(0xAE);
     // expected change in registers and memory
@@ -2987,12 +2987,12 @@ TEST_F(OpcodesAluTest, Test0xAE)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b01010101);
+    state.mmu.write(0xdead, 0b01010101);
     // testing the opcode
     testOpcode(0xAE);
     // expected change in registers and memory
@@ -3001,12 +3001,12 @@ TEST_F(OpcodesAluTest, Test0xAE)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b01010101);
+    state.mmu.write(0xdead, 0b01010101);
     // testing the opcode
     testOpcode(0xAE);
     // expected change in registers and memory
@@ -3016,7 +3016,7 @@ TEST_F(OpcodesAluTest, Test0xAE)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xAF)
@@ -3033,7 +3033,7 @@ TEST_F(OpcodesAluTest, Test0xAF)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
@@ -3046,7 +3046,7 @@ TEST_F(OpcodesAluTest, Test0xAF)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
@@ -3059,7 +3059,7 @@ TEST_F(OpcodesAluTest, Test0xAF)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xEE)
@@ -3068,7 +3068,7 @@ TEST_F(OpcodesAluTest, Test0xEE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b00000000);
+    state.mmu.write(0xdeae, 0b00000000);
     // testing the opcode
     testOpcode(0xEE);
     // expected change in registers and memory
@@ -3078,12 +3078,12 @@ TEST_F(OpcodesAluTest, Test0xEE)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b00000000);
+    state.mmu.write(0xdeae, 0b00000000);
     // testing the opcode
     testOpcode(0xEE);
     // expected change in registers and memory
@@ -3092,12 +3092,12 @@ TEST_F(OpcodesAluTest, Test0xEE)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b11111111);
+    state.mmu.write(0xdeae, 0b11111111);
     // testing the opcode
     testOpcode(0xEE);
     // expected change in registers and memory
@@ -3106,12 +3106,12 @@ TEST_F(OpcodesAluTest, Test0xEE)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b01010101);
+    state.mmu.write(0xdeae, 0b01010101);
     // testing the opcode
     testOpcode(0xEE);
     // expected change in registers and memory
@@ -3120,12 +3120,12 @@ TEST_F(OpcodesAluTest, Test0xEE)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b01010101);
+    state.mmu.write(0xdeae, 0b01010101);
     // testing the opcode
     testOpcode(0xEE);
     // expected change in registers and memory
@@ -3135,7 +3135,7 @@ TEST_F(OpcodesAluTest, Test0xEE)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xB0)
@@ -3180,7 +3180,7 @@ TEST_F(OpcodesAluTest, Test0xB6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00000000);
+    state.mmu.write(0xdead, 0b00000000);
     // testing the opcode
     testOpcode(0xB6);
     // expected change in registers and memory
@@ -3190,12 +3190,12 @@ TEST_F(OpcodesAluTest, Test0xB6)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b00000000);
+    state.mmu.write(0xdead, 0b00000000);
     // testing the opcode
     testOpcode(0xB6);
     // expected change in registers and memory
@@ -3204,12 +3204,12 @@ TEST_F(OpcodesAluTest, Test0xB6)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b11111111);
+    state.mmu.write(0xdead, 0b11111111);
     // testing the opcode
     testOpcode(0xB6);
     // expected change in registers and memory
@@ -3218,12 +3218,12 @@ TEST_F(OpcodesAluTest, Test0xB6)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b01010101);
+    state.mmu.write(0xdead, 0b01010101);
     // testing the opcode
     testOpcode(0xB6);
     // expected change in registers and memory
@@ -3232,12 +3232,12 @@ TEST_F(OpcodesAluTest, Test0xB6)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0b01010101);
+    state.mmu.write(0xdead, 0b01010101);
     // testing the opcode
     testOpcode(0xB6);
     // expected change in registers and memory
@@ -3246,7 +3246,7 @@ TEST_F(OpcodesAluTest, Test0xB6)
     expectedState.registers.a = 0b01010101;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xB7)
@@ -3263,7 +3263,7 @@ TEST_F(OpcodesAluTest, Test0xB7)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
@@ -3275,7 +3275,7 @@ TEST_F(OpcodesAluTest, Test0xB7)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
@@ -3287,7 +3287,7 @@ TEST_F(OpcodesAluTest, Test0xB7)
     expectedState.registers.a = 0b10101010;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xF6)
@@ -3296,7 +3296,7 @@ TEST_F(OpcodesAluTest, Test0xF6)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b00000000);
+    state.mmu.write(0xdeae, 0b00000000);
     // testing the opcode
     testOpcode(0xF6);
     // expected change in registers and memory
@@ -3306,12 +3306,12 @@ TEST_F(OpcodesAluTest, Test0xF6)
     expectedState.registers.clearFlags();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b11111111;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b00000000);
+    state.mmu.write(0xdeae, 0b00000000);
     // testing the opcode
     testOpcode(0xF6);
     // expected change in registers and memory
@@ -3320,12 +3320,12 @@ TEST_F(OpcodesAluTest, Test0xF6)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b00000000;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b11111111);
+    state.mmu.write(0xdeae, 0b11111111);
     // testing the opcode
     testOpcode(0xF6);
     // expected change in registers and memory
@@ -3334,12 +3334,12 @@ TEST_F(OpcodesAluTest, Test0xF6)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b01010101);
+    state.mmu.write(0xdeae, 0b01010101);
     // testing the opcode
     testOpcode(0xF6);
     // expected change in registers and memory
@@ -3348,12 +3348,12 @@ TEST_F(OpcodesAluTest, Test0xF6)
     expectedState.registers.a = 0b11111111;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b01010101;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0b01010101);
+    state.mmu.write(0xdeae, 0b01010101);
     // testing the opcode
     testOpcode(0xF6);
     // expected change in registers and memory
@@ -3362,7 +3362,7 @@ TEST_F(OpcodesAluTest, Test0xF6)
     expectedState.registers.a = 0b01010101;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xB8)
@@ -3407,7 +3407,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0);
+    state.mmu.write(0xdead, 0);
     // testing the opcode
     testOpcode(0xBE);
     // expected change in registers and memory
@@ -3417,12 +3417,12 @@ TEST_F(OpcodesAluTest, Test0xBE)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 2;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0xBE);
     // expected change in registers and memory
@@ -3432,12 +3432,12 @@ TEST_F(OpcodesAluTest, Test0xBE)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 5;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0xBE);
     // expected change in registers and memory
@@ -3446,12 +3446,12 @@ TEST_F(OpcodesAluTest, Test0xBE)
     expectedState.registers.clearFlags();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x00;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 1);
+    state.mmu.write(0xdead, 1);
     // testing the opcode
     testOpcode(0xBE);
     // expected change in registers and memory
@@ -3462,12 +3462,12 @@ TEST_F(OpcodesAluTest, Test0xBE)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x10;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 2);
+    state.mmu.write(0xdead, 2);
     // testing the opcode
     testOpcode(0xBE);
     // expected change in registers and memory
@@ -3477,12 +3477,12 @@ TEST_F(OpcodesAluTest, Test0xBE)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 1;
     state.registers.hl = 0xdead;
-    state.memory.write(0xdead, 0x11);
+    state.mmu.write(0xdead, 0x11);
     // testing the opcode
     testOpcode(0xBE);
     // expected change in registers and memory
@@ -3492,7 +3492,7 @@ TEST_F(OpcodesAluTest, Test0xBE)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xBF)
@@ -3510,7 +3510,7 @@ TEST_F(OpcodesAluTest, Test0xBF)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 2;
@@ -3524,7 +3524,7 @@ TEST_F(OpcodesAluTest, Test0xBF)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0xff;
@@ -3538,7 +3538,7 @@ TEST_F(OpcodesAluTest, Test0xBF)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xFE)
@@ -3547,7 +3547,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xFE);
     // expected change in registers and memory
@@ -3557,12 +3557,12 @@ TEST_F(OpcodesAluTest, Test0xFE)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 2;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xFE);
     // expected change in registers and memory
@@ -3572,12 +3572,12 @@ TEST_F(OpcodesAluTest, Test0xFE)
     expectedState.registers.setZeroFlag();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 5;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xFE);
     // expected change in registers and memory
@@ -3586,12 +3586,12 @@ TEST_F(OpcodesAluTest, Test0xFE)
     expectedState.registers.clearFlags();
     expectedState.registers.setSubtractFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x00;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xFE);
     // expected change in registers and memory
@@ -3602,12 +3602,12 @@ TEST_F(OpcodesAluTest, Test0xFE)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x10;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xFE);
     // expected change in registers and memory
@@ -3617,12 +3617,12 @@ TEST_F(OpcodesAluTest, Test0xFE)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 1;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x11);
+    state.mmu.write(0xdeae, 0x11);
     // testing the opcode
     testOpcode(0xFE);
     // expected change in registers and memory
@@ -3632,7 +3632,7 @@ TEST_F(OpcodesAluTest, Test0xFE)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x27)
@@ -3652,7 +3652,7 @@ TEST_F(OpcodesAluTest, Test0x27)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0;
@@ -3668,7 +3668,7 @@ TEST_F(OpcodesAluTest, Test0x27)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x11;
@@ -3684,7 +3684,7 @@ TEST_F(OpcodesAluTest, Test0x27)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x51;
@@ -3700,7 +3700,7 @@ TEST_F(OpcodesAluTest, Test0x27)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x36;
@@ -3716,7 +3716,7 @@ TEST_F(OpcodesAluTest, Test0x27)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0x36;
@@ -3732,7 +3732,7 @@ TEST_F(OpcodesAluTest, Test0x27)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // todo below
     //	// preparing cpu and memory state before executing the opcode
@@ -3748,7 +3748,7 @@ TEST_F(OpcodesAluTest, Test0x27)
     //	expectedState.registers.resetHalfCarryFlag();
     //	expectedState.registers.setCarryFlag();
     //	// comparing expected change to real change
-    //	EXPECT_TRUE(expectedState == state);
+    //	EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x37)
@@ -3765,7 +3765,7 @@ TEST_F(OpcodesAluTest, Test0x37)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.f = 0;
@@ -3778,7 +3778,7 @@ TEST_F(OpcodesAluTest, Test0x37)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x2F)
@@ -3795,7 +3795,7 @@ TEST_F(OpcodesAluTest, Test0x2F)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.a = 0b10101010;
@@ -3808,7 +3808,7 @@ TEST_F(OpcodesAluTest, Test0x2F)
     expectedState.registers.setSubtractFlag();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x3F)
@@ -3826,7 +3826,7 @@ TEST_F(OpcodesAluTest, Test0x3F)
     expectedState.registers.resetCarryFlag();
     expectedState.registers.setZeroFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.f = 0;
@@ -3840,7 +3840,7 @@ TEST_F(OpcodesAluTest, Test0x3F)
     expectedState.registers.resetCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x03)
@@ -3855,7 +3855,7 @@ TEST_F(OpcodesAluTest, Test0x03)
     expectedState.registers.pc += 1;
     expectedState.registers.bc = 1;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.bc = 0xffff;
@@ -3866,7 +3866,7 @@ TEST_F(OpcodesAluTest, Test0x03)
     expectedState.registers.pc += 1;
     expectedState.registers.bc = 0;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x13)
@@ -3881,7 +3881,7 @@ TEST_F(OpcodesAluTest, Test0x13)
     expectedState.registers.pc += 1;
     expectedState.registers.de = 1;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.de = 0xffff;
@@ -3892,7 +3892,7 @@ TEST_F(OpcodesAluTest, Test0x13)
     expectedState.registers.pc += 1;
     expectedState.registers.de = 0;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x23)
@@ -3907,7 +3907,7 @@ TEST_F(OpcodesAluTest, Test0x23)
     expectedState.registers.pc += 1;
     expectedState.registers.hl = 1;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xffff;
@@ -3918,7 +3918,7 @@ TEST_F(OpcodesAluTest, Test0x23)
     expectedState.registers.pc += 1;
     expectedState.registers.hl = 0;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x33)
@@ -3933,7 +3933,7 @@ TEST_F(OpcodesAluTest, Test0x33)
     expectedState.registers.pc += 1;
     expectedState.registers.sp = 1;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 0xffff;
@@ -3944,7 +3944,7 @@ TEST_F(OpcodesAluTest, Test0x33)
     expectedState.registers.pc += 1;
     expectedState.registers.sp = 0;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x09)
@@ -3962,7 +3962,7 @@ TEST_F(OpcodesAluTest, Test0x09)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 3;
@@ -3977,7 +3977,7 @@ TEST_F(OpcodesAluTest, Test0x09)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0x0fff;
@@ -3992,7 +3992,7 @@ TEST_F(OpcodesAluTest, Test0x09)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xffff;
@@ -4007,7 +4007,7 @@ TEST_F(OpcodesAluTest, Test0x09)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xf000;
@@ -4022,7 +4022,7 @@ TEST_F(OpcodesAluTest, Test0x09)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x19)
@@ -4040,7 +4040,7 @@ TEST_F(OpcodesAluTest, Test0x19)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 3;
@@ -4055,7 +4055,7 @@ TEST_F(OpcodesAluTest, Test0x19)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0x0fff;
@@ -4070,7 +4070,7 @@ TEST_F(OpcodesAluTest, Test0x19)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xffff;
@@ -4085,7 +4085,7 @@ TEST_F(OpcodesAluTest, Test0x19)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xf000;
@@ -4100,7 +4100,7 @@ TEST_F(OpcodesAluTest, Test0x19)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x29)
@@ -4117,7 +4117,7 @@ TEST_F(OpcodesAluTest, Test0x29)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 3;
@@ -4131,7 +4131,7 @@ TEST_F(OpcodesAluTest, Test0x29)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0x0fff;
@@ -4145,7 +4145,7 @@ TEST_F(OpcodesAluTest, Test0x29)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xffff;
@@ -4159,7 +4159,7 @@ TEST_F(OpcodesAluTest, Test0x29)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xf000;
@@ -4173,7 +4173,7 @@ TEST_F(OpcodesAluTest, Test0x29)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x39)
@@ -4191,7 +4191,7 @@ TEST_F(OpcodesAluTest, Test0x39)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 3;
@@ -4206,7 +4206,7 @@ TEST_F(OpcodesAluTest, Test0x39)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0x0fff;
@@ -4221,7 +4221,7 @@ TEST_F(OpcodesAluTest, Test0x39)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.resetCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xffff;
@@ -4236,7 +4236,7 @@ TEST_F(OpcodesAluTest, Test0x39)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xf000;
@@ -4251,7 +4251,7 @@ TEST_F(OpcodesAluTest, Test0x39)
     expectedState.registers.resetHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x0B)
@@ -4266,7 +4266,7 @@ TEST_F(OpcodesAluTest, Test0x0B)
     expectedState.registers.pc += 1;
     expectedState.registers.bc = 0xffff;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.bc = 0xffff;
@@ -4277,7 +4277,7 @@ TEST_F(OpcodesAluTest, Test0x0B)
     expectedState.registers.pc += 1;
     expectedState.registers.bc = 0xfffe;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x1B)
@@ -4292,7 +4292,7 @@ TEST_F(OpcodesAluTest, Test0x1B)
     expectedState.registers.pc += 1;
     expectedState.registers.de = 0xffff;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.de = 0xffff;
@@ -4303,7 +4303,7 @@ TEST_F(OpcodesAluTest, Test0x1B)
     expectedState.registers.pc += 1;
     expectedState.registers.de = 0xfffe;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x2B)
@@ -4318,7 +4318,7 @@ TEST_F(OpcodesAluTest, Test0x2B)
     expectedState.registers.pc += 1;
     expectedState.registers.hl = 0xffff;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.hl = 0xffff;
@@ -4329,7 +4329,7 @@ TEST_F(OpcodesAluTest, Test0x2B)
     expectedState.registers.pc += 1;
     expectedState.registers.hl = 0xfffe;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0x3B)
@@ -4344,7 +4344,7 @@ TEST_F(OpcodesAluTest, Test0x3B)
     expectedState.registers.pc += 1;
     expectedState.registers.sp = 0xffff;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 0xffff;
@@ -4355,7 +4355,7 @@ TEST_F(OpcodesAluTest, Test0x3B)
     expectedState.registers.pc += 1;
     expectedState.registers.sp = 0xfffe;
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }
 
 TEST_F(OpcodesAluTest, Test0xE8)
@@ -4364,7 +4364,7 @@ TEST_F(OpcodesAluTest, Test0xE8)
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0);
+    state.mmu.write(0xdeae, 0);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory
@@ -4372,12 +4372,12 @@ TEST_F(OpcodesAluTest, Test0xE8)
     expectedState.registers.pc += 2;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 3;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 2);
+    state.mmu.write(0xdeae, 2);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory
@@ -4386,12 +4386,12 @@ TEST_F(OpcodesAluTest, Test0xE8)
     expectedState.registers.sp = 5;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 3;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, -2);
+    state.mmu.write(0xdeae, -2);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory
@@ -4400,12 +4400,12 @@ TEST_F(OpcodesAluTest, Test0xE8)
     expectedState.registers.sp = 1;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 0xffff;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, -1);
+    state.mmu.write(0xdeae, -1);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory
@@ -4414,12 +4414,12 @@ TEST_F(OpcodesAluTest, Test0xE8)
     expectedState.registers.sp = 0xfffe;
     expectedState.registers.clearFlags();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 0x000f;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory
@@ -4429,12 +4429,12 @@ TEST_F(OpcodesAluTest, Test0xE8)
     expectedState.registers.clearFlags();
     expectedState.registers.setHalfCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 0xffff;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 1);
+    state.mmu.write(0xdeae, 1);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory
@@ -4445,12 +4445,12 @@ TEST_F(OpcodesAluTest, Test0xE8)
     expectedState.registers.setHalfCarryFlag();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 
     // preparing cpu and memory state before executing the opcode
     state.registers.sp = 0x00f0;
     state.registers.pc = 0xdead;
-    state.memory.write(0xdeae, 0x0010);
+    state.mmu.write(0xdeae, 0x0010);
     // testing the opcode
     testOpcode(0xE8);
     // expected change in registers and memory
@@ -4460,5 +4460,5 @@ TEST_F(OpcodesAluTest, Test0xE8)
     expectedState.registers.clearFlags();
     expectedState.registers.setCarryFlag();
     // comparing expected change to real change
-    EXPECT_TRUE(expectedState == state);
+    EXPECT_TRUE(compareState(expectedState, state));
 }

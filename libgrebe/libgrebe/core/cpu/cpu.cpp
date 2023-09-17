@@ -6,8 +6,8 @@ CPU::CPU(State& state) : StateMutator(state), controlUnit(state), interruptHandl
 
 void CPU::tick()
 {
-    const Byte& IE = state.memory.read(LIBGREBE_REG_IE);
-    const Byte& IF = state.memory.read(LIBGREBE_REG_IF);
+    const Byte& IE = state.mmu.read(LIBGREBE_REG_IE);
+    const Byte& IF = state.mmu.read(LIBGREBE_REG_IF);
     if (state.imeScheduled)
     {
         state.imeScheduled = false;

@@ -1,22 +1,5 @@
 #include <libgrebe/core/cpu/registers.hpp>
 
-Registers::Registers()
-{
-    a = 1;
-    setZeroFlag();
-    resetSubtractFlag();
-    resetHalfCarryFlag();
-    resetCarryFlag();
-    b = 0;
-    c = 0x13;
-    d = 0;
-    e = 0xd8;
-    h = 1;
-    l = 0x4d;
-    pc = 0x100;
-    sp = 0xfffe;
-}
-
 bool Registers::operator==(const Registers& other) const
 {
     if (a != other.a)

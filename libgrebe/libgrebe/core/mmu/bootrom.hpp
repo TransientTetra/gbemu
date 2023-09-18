@@ -7,6 +7,8 @@
 class Bootrom : public Addressable
 {
 private:
+    Byte defaultRead = 0;
+    bool enabled = true;
     std::array<Byte, 256> rom;
 
 public:

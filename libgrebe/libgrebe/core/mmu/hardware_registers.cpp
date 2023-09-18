@@ -18,8 +18,7 @@ bool HardwareRegisters::contains(const Word& address) const
            address == LIBGREBE_REG_STAT || address == LIBGREBE_REG_SCY || address == LIBGREBE_REG_SCX ||
            address == LIBGREBE_REG_LY || address == LIBGREBE_REG_LYC || address == LIBGREBE_REG_DMA ||
            address == LIBGREBE_REG_BGP || address == LIBGREBE_REG_OBP0 || address == LIBGREBE_REG_OBP1 ||
-           address == LIBGREBE_REG_WY || address == LIBGREBE_REG_WX || address == LIBGREBE_REG_BOOTROM_ENABLE ||
-           address == LIBGREBE_REG_IE;
+           address == LIBGREBE_REG_WY || address == LIBGREBE_REG_WX || address == LIBGREBE_REG_IE;
 }
 
 const Byte& HardwareRegisters::read(const Word& address) const
@@ -149,9 +148,6 @@ const Byte& HardwareRegisters::read(const Word& address) const
         case LIBGREBE_REG_WX:
             return defaultRead;
             break;
-        case LIBGREBE_REG_BOOTROM_ENABLE:
-            return defaultRead;
-            break;
         case LIBGREBE_REG_IE:
             return IE;
             break;
@@ -246,8 +242,6 @@ void HardwareRegisters::write(const Word& address, const Byte& data)
         case LIBGREBE_REG_WY:
             break;
         case LIBGREBE_REG_WX:
-            break;
-        case LIBGREBE_REG_BOOTROM_ENABLE:
             break;
         case LIBGREBE_REG_IE:
             IE = data;

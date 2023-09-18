@@ -42,6 +42,13 @@ TEST_F(MMUTest, BootromTest)
     Addressable* addressable = new Bootrom();
     testContains(*addressable, 0x00, 0xff);
     testReadWrite(*addressable, 0x00, 0xff);
+    EXPECT_EQ(addressable->contains(0xff50), true);
+    EXPECT_EQ(addressable->read(0xff50), 0);
+    addressable->write(0xff50, 1);
+    for (Word i = 0; i < LIBGREBE_MEMORY_SIZE - 1; ++i)
+    {
+        EXPECT_EQ(addressable->contains(i), false);
+    }
 }
 
 TEST_F(MMUTest, HRAMTest)

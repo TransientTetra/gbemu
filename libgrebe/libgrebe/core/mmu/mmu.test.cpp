@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <libgrebe/core/mmu/bootrom.hpp>
-#include <libgrebe/core/mmu/hardware_registers.hpp>
+#include <libgrebe/core/mmu/hardware_registers_addressable.hpp>
 #include <libgrebe/core/mmu/hram.hpp>
 #include <libgrebe/core/mmu/mmu.test.hpp>
 #include <libgrebe/core/mmu/vram.hpp>
@@ -68,7 +68,8 @@ TEST_F(MMUTest, VRAMTest)
 TEST_F(MMUTest, HardwareRegistersTest)
 {
     // todo write more hardware registers test when more functionality finalized
-    Addressable* addressable = new HardwareRegisters();
+    State state;
+    Addressable* addressable = new HardwareRegistersAddressable(state.hardwareRegisters);
     EXPECT_TRUE(addressable->contains(0xFF00));
     EXPECT_TRUE(addressable->contains(0xFF01));
     EXPECT_TRUE(addressable->contains(0xFF02));

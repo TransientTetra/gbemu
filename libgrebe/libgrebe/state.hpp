@@ -1,6 +1,7 @@
 #ifndef LIBGREBE_STATE_HPP
 #define LIBGREBE_STATE_HPP
 
+#include <libgrebe/core/mmu/hardware_registers.hpp>
 #include <cstdint>
 #include <functional>
 #include <libgrebe/core/cpu/registers.hpp>
@@ -48,6 +49,7 @@ public:
     bool ime = false;
     std::stack<Byte> tmp;
     Registers registers;
+    HardwareRegisters hardwareRegisters;
     MMU mmu;
 
     State();

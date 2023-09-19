@@ -1,6 +1,6 @@
 #include <libgrebe/core/core.hpp>
 #include <libgrebe/core/mmu/bootrom.hpp>
-#include <libgrebe/core/mmu/hardware_registers.hpp>
+#include <libgrebe/core/mmu/hardware_registers_addressable.hpp>
 #include <libgrebe/core/mmu/hram.hpp>
 #include <libgrebe/core/mmu/vram.hpp>
 #include <libgrebe/core/mmu/wram.hpp>
@@ -94,7 +94,7 @@ void Core::initCommon()
     state.mmu.registerAddressable(std::make_unique<WRAM>());
     state.mmu.registerAddressable(std::make_unique<VRAM>());
     state.mmu.registerAddressable(std::make_unique<HRAM>());
-    state.mmu.registerAddressable(std::make_unique<HardwareRegisters>());
+    state.mmu.registerAddressable(std::make_unique<HardwareRegistersAddressable>(state.hardwareRegisters));
 }
 
 void Core::tick()

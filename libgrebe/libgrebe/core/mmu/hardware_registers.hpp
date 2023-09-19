@@ -1,11 +1,9 @@
 #ifndef LIBGREBE_HARDWARE_REGISTERS_HPP
 #define LIBGREBE_HARDWARE_REGISTERS_HPP
-#include <libgrebe/common/addressable.hpp>
 
-class HardwareRegisters : public Addressable
+#include <libgrebe/types.hpp>
+struct HardwareRegisters
 {
-private:
-    Byte defaultRead = 0xff;
     Byte P1;
     Byte SB;
     Byte SC;
@@ -48,14 +46,6 @@ private:
     Byte WY;
     Byte WX;
     Byte IE;
-
-public:
-    // contains; returns whether address belongs to this addressable
-    bool contains(const Word& address) const override;
-    // read; attempts to read a byte at a given address
-    const Byte& read(const Word& address) const override;
-    // write; attempts to write a byte at a given address
-    void write(const Word& address, const Byte& data) override;
 };
 
 #endif // LIBGREBE_HRAM_HPP

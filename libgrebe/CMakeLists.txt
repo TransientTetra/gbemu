@@ -47,6 +47,8 @@ set(LIBGREBE_SOURCES
         libgrebe/core/mmu/wram.cpp
         libgrebe/core/mmu/hardware_registers.hpp
         libgrebe/core/mmu/hardware_registers.cpp
+        libgrebe/core/mmu/hardware_registers_addressable.hpp
+        libgrebe/core/mmu/hardware_registers_addressable.cpp
         )
 
 add_library(libgrebe STATIC ${LIBGREBE_SOURCES})

@@ -28,16 +28,17 @@ bool HardwareRegistersAddressable::contains(const Word& address) const
 
 const Byte& HardwareRegistersAddressable::read(const Word& address) const
 {
+    // https://gbdev.io/pandocs/Hardware_Reg_List.html
     switch (address)
     {
         case LIBGREBE_REG_P1:
-            return defaultRead;
+            return hardwareRegisters.P1;
             break;
         case LIBGREBE_REG_SB:
-            return defaultRead;
+            return hardwareRegisters.SB;
             break;
         case LIBGREBE_REG_SC:
-            return defaultRead;
+            return hardwareRegisters.SC;
             break;
         case LIBGREBE_REG_DIV:
             return defaultRead;
@@ -166,10 +167,13 @@ void HardwareRegistersAddressable::write(const Word& address, const Byte& data)
     switch (address)
     {
         case LIBGREBE_REG_P1:
+            hardwareRegisters.P1 = (hardwareRegisters.P1 & 0x0f) | (data & 0xf0);
             break;
         case LIBGREBE_REG_SB:
+            hardwareRegisters.SB = data;
             break;
         case LIBGREBE_REG_SC:
+            hardwareRegisters.SC = data;
             break;
         case LIBGREBE_REG_DIV:
             break;

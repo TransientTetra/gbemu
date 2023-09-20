@@ -35,6 +35,13 @@ protected:
             EXPECT_EQ(addressable.read(i), 0x69);
         }
     }
+    void testReadWrite(Byte& hwReg, Word addr, Addressable& addressable)
+    {
+        hwReg = 0x69;
+        EXPECT_EQ(addressable.read(addr), 0x69);
+        addressable.write(addr, 0x96);
+        EXPECT_EQ(hwReg, 0x96);
+    }
 };
 
 #endif // LIBGREBE_MMU_TEST_HPP

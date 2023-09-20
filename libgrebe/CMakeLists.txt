@@ -69,6 +69,7 @@ set(LIBGREBE_TEST_SOURCES
         libgrebe/core/core.test.cpp
         libgrebe/core/common.test.hpp
         libgrebe/core/common.test.cpp
+        libgrebe/core/mmu/hardware_registers.test.cpp
         )
 add_executable(libgrebe_tests ${LIBGREBE_TEST_SOURCES})
 target_link_libraries(libgrebe_tests libgrebe gtest_main)

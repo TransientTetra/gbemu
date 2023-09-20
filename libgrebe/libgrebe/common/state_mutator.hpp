@@ -9,6 +9,7 @@ protected:
     State& state;
 
 public:
+    virtual ~StateMutator(){};
     explicit StateMutator(State& state) : state(state)
     {
     }

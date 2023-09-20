@@ -5,6 +5,7 @@
 class SynchronousComponent
 {
 public:
+    virtual ~SynchronousComponent(){};
     // tick represents action for one t-clock
     virtual void tick() = 0;
 };

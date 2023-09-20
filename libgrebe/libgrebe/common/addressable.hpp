@@ -24,6 +24,7 @@ class Addressable
 {
 private:
 public:
+    virtual ~Addressable(){};
     // contains; returns whether address belongs to this addressable
     virtual bool contains(const Word& address) const = 0;
     // read; attempts to read a byte at a given address

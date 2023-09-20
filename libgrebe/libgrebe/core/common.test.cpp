@@ -37,6 +37,7 @@ void copyState(State& dst, State& src)
 {
     dst.registers = src.registers;
     copyMem(dst.mmu, src.mmu);
+    dst.hardwareRegisters = src.hardwareRegisters;
     dst.ime = src.ime;
     dst.imeScheduled = src.imeScheduled;
     dst.clockCycles = src.clockCycles;

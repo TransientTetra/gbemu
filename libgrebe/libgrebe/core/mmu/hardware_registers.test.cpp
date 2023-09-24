@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
+#include <libgrebe/core/cpu/cpu.hpp>
 #include <libgrebe/core/mmu/hardware_registers_addressable.hpp>
 #include <libgrebe/core/mmu/mmu.test.hpp>
-#include <libgrebe/memory_locations.hpp>
+#include <memory>
 
 TEST_F(MMUTest, HardwareRegistersAddressableTest)
 {
@@ -72,4 +73,34 @@ TEST_F(MMUTest, P1Test)
     addressable->write(LIBGREBE_REG_P1, 0xff);
     EXPECT_EQ(state.hardwareRegisters.P1, 0xf0);
     delete addressable;
+}
+
+TEST_F(MMUTest, DIVTest)
+{
+    // FF04 — DIV: Divider register
+    // This register is incremented at a rate of 16384Hz (~16779Hz on SGB). Writing any value to this register resets it
+    // to $00. Additionally, this register is reset when executing the stop instruction, and only begins ticking again
+    // once stop mode ends. This also occurs during a speed switch. (TODO: how is it affected by the wait after a speed
+    // switch?) Note: The divider is affected by CGB double speed mode, and will increment at 32768Hz in double speed.
+    State state;
+    state.mmu.registerAddressable(std::make_unique<HardwareRegistersAddressable>(state.hardwareRegisters));
+    CPU cpu(state);
+    state.mmu.write(LIBGREBE_REG_DIV, 1);
+    EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 0);
+    for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
+        cpu.tick();
+    EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 1);
+    for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
+        cpu.tick();
+    EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 2);
+    for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
+        cpu.tick();
+    EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 3);
+
+    state.hardwareRegisters.DIV = 0xFF;
+    for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
+        cpu.tick();
+    EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 0);
+
+    // todo add stop mode test once stop implemented in cpu
 }

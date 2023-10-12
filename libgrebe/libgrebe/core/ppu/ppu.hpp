@@ -7,24 +7,24 @@
 
 struct IllegalPPUStateException : public std::exception
 {
-    [[nodiscard]] const char* what() const noexcept override
-    {
-        return "Illegal PPU state";
-    }
+	[[nodiscard]] const char* what() const noexcept override
+	{
+		return "Illegal PPU state";
+	}
 };
 
 class PPU : public SynchronousComponent, public StateMutator
 {
-    using StateMutator::StateMutator;
+	using StateMutator::StateMutator;
 
 private:
-    void hblank();
-    void vblank();
-    void oamScan();
-    void draw();
+	void hblank();
+	void vblank();
+	void oamScan();
+	void draw();
 
 public:
-    void tick();
+	void tick();
 };
 
 #endif // LIBGREBE_PPU_HPP

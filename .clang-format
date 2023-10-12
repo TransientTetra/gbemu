@@ -2,7 +2,7 @@
 BasedOnStyle: Microsoft
 AccessModifierOffset: -4
 ColumnLimit: 120
-# UseTab: Always
+UseTab: Always
 PointerAlignment: 'Left'
 IndentCaseLabels: true
 

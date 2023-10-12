@@ -9,15 +9,15 @@
 class TimerTest : public ::testing::Test
 {
 protected:
-    State state;
-    std::unique_ptr<Timer> timer;
-    void SetUp() override
-    {
-        timer = std::make_unique<Timer>(state);
-    }
-    void TearDown() override
-    {
-    }
+	State state;
+	std::unique_ptr<Timer> timer;
+	void SetUp() override
+	{
+		timer = std::make_unique<Timer>(state);
+	}
+	void TearDown() override
+	{
+	}
 };
 
 #endif // LIBGREBE_TIMER_TEST_HPP

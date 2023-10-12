@@ -5,9 +5,9 @@
 class SynchronousComponent
 {
 public:
-    virtual ~SynchronousComponent(){};
-    // tick represents action for one t-clock
-    virtual void tick() = 0;
+	virtual ~SynchronousComponent(){};
+	// tick represents action for one t-clock
+	virtual void tick() = 0;
 };
 
 #endif // LIBGREBE_SYNCHRONOUS_COMPONENT_HPP

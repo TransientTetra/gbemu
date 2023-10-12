@@ -7,32 +7,32 @@
 class FakeAddressable : public Addressable
 {
 private:
-    std::vector<Byte> mem;
-    size_t size;
+	std::vector<Byte> mem;
+	size_t size;
 
 public:
-    FakeAddressable()
-    {
-        size = LIBGREBE_MEMORY_SIZE;
-        mem.resize(LIBGREBE_MEMORY_SIZE);
-    }
-    FakeAddressable(Word size)
-    {
-        this->size = size;
-        mem.resize(size);
-    }
-    virtual bool contains(const Word& address) const override
-    {
-        return address < size;
-    }
-    virtual const Byte& read(const Word& address) const override
-    {
-        return mem[address];
-    }
-    virtual void write(const Word& address, const Byte& data) override
-    {
-        mem[address] = data;
-    }
+	FakeAddressable()
+	{
+		size = LIBGREBE_MEMORY_SIZE;
+		mem.resize(LIBGREBE_MEMORY_SIZE);
+	}
+	FakeAddressable(Word size)
+	{
+		this->size = size;
+		mem.resize(size);
+	}
+	virtual bool contains(const Word& address) const override
+	{
+		return address < size;
+	}
+	virtual const Byte& read(const Word& address) const override
+	{
+		return mem[address];
+	}
+	virtual void write(const Word& address, const Byte& data) override
+	{
+		mem[address] = data;
+	}
 };
 
 void writeWord(State& state, const Word& address, const Word& data);

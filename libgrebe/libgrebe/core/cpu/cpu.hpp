@@ -10,13 +10,13 @@
 class CPU : public SynchronousComponent, public StateMutator
 {
 private:
-    ControlUnit controlUnit;
-    InterruptHandler interruptHandler;
-    Timer timer;
+	ControlUnit controlUnit;
+	InterruptHandler interruptHandler;
+	Timer timer;
 
 public:
-    CPU(State& state);
-    void tick() override;
+	CPU(State& state);
+	void tick() override;
 };
 
 #endif // LIBGREBE_CPU_HPP

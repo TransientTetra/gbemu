@@ -7,25 +7,25 @@
 
 struct IllegalInterruptHandlerStateException : public std::exception
 {
-    [[nodiscard]] const char* what() const noexcept override
-    {
-        return "Illegal interrupt handler state";
-    }
+	[[nodiscard]] const char* what() const noexcept override
+	{
+		return "Illegal interrupt handler state";
+	}
 };
 
 class InterruptHandler : public SynchronousComponent, public StateMutator
 {
-    using StateMutator::StateMutator;
+	using StateMutator::StateMutator;
 
 private:
-    void cycle1();
-    void cycle2();
-    void cycle3();
-    void cycle4();
-    void cycle5();
+	void cycle1();
+	void cycle2();
+	void cycle3();
+	void cycle4();
+	void cycle5();
 
 public:
-    void tick() override;
+	void tick() override;
 };
 
 #endif // LIBGREBE_INTERRUPT_HANDLER_HPP

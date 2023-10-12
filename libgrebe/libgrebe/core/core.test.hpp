@@ -12,36 +12,36 @@
 class CoreTest : public ::testing::Test
 {
 protected:
-    std::unique_ptr<Core> core;
-    std::unique_ptr<Core> expectedCore;
+	std::unique_ptr<Core> core;
+	std::unique_ptr<Core> expectedCore;
 
-    void SetUp() override
-    {
-        core = std::make_unique<Core>();
-        expectedCore = std::make_unique<Core>();
-    }
+	void SetUp() override
+	{
+		core = std::make_unique<Core>();
+		expectedCore = std::make_unique<Core>();
+	}
 
-    void TearDown() override
-    {
-    }
+	void TearDown() override
+	{
+	}
 
-    void writeWord(State& state, const Word& address, const Word& data)
-    {
-        state.mmu.write(address, static_cast<Byte>(0x00ff & data));
-        state.mmu.write(address + 1, static_cast<Byte>(data >> 8));
-    }
+	void writeWord(State& state, const Word& address, const Word& data)
+	{
+		state.mmu.write(address, static_cast<Byte>(0x00ff & data));
+		state.mmu.write(address + 1, static_cast<Byte>(data >> 8));
+	}
 
-    void machineCycle()
-    {
-        core->tick();
-        ++core->state.clockCycles;
-        core->tick();
-        ++core->state.clockCycles;
-        core->tick();
-        ++core->state.clockCycles;
-        core->tick();
-        ++core->state.clockCycles;
-    }
+	void machineCycle()
+	{
+		core->tick();
+		++core->state.clockCycles;
+		core->tick();
+		++core->state.clockCycles;
+		core->tick();
+		++core->state.clockCycles;
+		core->tick();
+		++core->state.clockCycles;
+	}
 };
 
 #endif // LIBGREBE_CORE_TEST_HPP

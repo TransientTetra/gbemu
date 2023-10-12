@@ -6,13 +6,13 @@
 class StateMutator
 {
 protected:
-    State& state;
+	State& state;
 
 public:
-    virtual ~StateMutator(){};
-    explicit StateMutator(State& state) : state(state)
-    {
-    }
+	virtual ~StateMutator(){};
+	explicit StateMutator(State& state) : state(state)
+	{
+	}
 };
 
 #endif // LIBGREBE_STATE_MUTATOR_HPP

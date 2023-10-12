@@ -13,18 +13,18 @@
 class MMU
 {
 private:
-    Byte defaultRead = 0xff;
-    // all mapped memory, includes ram and vram and rom
-    std::vector<std::unique_ptr<Addressable>> addressables;
+	Byte defaultRead = 0xff;
+	// all mapped memory, includes ram and vram and rom
+	std::vector<std::unique_ptr<Addressable>> addressables;
 
 public:
-    void registerAddressable(std::unique_ptr<Addressable> addressable);
-    const Byte& read(const Word& address) const;
-    void write(const Word& address, const Byte& data);
+	void registerAddressable(std::unique_ptr<Addressable> addressable);
+	const Byte& read(const Word& address) const;
+	void write(const Word& address, const Byte& data);
 
-    MMU();
-    MMU(const MMU&) = delete;
-    MMU& operator=(const MMU&) = delete;
+	MMU();
+	MMU(const MMU&) = delete;
+	MMU& operator=(const MMU&) = delete;
 };
 
 #endif // LIBGREBE_MEMORY_HPP

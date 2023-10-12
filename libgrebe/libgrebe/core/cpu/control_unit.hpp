@@ -6,26 +6,26 @@
 
 struct IllegalCPUStateException : public std::exception
 {
-    [[nodiscard]] const char* what() const noexcept override
-    {
-        return "Illegal CPU state";
-    }
+	[[nodiscard]] const char* what() const noexcept override
+	{
+		return "Illegal CPU state";
+	}
 };
 
 // Sharp SM83 CPU, control unit
 class ControlUnit : public SynchronousComponent, public StateMutator
 {
-    using StateMutator::StateMutator;
+	using StateMutator::StateMutator;
 
 private:
-    void fetch();
-    void execute();
-    void stop();
-    void halt();
-    void haltBug();
+	void fetch();
+	void execute();
+	void stop();
+	void halt();
+	void haltBug();
 
 public:
-    void tick() override;
+	void tick() override;
 };
 
 #endif // LIBGREBE_CONTROL_UNIT_HPP

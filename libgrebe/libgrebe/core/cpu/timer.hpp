@@ -5,11 +5,11 @@
 
 class Timer : public SynchronousComponent, public StateMutator
 {
-    using StateMutator::StateMutator;
+	using StateMutator::StateMutator;
 
 private:
 public:
-    void tick() override;
+	void tick() override;
 };
 
 #endif // LIBGREBE_TIMER_HPP

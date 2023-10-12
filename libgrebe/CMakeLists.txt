@@ -46,9 +46,10 @@ set(LIBGREBE_SOURCES
         libgrebe/core/mmu/wram.hpp
         libgrebe/core/mmu/wram.cpp
         libgrebe/core/mmu/hardware_registers.hpp
-        libgrebe/core/mmu/hardware_registers.cpp
         libgrebe/core/mmu/hardware_registers_addressable.hpp
         libgrebe/core/mmu/hardware_registers_addressable.cpp
+        libgrebe/core/cpu/timer.hpp
+        libgrebe/core/cpu/timer.cpp
         )
 
 add_library(libgrebe STATIC ${LIBGREBE_SOURCES})
@@ -70,6 +71,8 @@ set(LIBGREBE_TEST_SOURCES
         libgrebe/core/common.test.hpp
         libgrebe/core/common.test.cpp
         libgrebe/core/mmu/hardware_registers.test.cpp
+        libgrebe/core/cpu/timer.test.hpp
+        libgrebe/core/cpu/timer.test.cpp
         )
 add_executable(libgrebe_tests ${LIBGREBE_TEST_SOURCES})
 target_link_libraries(libgrebe_tests libgrebe gtest_main)

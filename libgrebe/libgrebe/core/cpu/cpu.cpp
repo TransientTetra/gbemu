@@ -1,12 +1,12 @@
 #include <libgrebe/core/cpu/cpu.hpp>
 
-CPU::CPU(State& state) : StateMutator(state), controlUnit(state), interruptHandler(state)
+CPU::CPU(State& state) : StateMutator(state), controlUnit(state), interruptHandler(state), timer(state)
 {
 }
 
 void CPU::tick()
 {
-    if (state.clockCycles % 256 == 0) ++state.hardwareRegisters.DIV; // here? in control unit? should this increment when in interrupt?
+    timer.tick(); // here?
     const Byte& IE = state.mmu.read(LIBGREBE_REG_IE);
     const Byte& IF = state.mmu.read(LIBGREBE_REG_IF);
     if (state.imeScheduled)

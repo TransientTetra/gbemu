@@ -41,16 +41,16 @@ const Byte& HardwareRegistersAddressable::read(const Word& address) const
             return hardwareRegisters.SC;
             break;
         case LIBGREBE_REG_DIV:
-            return hardwareRegisters.DIV;
+            return hardwareRegisters.DIV();
             break;
         case LIBGREBE_REG_TIMA:
-            return defaultRead;
+            return hardwareRegisters.TIMA;
             break;
         case LIBGREBE_REG_TMA:
-            return defaultRead;
+            return hardwareRegisters.TMA;
             break;
         case LIBGREBE_REG_TAC:
-            return defaultRead;
+            return hardwareRegisters.TAC;
             break;
         case LIBGREBE_REG_IF:
             return hardwareRegisters.IF;
@@ -176,13 +176,16 @@ void HardwareRegistersAddressable::write(const Word& address, const Byte& data)
             hardwareRegisters.SC = data;
             break;
         case LIBGREBE_REG_DIV:
-            hardwareRegisters.DIV = 0;
+            hardwareRegisters.DIV_WIDE = 0;
             break;
         case LIBGREBE_REG_TIMA:
+            hardwareRegisters.TIMA = data;
             break;
         case LIBGREBE_REG_TMA:
+            hardwareRegisters.TMA = data;
             break;
         case LIBGREBE_REG_TAC:
+            hardwareRegisters.TAC = data;
             break;
         case LIBGREBE_REG_IF:
             hardwareRegisters.IF = data;

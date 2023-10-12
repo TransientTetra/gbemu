@@ -7,7 +7,7 @@ struct HardwareRegisters
     Byte P1;
     Byte SB;
     Byte SC;
-    Byte DIV;
+    Word DIV_WIDE;
     Byte TIMA;
     Byte TMA;
     Byte TAC;
@@ -46,6 +46,10 @@ struct HardwareRegisters
     Byte WY;
     Byte WX;
     Byte IE;
+    inline Byte DIV()
+    {
+        return DIV_WIDE >> 8;
+    }
 };
 
 #endif // LIBGREBE_HRAM_HPP

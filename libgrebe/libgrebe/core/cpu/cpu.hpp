@@ -4,6 +4,7 @@
 #include <libgrebe/common/synchronous_component.hpp>
 #include <libgrebe/core/cpu/control_unit.hpp>
 #include <libgrebe/core/cpu/interrupt_handler.hpp>
+#include <libgrebe/core/cpu/timer.hpp>
 
 // Sharp SM83 CPU, control unit + interrupt handler
 class CPU : public SynchronousComponent, public StateMutator
@@ -11,6 +12,7 @@ class CPU : public SynchronousComponent, public StateMutator
 private:
     ControlUnit controlUnit;
     InterruptHandler interruptHandler;
+    Timer timer;
 
 public:
     CPU(State& state);

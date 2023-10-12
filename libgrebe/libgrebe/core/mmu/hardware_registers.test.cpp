@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-#include <libgrebe/core/cpu/cpu.hpp>
 #include <libgrebe/core/mmu/hardware_registers_addressable.hpp>
 #include <libgrebe/core/mmu/mmu.test.hpp>
 #include <memory>
@@ -59,6 +58,9 @@ TEST_F(MMUTest, HardwareRegistersStandardTest)
     Addressable* addressable = new HardwareRegistersAddressable(hardwareRegisters);
     testReadWrite(hardwareRegisters.SB, LIBGREBE_REG_SB, *addressable);
     testReadWrite(hardwareRegisters.SC, LIBGREBE_REG_SC, *addressable);
+    testReadWrite(hardwareRegisters.TAC, LIBGREBE_REG_TAC, *addressable);
+    testReadWrite(hardwareRegisters.TMA, LIBGREBE_REG_TMA, *addressable);
+    testReadWrite(hardwareRegisters.TIMA, LIBGREBE_REG_TIMA, *addressable);
 
     delete addressable;
 }
@@ -83,24 +85,10 @@ TEST_F(MMUTest, DIVTest)
     // once stop mode ends. This also occurs during a speed switch. (TODO: how is it affected by the wait after a speed
     // switch?) Note: The divider is affected by CGB double speed mode, and will increment at 32768Hz in double speed.
     State state;
-    state.mmu.registerAddressable(std::make_unique<HardwareRegistersAddressable>(state.hardwareRegisters));
-    CPU cpu(state);
-    state.mmu.write(LIBGREBE_REG_DIV, 1);
-    EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 0);
-    for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
-        cpu.tick();
-    EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 1);
-    for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
-        cpu.tick();
-    EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 2);
-    for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
-        cpu.tick();
-    EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 3);
-
-    state.hardwareRegisters.DIV = 0xFF;
-    for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
-        cpu.tick();
-    EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 0);
-
-    // todo add stop mode test once stop implemented in cpu
+    Addressable* addressable = new HardwareRegistersAddressable(state.hardwareRegisters);
+    state.hardwareRegisters.DIV_WIDE = 0x1234;
+    EXPECT_EQ(addressable->read(LIBGREBE_REG_DIV), 0x12);
+    addressable->write(LIBGREBE_REG_DIV, 1);
+    EXPECT_EQ(addressable->read(LIBGREBE_REG_DIV), 0);
+    EXPECT_EQ(state.hardwareRegisters.DIV_WIDE, 0);
 }

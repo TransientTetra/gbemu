@@ -13,14 +13,14 @@
 class MMU
 {
 private:
-	Byte defaultRead = 0xff;
+	static const Byte defaultRead = 0xff;
 	// all mapped memory, includes ram and vram and rom
 	std::vector<std::unique_ptr<Addressable>> addressables;
 
 public:
 	void registerAddressable(std::unique_ptr<Addressable> addressable);
-	const Byte& read(const Word& address) const;
-	void write(const Word& address, const Byte& data);
+	Byte read(Word address) const;
+	void write(Word address, Byte data);
 
 	MMU();
 	MMU(const MMU&) = delete;

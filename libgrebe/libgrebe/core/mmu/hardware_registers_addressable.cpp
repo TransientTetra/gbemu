@@ -7,7 +7,7 @@ HardwareRegistersAddressable::HardwareRegistersAddressable(HardwareRegisters& ha
 {
 }
 
-bool HardwareRegistersAddressable::contains(const Word& address) const
+bool HardwareRegistersAddressable::contains(Word address) const
 {
 	// only dmg registers
 	return address == LIBGREBE_REG_P1 || address == LIBGREBE_REG_SB || address == LIBGREBE_REG_SC ||
@@ -26,7 +26,7 @@ bool HardwareRegistersAddressable::contains(const Word& address) const
 		   address == LIBGREBE_REG_WY || address == LIBGREBE_REG_WX || address == LIBGREBE_REG_IE;
 }
 
-const Byte& HardwareRegistersAddressable::read(const Word& address) const
+Byte HardwareRegistersAddressable::read(Word address) const
 {
 	// https://gbdev.io/pandocs/Hardware_Reg_List.html
 	switch (address)
@@ -162,7 +162,7 @@ const Byte& HardwareRegistersAddressable::read(const Word& address) const
 	}
 }
 
-void HardwareRegistersAddressable::write(const Word& address, const Byte& data)
+void HardwareRegistersAddressable::write(Word address, Byte data)
 {
 	switch (address)
 	{

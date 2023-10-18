@@ -21,15 +21,15 @@ public:
 		this->size = size;
 		mem.resize(size);
 	}
-	virtual bool contains(const Word& address) const override
+	virtual bool contains(Word address) const override
 	{
 		return address < size;
 	}
-	virtual const Byte& read(const Word& address) const override
+	virtual Byte read(Word address) const override
 	{
 		return mem[address];
 	}
-	virtual void write(const Word& address, const Byte& data) override
+	virtual void write(Word address, Byte data) override
 	{
 		mem[address] = data;
 	}

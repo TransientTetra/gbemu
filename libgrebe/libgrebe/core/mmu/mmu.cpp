@@ -11,7 +11,7 @@ void MMU::registerAddressable(std::unique_ptr<Addressable> addressable)
 	addressables.emplace_back(std::move(addressable));
 }
 
-const Byte& MMU::read(const Word& address) const
+Byte MMU::read(Word address) const
 {
 	for (auto&& item : addressables)
 	{
@@ -23,7 +23,7 @@ const Byte& MMU::read(const Word& address) const
 	return defaultRead;
 }
 
-void MMU::write(const Word& address, const Byte& data)
+void MMU::write(Word address, Byte data)
 {
 	for (auto&& item : addressables)
 	{

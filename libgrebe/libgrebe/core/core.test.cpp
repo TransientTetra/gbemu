@@ -1,5 +1,63 @@
+#include <gtest/gtest.h>
 #include <libgrebe/core/common.test.hpp>
 #include <libgrebe/core/core.test.hpp>
+
+TEST_F(CoreTest, DMGInitTest)
+{
+	// https://gbdev.io/pandocs/Power_Up_Sequence.html#console-state-after-boot-rom-hand-off
+	// test checking state after bootrom handoff
+	EXPECT_EQ(core->state.registers.a, 1);
+	EXPECT_EQ(core->state.registers.b, 0);
+	EXPECT_EQ(core->state.registers.c, 0x13);
+	EXPECT_EQ(core->state.registers.d, 0);
+	EXPECT_EQ(core->state.registers.e, 0xd8);
+	EXPECT_EQ(core->state.registers.h, 0x01);
+	EXPECT_EQ(core->state.registers.l, 0x4d);
+	EXPECT_EQ(core->state.registers.pc, 0x100);
+	EXPECT_EQ(core->state.registers.sp, 0xfffe);
+	EXPECT_EQ(core->state.registers.getZeroFlag(), 1);
+	EXPECT_EQ(core->state.registers.getSubtractFlag(), 0);
+	EXPECT_EQ(core->state.hardwareRegisters.P1, 0xCF);
+	EXPECT_EQ(core->state.hardwareRegisters.SB, 0x00);
+	EXPECT_EQ(core->state.hardwareRegisters.SC, 0x7E);
+	EXPECT_EQ(core->state.hardwareRegisters.DIV(), 0xAB);
+	EXPECT_EQ(core->state.hardwareRegisters.TIMA, 0x00);
+	EXPECT_EQ(core->state.hardwareRegisters.TMA, 0x00);
+	EXPECT_EQ(core->state.hardwareRegisters.TAC, 0xF8);
+	EXPECT_EQ(core->state.hardwareRegisters.IF, 0xE1);
+	EXPECT_EQ(core->state.hardwareRegisters.NR10, 0x80);
+	EXPECT_EQ(core->state.hardwareRegisters.NR11, 0xBF);
+	EXPECT_EQ(core->state.hardwareRegisters.NR12, 0xF3);
+	EXPECT_EQ(core->state.hardwareRegisters.NR13, 0xFF);
+	EXPECT_EQ(core->state.hardwareRegisters.NR14, 0xBF);
+	EXPECT_EQ(core->state.hardwareRegisters.NR21, 0x3F);
+	EXPECT_EQ(core->state.hardwareRegisters.NR22, 0x00);
+	EXPECT_EQ(core->state.hardwareRegisters.NR23, 0xFF);
+	EXPECT_EQ(core->state.hardwareRegisters.NR24, 0xBF);
+	EXPECT_EQ(core->state.hardwareRegisters.NR30, 0x7F);
+	EXPECT_EQ(core->state.hardwareRegisters.NR31, 0xFF);
+	EXPECT_EQ(core->state.hardwareRegisters.NR32, 0x9F);
+	EXPECT_EQ(core->state.hardwareRegisters.NR33, 0xFF);
+	EXPECT_EQ(core->state.hardwareRegisters.NR34, 0xBF);
+	EXPECT_EQ(core->state.hardwareRegisters.NR41, 0xFF);
+	EXPECT_EQ(core->state.hardwareRegisters.NR42, 0x00);
+	EXPECT_EQ(core->state.hardwareRegisters.NR43, 0x00);
+	EXPECT_EQ(core->state.hardwareRegisters.NR44, 0xBF);
+	EXPECT_EQ(core->state.hardwareRegisters.NR50, 0x77);
+	EXPECT_EQ(core->state.hardwareRegisters.NR51, 0xF3);
+	EXPECT_EQ(core->state.hardwareRegisters.NR52, 0xF1);
+	EXPECT_EQ(core->state.hardwareRegisters.LCDC, 0x91);
+	EXPECT_EQ(core->state.hardwareRegisters.STAT, 0x85);
+	EXPECT_EQ(core->state.hardwareRegisters.SCY, 0x00);
+	EXPECT_EQ(core->state.hardwareRegisters.SCX, 0x00);
+	EXPECT_EQ(core->state.hardwareRegisters.LY, 0x00);
+	EXPECT_EQ(core->state.hardwareRegisters.LYC, 0x00);
+	EXPECT_EQ(core->state.hardwareRegisters.DMA, 0xFF);
+	EXPECT_EQ(core->state.hardwareRegisters.BGP, 0xFC);
+	EXPECT_EQ(core->state.hardwareRegisters.WY, 0x00);
+	EXPECT_EQ(core->state.hardwareRegisters.WX, 0x00);
+	EXPECT_EQ(core->state.hardwareRegisters.IE, 0x00);
+}
 
 TEST_F(CoreTest, InterruptsTest)
 {

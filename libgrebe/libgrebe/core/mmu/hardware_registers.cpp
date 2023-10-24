@@ -113,40 +113,40 @@ Byte HardwareRegisters::read(Word address) const
 			return defaultRead;
 			break;
 		case LIBGREBE_REG_LCDC:
-			return defaultRead;
+			return LCDC;
 			break;
 		case LIBGREBE_REG_STAT:
-			return defaultRead;
+			return STAT;
 			break;
 		case LIBGREBE_REG_SCY:
-			return defaultRead;
+			return SCY;
 			break;
 		case LIBGREBE_REG_SCX:
-			return defaultRead;
+			return SCX;
 			break;
 		case LIBGREBE_REG_LY:
-			return defaultRead;
+			return LY;
 			break;
 		case LIBGREBE_REG_LYC:
-			return defaultRead;
+			return LYC;
 			break;
 		case LIBGREBE_REG_DMA:
 			return defaultRead;
 			break;
 		case LIBGREBE_REG_BGP:
-			return defaultRead;
+			return BGP;
 			break;
 		case LIBGREBE_REG_OBP0:
-			return defaultRead;
+			return OBP0;
 			break;
 		case LIBGREBE_REG_OBP1:
-			return defaultRead;
+			return OBP1;
 			break;
 		case LIBGREBE_REG_WY:
-			return defaultRead;
+			return WY;
 			break;
 		case LIBGREBE_REG_WX:
-			return defaultRead;
+			return WX;
 			break;
 		case LIBGREBE_REG_IE:
 			return IE;
@@ -227,28 +227,38 @@ void HardwareRegisters::write(Word address, Byte data)
 		case LIBGREBE_REG_NR52:
 			break;
 		case LIBGREBE_REG_LCDC:
+			LCDC = data;
 			break;
 		case LIBGREBE_REG_STAT:
+			STAT = (data & 0b11111100) | (STAT & 3);
 			break;
 		case LIBGREBE_REG_SCY:
+			SCY = data;
 			break;
 		case LIBGREBE_REG_SCX:
+			SCX = data;
 			break;
 		case LIBGREBE_REG_LY:
 			break;
 		case LIBGREBE_REG_LYC:
+			LYC = data;
 			break;
 		case LIBGREBE_REG_DMA:
 			break;
 		case LIBGREBE_REG_BGP:
+			BGP = data;
 			break;
 		case LIBGREBE_REG_OBP0:
+			OBP0 = data;
 			break;
 		case LIBGREBE_REG_OBP1:
+			OBP1 = data;
 			break;
 		case LIBGREBE_REG_WY:
+			WY = data;
 			break;
 		case LIBGREBE_REG_WX:
+			WX = data;
 			break;
 		case LIBGREBE_REG_IE:
 			IE = data;

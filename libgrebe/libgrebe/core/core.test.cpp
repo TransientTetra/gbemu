@@ -46,16 +46,16 @@ TEST_F(CoreTest, DMGInitTest)
 	// EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_NR50), 0x77);
 	// EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_NR51), 0xF3);
 	// EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_NR52), 0xF1);
-	// EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_LCDC), 0x91);
-	// EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_STAT), 0x85);
-	// EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_SCY), 0x00);
-	// EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_SCX), 0x00);
-	// EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_LY), 0x00);
-	// EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_LYC), 0x00);
+	EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_LCDC), 0x91);
+	EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_STAT), 0x85);
+	EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_SCY), 0x00);
+	EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_SCX), 0x00);
+	EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_LY), 0x00);
+	EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_LYC), 0x00);
 	// EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_DMA), 0xFF);
-	// EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_BGP), 0xFC);
-	// EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_WY), 0x00);
-	// EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_WX), 0x00);
+	EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_BGP), 0xFC);
+	EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_WY), 0x00);
+	EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_WX), 0x00);
 	EXPECT_EQ(core->state.mmu.read(LIBGREBE_REG_IE), 0x00);
 }
 

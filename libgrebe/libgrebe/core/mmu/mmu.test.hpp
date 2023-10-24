@@ -38,6 +38,12 @@ protected:
 		addressable.write(addr, 0x69);
 		EXPECT_EQ(addressable.read(addr), 0x69);
 	}
+	inline void testReadOnly(Addressable& addressable, Word addr)
+	{
+		Byte temp = addressable.read(addr);
+		addressable.write(addr, ~temp);		
+		EXPECT_EQ(addressable.read(addr), temp);
+	}
 };
 
 #endif // LIBGREBE_MMU_TEST_HPP

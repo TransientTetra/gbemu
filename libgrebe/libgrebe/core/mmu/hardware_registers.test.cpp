@@ -50,7 +50,7 @@ TEST_F(MMUTest, HardwareRegistersAddressableTest)
 	EXPECT_TRUE(hardwareRegisters.contains(0xFFFF));
 }
 
-TEST_F(MMUTest, HardwareRegistersStandardTest)
+TEST_F(MMUTest, HardwareRegistersTestReadWrite)
 {
 	// test for normal read/write registers
 	HardwareRegisters hardwareRegisters;
@@ -59,6 +59,22 @@ TEST_F(MMUTest, HardwareRegistersStandardTest)
 	testReadWrite(hardwareRegisters, LIBGREBE_REG_TAC);
 	testReadWrite(hardwareRegisters, LIBGREBE_REG_TMA);
 	testReadWrite(hardwareRegisters, LIBGREBE_REG_TIMA);
+	testReadWrite(hardwareRegisters, LIBGREBE_REG_LCDC);
+	testReadWrite(hardwareRegisters, LIBGREBE_REG_SCY);
+	testReadWrite(hardwareRegisters, LIBGREBE_REG_SCX);
+	testReadWrite(hardwareRegisters, LIBGREBE_REG_LYC);
+	testReadWrite(hardwareRegisters, LIBGREBE_REG_BGP);
+	testReadWrite(hardwareRegisters, LIBGREBE_REG_OBP0);
+	testReadWrite(hardwareRegisters, LIBGREBE_REG_OBP1);
+	testReadWrite(hardwareRegisters, LIBGREBE_REG_WY);
+	testReadWrite(hardwareRegisters, LIBGREBE_REG_WX);
+}
+
+TEST_F(MMUTest, HardwareRegistersTestReadOnly)
+{
+	// test for read only registers
+	HardwareRegisters hardwareRegisters;
+	testReadOnly(hardwareRegisters, LIBGREBE_REG_LY);
 }
 
 TEST_F(MMUTest, P1Test)
@@ -80,4 +96,14 @@ TEST_F(MMUTest, DIVTest)
 	EXPECT_EQ(hardwareRegisters.read(LIBGREBE_REG_DIV), 0);
 	hardwareRegisters.write(LIBGREBE_REG_DIV, 96);
 	EXPECT_EQ(hardwareRegisters.read(LIBGREBE_REG_DIV), 0);
+}
+
+TEST_F(MMUTest, STATTest)
+{
+	// bits 0-1 are readonly
+	// bits 0-3 are readonly
+	HardwareRegisters hardwareRegisters;
+	Byte stat = hardwareRegisters.read(LIBGREBE_REG_STAT);
+	hardwareRegisters.write(LIBGREBE_REG_STAT, ~stat);
+	EXPECT_EQ(hardwareRegisters.read(LIBGREBE_REG_STAT), (~stat & 0b11111100) | (stat & 0x3));
 }

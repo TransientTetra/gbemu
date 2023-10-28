@@ -16,13 +16,14 @@
 class ControlUnitTest : public ::testing::Test
 {
 protected:
+	FakeAddressable fakeAddressable;
 	std::unique_ptr<ControlUnit> cpu;
 	State state, expectedState;
 
 	void SetUp() override
 	{
-		state.mmu.registerAddressable(std::make_unique<FakeAddressable>());
-		expectedState.mmu.registerAddressable(std::make_unique<FakeAddressable>());
+		state.mmu.registerAddressable(fakeAddressable);
+		expectedState.mmu.registerAddressable(fakeAddressable);
 		cpu = std::make_unique<ControlUnit>(state);
 	}
 

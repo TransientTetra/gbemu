@@ -70,7 +70,7 @@ Core::Core() : cpu(state), ppu(state)
 Core::Core(const std::string& bootromPath) : cpu(state), ppu(state)
 {
 	// register bootrom here
-	state.mmu.registerAddressable(std::make_unique<Bootrom>());
+	state.mmu.registerAddressable(state.bootrom);
 	initCommon();
 	MemoryLoader::LoadBootRom(state.mmu, bootromPath);
 	state.registers.pc = 0x00;
@@ -78,10 +78,10 @@ Core::Core(const std::string& bootromPath) : cpu(state), ppu(state)
 
 void Core::initCommon()
 {
-	state.mmu.registerAddressable(std::make_unique<WRAM>());
-	state.mmu.registerAddressable(std::make_unique<VRAM>());
-	state.mmu.registerAddressable(std::make_unique<HRAM>());
-	state.mmu.registerAddressable(std::make_unique<HardwareRegisters>());
+	state.mmu.registerAddressable(state.wram);
+	state.mmu.registerAddressable(state.vram);
+	state.mmu.registerAddressable(state.hram);
+	state.mmu.registerAddressable(state.hardwareRegisters);
 }
 
 void Core::tick()

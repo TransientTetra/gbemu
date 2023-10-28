@@ -8,11 +8,12 @@
 
 TEST_F(MMUTest, RegisterAddressableTest)
 {
+	FakeAddressable fakeAddressables[256];
 	EXPECT_EQ(mmu.addressables.size(), 0);
 	for (int i = 0; i < 256; ++i)
 	{
 		EXPECT_EQ(mmu.addressables.size(), i);
-		mmu.registerAddressable(std::make_unique<FakeAddressable>(16));
+		mmu.registerAddressable(fakeAddressables[i]);
 	}
 }
 
@@ -20,7 +21,8 @@ TEST_F(MMUTest, MMUReadsWritesTest)
 {
 	EXPECT_EQ(mmu.read(0), 0xff);
 	EXPECT_EQ(mmu.read(16), 0xff);
-	mmu.registerAddressable(std::make_unique<FakeAddressable>(16));
+	FakeAddressable fakeAddressable(16);
+	mmu.registerAddressable(fakeAddressable);
 	Word rangeStart = 0;
 	Word rangeEnd = 16;
 	for (Word i = rangeStart; i < rangeEnd; ++i)

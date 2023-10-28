@@ -34,116 +34,125 @@
 TEST_F(TimerTest, DIVTest)
 {
 	// todo add stop mode test once stop implemented in cpu
-	state.mmu.write(LIBGREBE_REG_DIV, 0);
+	mmu.write(LIBGREBE_REG_DIV, 0);
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_DIV), 0);
 	for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
+	{
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_DIV), 0);
 		timer->tick();
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 1);
+	}
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_DIV), 1);
 	for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
+	{
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_DIV), 1);
 		timer->tick();
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 2);
+	}
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_DIV), 2);
 	for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
+	{
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_DIV), 2);
 		timer->tick();
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 3);
+	}
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_DIV), 3);
 
-	state.mmu.write(LIBGREBE_REG_DIV, 0xFF);
-	for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
+	for (state.clockCycles = 0; state.clockCycles < 256 * 253; ++state.clockCycles)
 		timer->tick();
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_DIV), 0);
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_DIV), 0);
 }
 
 TEST_F(TimerTest, TIMATACTest)
 {
 	// tests TAC turning TIMA on and off and different TAC frequency settings
-	state.mmu.write(LIBGREBE_REG_TMA, 0);
+	mmu.write(LIBGREBE_REG_TMA, 0);
 
-	state.mmu.write(LIBGREBE_REG_TIMA, 0);
-	state.mmu.write(LIBGREBE_REG_TAC, 0); // disable TAC
-	state.mmu.write(LIBGREBE_REG_DIV, 0);
+	mmu.write(LIBGREBE_REG_TIMA, 0);
+	mmu.write(LIBGREBE_REG_TAC, 0); // disable TAC
+	mmu.write(LIBGREBE_REG_DIV, 0);
 	for (state.clockCycles = 0; state.clockCycles < 1024; ++state.clockCycles)
 	{
 		timer->tick();
-		EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 0);
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 0);
 	}
 
-	state.mmu.write(LIBGREBE_REG_TIMA, 0);
-	state.mmu.write(LIBGREBE_REG_TAC, 0b00000100); // enable TAC, freq timer->Clock / 1024
-	state.mmu.write(LIBGREBE_REG_DIV, 0);
+	mmu.write(LIBGREBE_REG_TIMA, 0);
+	mmu.write(LIBGREBE_REG_TAC, 0b00000100); // enable TAC, freq timer->Clock / 1024
+	mmu.write(LIBGREBE_REG_DIV, 0);
 	state.clockCycles = 0;
 	for (int i = 0; i < 1024 - 1; ++i, ++state.clockCycles)
 	{
 		timer->tick();
-		EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 0);
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 0);
 	}
 	timer->tick();
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 1);
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 1);
 	++state.clockCycles;
 	for (int i = 0; i < 1024 - 1; ++i, ++state.clockCycles)
 	{
 		timer->tick();
-		EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 1);
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 1);
 	}
 	timer->tick();
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 2);
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 2);
 
-	state.mmu.write(LIBGREBE_REG_TIMA, 0);
-	state.mmu.write(LIBGREBE_REG_TAC, 0b00000101); // enable TAC, freq timer->Clock / 16
-	state.mmu.write(LIBGREBE_REG_DIV, 0);
+	mmu.write(LIBGREBE_REG_TIMA, 0);
+	mmu.write(LIBGREBE_REG_TAC, 0b00000101); // enable TAC, freq timer->Clock / 16
+	mmu.write(LIBGREBE_REG_DIV, 0);
 	state.clockCycles = 0;
 	for (int i = 0; i < 16 - 1; ++i, ++state.clockCycles)
 	{
 		timer->tick();
-		EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 0);
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 0);
 	}
 	timer->tick();
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 1);
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 1);
 	++state.clockCycles;
 	for (int i = 0; i < 16 - 1; ++i, ++state.clockCycles)
 	{
 		timer->tick();
-		EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 1);
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 1);
 	}
 	timer->tick();
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 2);
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 2);
 
-	state.mmu.write(LIBGREBE_REG_TIMA, 0);
-	state.mmu.write(LIBGREBE_REG_TAC, 0b00000110); // enable TAC, freq timer->Clock / 64
-	state.mmu.write(LIBGREBE_REG_DIV, 0);
+	mmu.write(LIBGREBE_REG_TIMA, 0);
+	mmu.write(LIBGREBE_REG_TAC, 0b00000110); // enable TAC, freq timer->Clock / 64
+	mmu.write(LIBGREBE_REG_DIV, 0);
 	state.clockCycles = 0;
 	for (int i = 0; i < 64 - 1; ++i, ++state.clockCycles)
 	{
 		timer->tick();
-		EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 0);
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 0);
 	}
 	timer->tick();
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 1);
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 1);
 	++state.clockCycles;
 	for (int i = 0; i < 64 - 1; ++i, ++state.clockCycles)
 	{
 		timer->tick();
-		EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 1);
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 1);
 	}
 	timer->tick();
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 2);
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 2);
 
-	state.mmu.write(LIBGREBE_REG_TIMA, 0);
-	state.mmu.write(LIBGREBE_REG_TAC, 0b00000111); // enable TAC, freq timer->Clock / 256
-	state.mmu.write(LIBGREBE_REG_DIV, 0);
+	mmu.write(LIBGREBE_REG_TIMA, 0);
+	mmu.write(LIBGREBE_REG_TAC, 0b00000111); // enable TAC, freq timer->Clock / 256
+	mmu.write(LIBGREBE_REG_DIV, 0);
 	state.clockCycles = 0;
 	for (int i = 0; i < 256 - 1; ++i, ++state.clockCycles)
 	{
 		timer->tick();
-		EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 0);
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 0);
 	}
 	timer->tick();
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 1);
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 1);
 	++state.clockCycles;
 	for (int i = 0; i < 256 - 1; ++i, ++state.clockCycles)
 	{
 		timer->tick();
-		EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 1);
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 1);
 	}
 	timer->tick();
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 2);
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 2);
 
 	// todo timer behaviour is far more complex than this, implement tests for that
 }
@@ -157,19 +166,19 @@ TEST_F(TimerTest, TMATest)
 	// interrupt vector at $0050.
 
 	// todo timer behaviour is far more complex than this, implement tests for that
-	state.mmu.write(LIBGREBE_REG_TAC, 0b00000100); // enable TAC, freq timer->Clock / 1024
-	state.mmu.write(LIBGREBE_REG_TMA, 0x69);
-	state.mmu.write(LIBGREBE_REG_TIMA, 0xff);
-	state.mmu.write(LIBGREBE_REG_IF, 0);
-	state.mmu.write(LIBGREBE_REG_DIV, 0);
+	mmu.write(LIBGREBE_REG_TAC, 0b00000100); // enable TAC, freq timer->Clock / 1024
+	mmu.write(LIBGREBE_REG_TMA, 0x69);
+	mmu.write(LIBGREBE_REG_TIMA, 0xff);
+	mmu.write(LIBGREBE_REG_IF, 0);
+	mmu.write(LIBGREBE_REG_DIV, 0);
 	state.clockCycles = 0;
 	for (int i = 0; i < 1024 - 1; ++i, ++state.clockCycles)
 	{
 		timer->tick();
-		EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 0xff);
-		EXPECT_EQ(state.mmu.read(LIBGREBE_REG_IF), 0);
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 0xff);
+		EXPECT_EQ(mmu.read(LIBGREBE_REG_IF), 0);
 	}
 	timer->tick();
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_TIMA), 0x69);
-	EXPECT_EQ(state.mmu.read(LIBGREBE_REG_IF), 0b00000100);
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_TIMA), 0x69);
+	EXPECT_EQ(mmu.read(LIBGREBE_REG_IF), 0b00000100);
 }

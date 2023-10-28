@@ -4,8 +4,12 @@
 #include <cstdint>
 #include <functional>
 #include <libgrebe/core/cpu/registers.hpp>
+#include <libgrebe/core/mmu/bootrom.hpp>
 #include <libgrebe/core/mmu/hardware_registers.hpp>
+#include <libgrebe/core/mmu/hram.hpp>
 #include <libgrebe/core/mmu/mmu.hpp>
+#include <libgrebe/core/mmu/vram.hpp>
+#include <libgrebe/core/mmu/wram.hpp>
 #include <queue>
 #include <stack>
 
@@ -35,11 +39,10 @@ enum PPUState
 	DRAW,	  // MODE3
 };
 
-class State
+struct State
 {
-public:
 	std::queue<std::function<void(State&)>> cpuQueue;
-	uint64_t clockCycles = 0; // this will overflow in 139 years @4MiHz, think we're fine
+	uint64_t clockCycles = 0; // this will overflow in 139 years @ 4MiHz, think we're fine
 	CPUState cpuState = FETCH;
 	InterruptHandlerState interruptHandlerState = CYCLE1;
 	PPUState ppuState = OAM_SCAN;
@@ -49,10 +52,15 @@ public:
 	bool ime = false;
 	std::stack<Byte> tmp;
 	Registers registers;
+
 	HardwareRegisters hardwareRegisters;
+	Bootrom bootrom;
+	HRAM hram;
+	WRAM wram;
+	VRAM vram;
 	MMU mmu;
 
-	State();
+	State(){};
 	State(const State&) = delete;
 	State& operator=(const State&) = delete;
 };

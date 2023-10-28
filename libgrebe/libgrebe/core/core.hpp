@@ -4,6 +4,7 @@
 #include <libgrebe/common/synchronous_component.hpp>
 #include <libgrebe/core/cpu/cpu.hpp>
 #include <libgrebe/core/ppu/ppu.hpp>
+#include <string>
 
 // Sharp LR35902 SOC models the whole system on a chip
 class Core : public SynchronousComponent

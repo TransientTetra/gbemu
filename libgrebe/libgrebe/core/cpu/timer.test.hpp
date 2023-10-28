@@ -10,10 +10,12 @@ class TimerTest : public ::testing::Test
 {
 protected:
 	State state;
+	MMU mmu;
 	std::unique_ptr<Timer> timer;
 	void SetUp() override
 	{
 		timer = std::make_unique<Timer>(state);
+		mmu.registerAddressable(state.hardwareRegisters);
 	}
 	void TearDown() override
 	{

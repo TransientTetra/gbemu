@@ -15,37 +15,37 @@
 
 enum CPUState
 {
-	FETCH,
-	EXECUTE,
-	STOP,
-	HALT,
-	HALT_BUG,
+	LIBGREBE_CPU_STATE_FETCH,
+	LIBGREBE_CPU_STATE_EXECUTE,
+	LIBGREBE_CPU_STATE_STOP,
+	LIBGREBE_CPU_STATE_HALT,
+	LIBGREBE_CPU_STATE_HALT_BUG,
 };
 
 enum InterruptHandlerState
 {
-	CYCLE1,
-	CYCLE2,
-	CYCLE3,
-	CYCLE4,
-	CYCLE5,
+	LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE1,
+	LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE2,
+	LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE3,
+	LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE4,
+	LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE5,
 };
 
 enum PPUState
 {
-	HBLANK,	  // MODE0
-	VBLANK,	  // MODE1
-	OAM_SCAN, // MODE2
-	DRAW,	  // MODE3
+	LIBGREBE_PPU_STATE_HBLANK,	  // MODE0
+	LIBGREBE_PPU_STATE_VBLANK,	  // MODE1
+	LIBGREBE_PPU_STATE_OAM_SCAN, // MODE2
+	LIBGREBE_PPU_STATE_DRAW,	  // MODE3
 };
 
 struct State
 {
 	std::queue<std::function<void(State&)>> cpuQueue;
 	uint64_t clockCycles = 0; // this will overflow in 139 years @ 4MiHz, think we're fine
-	CPUState cpuState = FETCH;
-	InterruptHandlerState interruptHandlerState = CYCLE1;
-	PPUState ppuState = OAM_SCAN;
+	CPUState cpuState = LIBGREBE_CPU_STATE_FETCH;
+	InterruptHandlerState interruptHandlerState = LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE1;
+	PPUState ppuState = LIBGREBE_PPU_STATE_OAM_SCAN;
 
 	bool extendedOpcodeSet = false;
 	bool imeScheduled = false;

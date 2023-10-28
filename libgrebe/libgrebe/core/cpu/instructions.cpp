@@ -213,7 +213,7 @@ void Instructions::RRCA(State& state)
 void Instructions::STOP_d8(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		state.cpuState = STOP;
+		state.cpuState = LIBGREBE_CPU_STATE_STOP;
 		state.registers.pc += 1;
 	});
 }
@@ -1184,14 +1184,14 @@ void Instructions::HALT(State& state)
 		const Byte& IF = state.mmu.read(LIBGREBE_REG_IF);
 		if (state.ime)
 		{
-			state.cpuState = CPUState::HALT;
+			state.cpuState = CPUState::LIBGREBE_CPU_STATE_HALT;
 		}
 		else
 		{
 			if (!(IE & IF & 0x1f)) // no interrupt pending
-				state.cpuState = CPUState::HALT;
+				state.cpuState = CPUState::LIBGREBE_CPU_STATE_HALT;
 			else
-				state.cpuState = CPUState::HALT_BUG;
+				state.cpuState = CPUState::LIBGREBE_CPU_STATE_HALT_BUG;
 		}
 	});
 }

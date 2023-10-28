@@ -7,19 +7,19 @@ void InterruptHandler::tick()
 		return;
 	switch (state.interruptHandlerState)
 	{
-		case CYCLE1:
+		case LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE1:
 			cycle1();
 			break;
-		case CYCLE2:
+		case LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE2:
 			cycle2();
 			break;
-		case CYCLE3:
+		case LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE3:
 			cycle3();
 			break;
-		case CYCLE4:
+		case LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE4:
 			cycle4();
 			break;
-		case CYCLE5:
+		case LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE5:
 			cycle5();
 			break;
 		default:
@@ -30,25 +30,25 @@ void InterruptHandler::tick()
 void InterruptHandler::cycle1()
 {
 	// NOP
-	state.interruptHandlerState = CYCLE2;
+	state.interruptHandlerState = LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE2;
 }
 
 void InterruptHandler::cycle2()
 {
 	// NOP
-	state.interruptHandlerState = CYCLE3;
+	state.interruptHandlerState = LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE3;
 }
 
 void InterruptHandler::cycle3()
 {
 	state.mmu.write(--state.registers.sp, msb(state.registers.pc));
-	state.interruptHandlerState = CYCLE4;
+	state.interruptHandlerState = LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE4;
 }
 
 void InterruptHandler::cycle4()
 {
 	state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
-	state.interruptHandlerState = CYCLE5;
+	state.interruptHandlerState = LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE5;
 }
 
 void InterruptHandler::cycle5()
@@ -83,6 +83,6 @@ void InterruptHandler::cycle5()
 		state.mmu.write(LIBGREBE_REG_IF, IF & ~(1 << 4));
 	}
 	state.registers.pc = jumpVector;
-	state.interruptHandlerState = CYCLE1;
-	state.cpuState = FETCH;
+	state.interruptHandlerState = LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE1;
+	state.cpuState = LIBGREBE_CPU_STATE_FETCH;
 }

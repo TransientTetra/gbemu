@@ -4,16 +4,16 @@ void PPU::tick()
 {
 	switch (state.ppuState)
 	{
-		case HBLANK:
+		case LIBGREBE_PPU_STATE_HBLANK:
 			hblank();
 			break;
-		case VBLANK:
+		case LIBGREBE_PPU_STATE_VBLANK:
 			vblank();
 			break;
-		case OAM_SCAN:
+		case LIBGREBE_PPU_STATE_OAM_SCAN:
 			oamScan();
 			break;
-		case DRAW:
+		case LIBGREBE_PPU_STATE_DRAW:
 			draw();
 			break;
 		default:

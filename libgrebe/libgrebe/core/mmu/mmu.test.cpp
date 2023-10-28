@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <libgrebe/core/mmu/bootrom.hpp>
-#include <libgrebe/core/mmu/hardware_registers_addressable.hpp>
+#include <libgrebe/core/mmu/hardware_registers.hpp>
 #include <libgrebe/core/mmu/hram.hpp>
 #include <libgrebe/core/mmu/mmu.test.hpp>
 #include <libgrebe/core/mmu/vram.hpp>

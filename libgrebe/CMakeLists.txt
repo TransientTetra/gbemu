@@ -13,7 +13,6 @@ set(LIBGREBE_SOURCES
         libgrebe/types.hpp
         libgrebe/core/cpu/registers.cpp
         libgrebe/core/cpu/registers.hpp
-        libgrebe/state.cpp
         libgrebe/state.hpp
         libgrebe/memory_loader.cpp
         libgrebe/memory_loader.hpp
@@ -46,8 +45,7 @@ set(LIBGREBE_SOURCES
         libgrebe/core/mmu/wram.hpp
         libgrebe/core/mmu/wram.cpp
         libgrebe/core/mmu/hardware_registers.hpp
-        libgrebe/core/mmu/hardware_registers_addressable.hpp
-        libgrebe/core/mmu/hardware_registers_addressable.cpp
+        libgrebe/core/mmu/hardware_registers.cpp
         libgrebe/core/cpu/timer.hpp
         libgrebe/core/cpu/timer.cpp
         )

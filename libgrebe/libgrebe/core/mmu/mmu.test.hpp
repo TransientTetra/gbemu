@@ -17,30 +17,26 @@ protected:
 	{
 	}
 
-	void testContains(const Addressable& addressable, const Word& rangeStart, const Word& rangeEnd)
+	inline void testContains(const Addressable& addressable, Word rangeStart, Word rangeEnd)
 	{
 		for (Word i = rangeStart; i <= rangeEnd; ++i)
 		{
 			EXPECT_TRUE(addressable.contains(i));
 		}
 	}
-	void testReadWrite(Addressable& addressable, const Word& rangeStart, const Word& rangeEnd)
+	inline void testReadWrite(Addressable& addressable, Word rangeStart, Word rangeEnd)
 	{
 		for (Word i = rangeStart; i <= rangeEnd; ++i)
 		{
-			addressable.write(i, 0x69);
-		}
-		for (Word i = rangeStart; i <= rangeEnd; ++i)
-		{
-			EXPECT_EQ(addressable.read(i), 0x69);
+			testReadWrite(addressable, i);
 		}
 	}
-	void testReadWrite(Byte& hwReg, Word addr, Addressable& addressable)
+	inline void testReadWrite(Addressable& addressable, Word addr)
 	{
-		hwReg = 0x69;
-		EXPECT_EQ(addressable.read(addr), 0x69);
 		addressable.write(addr, 0x96);
-		EXPECT_EQ(hwReg, 0x96);
+		EXPECT_EQ(addressable.read(addr), 0x96);
+		addressable.write(addr, 0x69);
+		EXPECT_EQ(addressable.read(addr), 0x69);
 	}
 };
 

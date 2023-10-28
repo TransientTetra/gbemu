@@ -25,12 +25,6 @@ protected:
 	{
 	}
 
-	void writeWord(State& state, const Word& address, const Word& data)
-	{
-		state.mmu.write(address, static_cast<Byte>(0x00ff & data));
-		state.mmu.write(address + 1, static_cast<Byte>(data >> 8));
-	}
-
 	void machineCycle()
 	{
 		core->tick();

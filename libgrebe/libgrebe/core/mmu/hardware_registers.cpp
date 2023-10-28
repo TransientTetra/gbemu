@@ -1,13 +1,7 @@
-#include <libgrebe/common/addressable.hpp>
-#include <libgrebe/core/mmu/hardware_registers_addressable.hpp>
+#include <libgrebe/core/mmu/hardware_registers.hpp>
 #include <libgrebe/memory_locations.hpp>
 
-HardwareRegistersAddressable::HardwareRegistersAddressable(HardwareRegisters& hardwareRegisters)
-	: hardwareRegisters(hardwareRegisters)
-{
-}
-
-bool HardwareRegistersAddressable::contains(Word address) const
+bool HardwareRegisters::contains(Word address) const
 {
 	// only dmg registers
 	return address == LIBGREBE_REG_P1 || address == LIBGREBE_REG_SB || address == LIBGREBE_REG_SC ||
@@ -26,34 +20,34 @@ bool HardwareRegistersAddressable::contains(Word address) const
 		   address == LIBGREBE_REG_WY || address == LIBGREBE_REG_WX || address == LIBGREBE_REG_IE;
 }
 
-Byte HardwareRegistersAddressable::read(Word address) const
+Byte HardwareRegisters::read(Word address) const
 {
 	// https://gbdev.io/pandocs/Hardware_Reg_List.html
 	switch (address)
 	{
 		case LIBGREBE_REG_P1:
-			return hardwareRegisters.P1;
+			return P1;
 			break;
 		case LIBGREBE_REG_SB:
-			return hardwareRegisters.SB;
+			return SB;
 			break;
 		case LIBGREBE_REG_SC:
-			return hardwareRegisters.SC;
+			return SC;
 			break;
 		case LIBGREBE_REG_DIV:
-			return hardwareRegisters.DIV_WIDE >> 8;
+			return DIV_WIDE >> 8;
 			break;
 		case LIBGREBE_REG_TIMA:
-			return hardwareRegisters.TIMA;
+			return TIMA;
 			break;
 		case LIBGREBE_REG_TMA:
-			return hardwareRegisters.TMA;
+			return TMA;
 			break;
 		case LIBGREBE_REG_TAC:
-			return hardwareRegisters.TAC;
+			return TAC;
 			break;
 		case LIBGREBE_REG_IF:
-			return hardwareRegisters.IF;
+			return IF;
 			break;
 		case LIBGREBE_REG_NR10:
 			return defaultRead;
@@ -155,40 +149,40 @@ Byte HardwareRegistersAddressable::read(Word address) const
 			return defaultRead;
 			break;
 		case LIBGREBE_REG_IE:
-			return hardwareRegisters.IE;
+			return IE;
 			break;
 		default:
 			throw IllegalAddressableReadException();
 	}
 }
 
-void HardwareRegistersAddressable::write(Word address, Byte data)
+void HardwareRegisters::write(Word address, Byte data)
 {
 	switch (address)
 	{
 		case LIBGREBE_REG_P1:
-			hardwareRegisters.P1 = (hardwareRegisters.P1 & 0x0f) | (data & 0xf0);
+			P1 = (P1 & 0x0f) | (data & 0xf0);
 			break;
 		case LIBGREBE_REG_SB:
-			hardwareRegisters.SB = data;
+			SB = data;
 			break;
 		case LIBGREBE_REG_SC:
-			hardwareRegisters.SC = data;
+			SC = data;
 			break;
 		case LIBGREBE_REG_DIV:
-			hardwareRegisters.DIV_WIDE = 0;
+			DIV_WIDE = 0;
 			break;
 		case LIBGREBE_REG_TIMA:
-			hardwareRegisters.TIMA = data;
+			TIMA = data;
 			break;
 		case LIBGREBE_REG_TMA:
-			hardwareRegisters.TMA = data;
+			TMA = data;
 			break;
 		case LIBGREBE_REG_TAC:
-			hardwareRegisters.TAC = data;
+			TAC = data;
 			break;
 		case LIBGREBE_REG_IF:
-			hardwareRegisters.IF = data;
+			IF = data;
 			break;
 		case LIBGREBE_REG_NR10:
 			break;
@@ -257,7 +251,7 @@ void HardwareRegistersAddressable::write(Word address, Byte data)
 		case LIBGREBE_REG_WX:
 			break;
 		case LIBGREBE_REG_IE:
-			hardwareRegisters.IE = data;
+			IE = data;
 			break;
 		default:
 			throw IllegalAddressableWriteException();

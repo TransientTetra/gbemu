@@ -37,18 +37,18 @@ TEST_F(TimerTest, DIVTest)
 	state.hardwareRegisters.DIV_WIDE = 0;
 	for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
 		timer->tick();
-	EXPECT_EQ(state.hardwareRegisters.DIV(), 1);
+	EXPECT_EQ(state.hardwareRegisters.DIV_WIDE >> 8, 1);
 	for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
 		timer->tick();
-	EXPECT_EQ(state.hardwareRegisters.DIV(), 2);
+	EXPECT_EQ(state.hardwareRegisters.DIV_WIDE >> 8, 2);
 	for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
 		timer->tick();
-	EXPECT_EQ(state.hardwareRegisters.DIV(), 3);
+	EXPECT_EQ(state.hardwareRegisters.DIV_WIDE >> 8, 3);
 
 	state.hardwareRegisters.DIV_WIDE = 0xFF00;
 	for (state.clockCycles = 0; state.clockCycles < 256; ++state.clockCycles)
 		timer->tick();
-	EXPECT_EQ(state.hardwareRegisters.DIV(), 0);
+	EXPECT_EQ(state.hardwareRegisters.DIV_WIDE >> 8, 0);
 }
 
 TEST_F(TimerTest, TIMATACTest)

@@ -41,7 +41,7 @@ Byte HardwareRegistersAddressable::read(Word address) const
 			return hardwareRegisters.SC;
 			break;
 		case LIBGREBE_REG_DIV:
-			return hardwareRegisters.DIV();
+			return hardwareRegisters.DIV_WIDE >> 8;
 			break;
 		case LIBGREBE_REG_TIMA:
 			return hardwareRegisters.TIMA;

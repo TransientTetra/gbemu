@@ -20,7 +20,7 @@ TEST_F(CoreTest, DMGInitTest)
 	EXPECT_EQ(core->state.hardwareRegisters.P1, 0xCF);
 	EXPECT_EQ(core->state.hardwareRegisters.SB, 0x00);
 	EXPECT_EQ(core->state.hardwareRegisters.SC, 0x7E);
-	EXPECT_EQ(core->state.hardwareRegisters.DIV(), 0xAB);
+	EXPECT_EQ(core->state.hardwareRegisters.DIV_WIDE >> 8, 0xAB);
 	EXPECT_EQ(core->state.hardwareRegisters.TIMA, 0x00);
 	EXPECT_EQ(core->state.hardwareRegisters.TMA, 0x00);
 	EXPECT_EQ(core->state.hardwareRegisters.TAC, 0xF8);

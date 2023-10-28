@@ -46,10 +46,6 @@ struct HardwareRegisters
 	Byte WY;
 	Byte WX;
 	Byte IE;
-	inline Byte DIV()
-	{
-		return DIV_WIDE >> 8;
-	}
 };
 
 #endif // LIBGREBE_HRAM_HPP

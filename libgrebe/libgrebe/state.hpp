@@ -13,13 +13,13 @@
 #include <queue>
 #include <stack>
 
-enum CPUState
+enum ControlUnitState
 {
-	LIBGREBE_CPU_STATE_FETCH,
-	LIBGREBE_CPU_STATE_EXECUTE,
-	LIBGREBE_CPU_STATE_STOP,
-	LIBGREBE_CPU_STATE_HALT,
-	LIBGREBE_CPU_STATE_HALT_BUG,
+	LIBGREBE_CONTROL_UNIT_STATE_FETCH,
+	LIBGREBE_CONTROL_UNIT_STATE_EXECUTE,
+	LIBGREBE_CONTROL_UNIT_STATE_STOP,
+	LIBGREBE_CONTROL_UNIT_STATE_HALT,
+	LIBGREBE_CONTROL_UNIT_STATE_HALT_BUG,
 };
 
 enum InterruptHandlerState
@@ -43,7 +43,7 @@ struct State
 {
 	std::queue<std::function<void(State&)>> cpuQueue;
 	uint64_t clockCycles = 0; // this will overflow in 139 years @ 4MiHz, think we're fine
-	CPUState cpuState = LIBGREBE_CPU_STATE_FETCH;
+	ControlUnitState controlUnitState = LIBGREBE_CONTROL_UNIT_STATE_FETCH;
 	InterruptHandlerState interruptHandlerState = LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE1;
 	PPUState ppuState = LIBGREBE_PPU_STATE_OAM_SCAN;
 

@@ -6,21 +6,21 @@ void ControlUnit::tick()
 {
 	if ((state.clockCycles + 1) % 4)
 		return;
-	switch (state.cpuState)
+	switch (state.controlUnitState)
 	{
-		case LIBGREBE_CPU_STATE_FETCH:
+		case LIBGREBE_CONTROL_UNIT_STATE_FETCH:
 			fetch();
 			break;
-		case LIBGREBE_CPU_STATE_EXECUTE:
+		case LIBGREBE_CONTROL_UNIT_STATE_EXECUTE:
 			execute();
 			break;
-		case LIBGREBE_CPU_STATE_HALT:
+		case LIBGREBE_CONTROL_UNIT_STATE_HALT:
 			halt();
 			break;
-		case LIBGREBE_CPU_STATE_HALT_BUG:
+		case LIBGREBE_CONTROL_UNIT_STATE_HALT_BUG:
 			haltBug();
 			break;
-		case LIBGREBE_CPU_STATE_STOP:
+		case LIBGREBE_CONTROL_UNIT_STATE_STOP:
 			stop();
 			break;
 		default:
@@ -43,7 +43,7 @@ void ControlUnit::fetch()
 		loadMicroOps = Decoder::decode(opcode);
 	// enqueue microoperations for the decoded instruction
 	loadMicroOps(state);
-	state.cpuState = LIBGREBE_CPU_STATE_EXECUTE;
+	state.controlUnitState = LIBGREBE_CONTROL_UNIT_STATE_EXECUTE;
 	execute(); // microops executed immediately, on the same m-cycle as fetch
 }
 
@@ -51,8 +51,8 @@ void ControlUnit::execute()
 {
 	state.cpuQueue.front()(state);
 	state.cpuQueue.pop();
-	if (state.cpuState == LIBGREBE_CPU_STATE_EXECUTE && state.cpuQueue.empty())
-		state.cpuState = LIBGREBE_CPU_STATE_FETCH;
+	if (state.controlUnitState == LIBGREBE_CONTROL_UNIT_STATE_EXECUTE && state.cpuQueue.empty())
+		state.controlUnitState = LIBGREBE_CONTROL_UNIT_STATE_FETCH;
 }
 
 void ControlUnit::stop()

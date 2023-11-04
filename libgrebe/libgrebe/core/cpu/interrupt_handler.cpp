@@ -84,5 +84,5 @@ void InterruptHandler::cycle5()
 	}
 	state.registers.pc = jumpVector;
 	state.interruptHandlerState = LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE1;
-	state.cpuState = LIBGREBE_CPU_STATE_FETCH;
+	state.controlUnitState = LIBGREBE_CONTROL_UNIT_STATE_FETCH;
 }

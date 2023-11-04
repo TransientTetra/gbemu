@@ -41,7 +41,7 @@ void copyState(State& dst, State& src)
 	dst.ime = src.ime;
 	dst.imeScheduled = src.imeScheduled;
 	dst.clockCycles = src.clockCycles;
-	dst.cpuState = src.cpuState;
+	dst.controlUnitState = src.controlUnitState;
 	dst.interruptHandlerState = src.interruptHandlerState;
 	dst.ppuState = src.ppuState;
 	dst.tmp = src.tmp;
@@ -58,7 +58,7 @@ bool compareState(const State& state1, const State& state2)
 	res &= state1.imeScheduled == state2.imeScheduled;
 	res &= state1.clockCycles == state2.clockCycles;
 	res &= state1.tmp.size() == state2.tmp.size();
-	res &= state1.cpuState == state2.cpuState;
+	res &= state1.controlUnitState == state2.controlUnitState;
 	res &= state1.ppuState == state2.ppuState;
 	res &= state1.interruptHandlerState == state2.interruptHandlerState;
 	res &= state1.extendedOpcodeSet == state2.extendedOpcodeSet;

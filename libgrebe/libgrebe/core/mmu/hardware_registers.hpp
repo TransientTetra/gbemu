@@ -8,6 +8,7 @@ class HardwareRegisters : public Addressable
 {
 	friend class Core;
 	friend class Timer;
+
 private:
 	static const Byte defaultRead = 0xff;
 	Byte P1;

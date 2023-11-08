@@ -33,6 +33,26 @@ bool compareMem(const MMU& mem1, const MMU& mem2)
 	return true;
 }
 
+bool operator==(const Registers& one, const Registers& two)
+{
+	bool res = true;
+	res &= one.getA() == two.getA();
+	res &= one.getF() == two.getF();
+	res &= one.getB() == two.getB();
+	res &= one.getC() == two.getC();
+	res &= one.getD() == two.getD();
+	res &= one.getE() == two.getE();
+	res &= one.getH() == two.getH();
+	res &= one.getL() == two.getL();
+	res &= one.getAF() == two.getAF();
+	res &= one.getBC() == two.getBC();
+	res &= one.getDE() == two.getDE();
+	res &= one.getHL() == two.getHL();
+	res &= one.getSP() == two.getSP();
+	res &= one.getPC() == two.getPC();
+	return res;
+}
+
 void copyState(State& dst, State& src)
 {
 	dst.registers = src.registers;

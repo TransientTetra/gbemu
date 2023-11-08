@@ -11,19 +11,19 @@ Core::Core() : cpu(state), ppu(state)
 {
 	// don't register bootrom here
 	initCommon();
-	state.registers.a = 1;
+	state.registers.setA(1);
 	state.registers.setZeroFlag();
 	state.registers.resetSubtractFlag();
 	state.registers.resetHalfCarryFlag();
 	state.registers.resetCarryFlag();
-	state.registers.b = 0;
-	state.registers.c = 0x13;
-	state.registers.d = 0;
-	state.registers.e = 0xd8;
-	state.registers.h = 1;
-	state.registers.l = 0x4d;
-	state.registers.pc = 0x100;
-	state.registers.sp = 0xfffe;
+	state.registers.setB(0);
+	state.registers.setC(0x13);
+	state.registers.setD(0);
+	state.registers.setE(0xd8);
+	state.registers.setH(1);
+	state.registers.setL(0x4d);
+	state.registers.setPC(0x100);
+	state.registers.setSP(0xfffe);
 
 	state.hardwareRegisters.P1 = 0xCF;
 	state.hardwareRegisters.SB = 0x00;
@@ -73,7 +73,7 @@ Core::Core(const std::string& bootromPath) : cpu(state), ppu(state)
 	state.mmu.registerAddressable(state.bootrom);
 	initCommon();
 	MemoryLoader::LoadBootRom(state.mmu, bootromPath);
-	state.registers.pc = 0x00;
+	state.registers.setPC(0x00);
 }
 
 void Core::initCommon()

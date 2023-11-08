@@ -41,13 +41,15 @@ void InterruptHandler::cycle2()
 
 void InterruptHandler::cycle3()
 {
-	state.mmu.write(--state.registers.sp, msb(state.registers.pc));
+	state.registers.decSP();
+	state.mmu.write(state.registers.getSP(), msb(state.registers.getPC()));
 	state.interruptHandlerState = LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE4;
 }
 
 void InterruptHandler::cycle4()
 {
-	state.mmu.write(--state.registers.sp, lsb(state.registers.pc));
+	state.registers.decSP();
+	state.mmu.write(state.registers.getSP(), lsb(state.registers.getPC()));
 	state.interruptHandlerState = LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE5;
 }
 
@@ -82,7 +84,7 @@ void InterruptHandler::cycle5()
 		jumpVector = LIBGREBE_INT_JOYPAD;
 		state.mmu.write(LIBGREBE_REG_IF, IF & ~(1 << 4));
 	}
-	state.registers.pc = jumpVector;
+	state.registers.setPC(jumpVector);
 	state.interruptHandlerState = LIBGREBE_INTERRUPT_HANDLER_STATE_CYCLE1;
 	state.controlUnitState = LIBGREBE_CONTROL_UNIT_STATE_FETCH;
 }

@@ -46,7 +46,7 @@ protected:
 	void testOpcode(Byte opcode)
 	{
 		// injecting opcode at pc
-		state.mmu.write(state.registers.pc, opcode);
+		state.mmu.write(state.registers.getPC(), opcode);
 		// saving cpu and memory state before executing the opcode
 		copyState(expectedState, state);
 		// fetch the opcode
@@ -70,17 +70,6 @@ class OpcodesMiscTest : public ControlUnitTest
 
 class OpcodesAluTest : public ControlUnitTest
 {
-protected:
-	void incTest(Byte opcode, Byte& reg, Byte& expectedReg);
-	void decTest(Byte opcode, Byte& reg, Byte& expectedReg);
-	void addTest(Byte opcode, Byte& operand);
-	void adcTest(Byte opcode, Byte& operand);
-	void subTest(Byte opcode, Byte& operand);
-	void sbcTest(Byte opcode, Byte& operand);
-	void andTest(Byte opcode, Byte& operand);
-	void xorTest(Byte opcode, Byte& operand);
-	void orTest(Byte opcode, Byte& operand);
-	void cpTest(Byte opcode, Byte& operand);
 };
 
 class OpcodesBitOperationsTest : public ControlUnitTest
@@ -89,8 +78,8 @@ protected:
 	void testOpcodeCB(Byte opcode)
 	{
 		// injecting opcode at pc
-		state.mmu.write(state.registers.pc, 0xCB);
-		state.mmu.write(state.registers.pc + 1, opcode);
+		state.mmu.write(state.registers.getPC(), 0xCB);
+		state.mmu.write(state.registers.getPC() + 1, opcode);
 		// saving cpu and memory state before executing the opcode
 		copyState(expectedState, state);
 		// reading 0xCB
@@ -104,34 +93,6 @@ protected:
 			++state.clockCycles;
 		}
 	}
-
-	void testOpcodeRLC(Byte opcode, Byte& reg, Byte& expectedReg);
-
-	void testOpcodeRRC(Byte opcode, Byte& reg, Byte& expectedReg);
-
-	void testOpcodeRL(Byte opcode, Byte& reg, Byte& expectedReg);
-
-	void testOpcodeRR(Byte opcode, Byte& reg, Byte& expectedReg);
-
-	void testOpcodeSLA(Byte opcode, Byte& reg, Byte& expectedReg);
-
-	void testOpcodeSRA(Byte opcode, Byte& reg, Byte& expectedReg);
-
-	void testOpcodeSWAP(Byte opcode, Byte& reg, Byte& expectedReg);
-
-	void testOpcodeSRL(Byte opcode, Byte& reg, Byte& expectedReg);
-
-	void testOpcodeBIT(Byte opcode, Byte& reg, Byte& expectedReg, Byte bit);
-
-	void testOpcodeRES(Byte opcode, Byte& reg, Byte& expectedReg, Byte bit);
-
-	void testOpcodeSET(Byte opcode, Byte& reg, Byte& expectedReg, Byte bit);
-
-	void testOpcodeBIThl(Byte opcode, Byte bit);
-
-	void testOpcodeREShl(Byte opcode, Byte bit);
-
-	void testOpcodeSEThl(Byte opcode, Byte bit);
 };
 
 class OpcodesControlFlowTest : public ControlUnitTest

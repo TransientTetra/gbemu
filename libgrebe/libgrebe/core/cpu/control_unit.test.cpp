@@ -23,7 +23,7 @@ TEST_F(OpcodesMiscTest, Test0x00)
 	testOpcode(0x00);
 	// expected change in registers
 	expectedState.clockCycles += 4;
-	expectedState.registers.pc += 1;
+	expectedState.registers.incPC();
 	EXPECT_TRUE(compareState(expectedState, state));
 }
 
@@ -81,7 +81,7 @@ TEST_F(OpcodesMiscTest, Test0xF3)
 	testOpcode(0xF3);
 	// expected change in registers and memory
 	expectedState.clockCycles += 4;
-	expectedState.registers.pc += 1;
+	expectedState.registers.incPC();
 	expectedState.ime = false;
 	// comparing expected change to real change
 	EXPECT_TRUE(compareState(expectedState, state));
@@ -93,7 +93,7 @@ TEST_F(OpcodesMiscTest, Test0xF3)
 	testOpcode(0xF3);
 	// expected change in registers and memory
 	expectedState.clockCycles += 4;
-	expectedState.registers.pc += 1;
+	expectedState.registers.incPC();
 	expectedState.ime = false;
 	expectedState.imeScheduled = false;
 	// comparing expected change to real change
@@ -109,7 +109,7 @@ TEST_F(OpcodesMiscTest, Test0xF3)
 // 	testOpcode(0x76);
 // 	// expected change in registers and memory
 // 	expectedState.clockCycles += 4;
-// 	expectedState.registers.pc += 1;
+// 	expectedState.registers.incPC();
 // 	expectedState.cpuState = HALT;
 // 	// comparing expected change to real change
 // 	EXPECT_TRUE(compareState(expectedState, state));
@@ -161,7 +161,7 @@ TEST_F(OpcodesMiscTest, Test0xF3)
 // 	testOpcode(0x76);
 // 	// expected change in registers and memory
 // 	expectedState.clockCycles += 4;
-// 	expectedState.registers.pc += 1;
+// 	expectedState.registers.incPC();
 // 	expectedState.cpuState = HALT;
 // 	// comparing expected change to real change
 // 	EXPECT_TRUE(compareState(expectedState, state));
@@ -183,7 +183,7 @@ TEST_F(OpcodesMiscTest, Test0xF3)
 // 	state.memory.write(LIBGREBE_REG_IF, 1);
 // 	testOpcode(0x00);
 // 	expectedState.clockCycles += 8;
-// 	expectedState.registers.pc += 1;
+// 	expectedState.registers.incPC();
 // 	expectedState.cpuState = FETCH_AND_DECODE;
 // 	EXPECT_TRUE(compareState(expectedState, state));
 //
@@ -200,7 +200,7 @@ TEST_F(OpcodesMiscTest, Test0xFB)
 	testOpcode(0xFB);
 	// expected change in registers and memory
 	expectedState.clockCycles += 4;
-	expectedState.registers.pc += 1;
+	expectedState.registers.incPC();
 	expectedState.imeScheduled = true;
 	// comparing expected change to real change
 	EXPECT_TRUE(compareState(expectedState, state));

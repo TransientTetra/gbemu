@@ -11,7 +11,6 @@ set(LIBGREBE_SOURCES
         libgrebe/core/mmu/mmu.cpp
         libgrebe/core/mmu/mmu.hpp
         libgrebe/types.hpp
-        libgrebe/core/cpu/registers.cpp
         libgrebe/core/cpu/registers.hpp
         libgrebe/state.hpp
         libgrebe/memory_loader.cpp
@@ -58,10 +57,29 @@ set(LIBGREBE_TEST_SOURCES
         libgrebe/core/cpu/control_unit.test.cpp
         libgrebe/core/cpu/control_unit_loads.test.cpp
         libgrebe/core/cpu/control_unit_alu.test.cpp
+        libgrebe/core/cpu/control_unit_alu_inc.test.cpp
+        libgrebe/core/cpu/control_unit_alu_dec.test.cpp
+        libgrebe/core/cpu/control_unit_alu_add.test.cpp
+        libgrebe/core/cpu/control_unit_alu_adc.test.cpp
+        libgrebe/core/cpu/control_unit_alu_and.test.cpp
+        libgrebe/core/cpu/control_unit_alu_xor.test.cpp
+        libgrebe/core/cpu/control_unit_alu_or.test.cpp
+        libgrebe/core/cpu/control_unit_alu_cp.test.cpp
         libgrebe/core/mmu/mmu.test.hpp
         libgrebe/core/mmu/mmu.test.cpp
         libgrebe/core/cpu/registers.test.cpp
         libgrebe/core/cpu/control_unit_bit_ops.test.cpp
+        libgrebe/core/cpu/control_unit_bit_ops_bit.test.cpp
+        libgrebe/core/cpu/control_unit_bit_ops_res.test.cpp
+        libgrebe/core/cpu/control_unit_bit_ops_rl.test.cpp
+        libgrebe/core/cpu/control_unit_bit_ops_rlc.test.cpp
+        libgrebe/core/cpu/control_unit_bit_ops_rr.test.cpp
+        libgrebe/core/cpu/control_unit_bit_ops_rrc.test.cpp
+        libgrebe/core/cpu/control_unit_bit_ops_set.test.cpp
+        libgrebe/core/cpu/control_unit_bit_ops_sla.test.cpp
+        libgrebe/core/cpu/control_unit_bit_ops_sra.test.cpp
+        libgrebe/core/cpu/control_unit_bit_ops_srl.test.cpp
+        libgrebe/core/cpu/control_unit_bit_ops_swap.test.cpp
         libgrebe/core/cpu/control_unit_control_flow.test.cpp
         libgrebe/core/cpu/control_unit.test.hpp
         libgrebe/core/core.test.hpp

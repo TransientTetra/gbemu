@@ -31,7 +31,8 @@ void ControlUnit::tick()
 void ControlUnit::fetch()
 {
 	// fetch
-	const Byte& opcode = state.mmu.read(state.registers.pc++);
+	const Byte& opcode = state.mmu.read(state.registers.getPC());
+	state.registers.incPC();
 	// decode
 	std::function<void(State&)> loadMicroOps;
 	if (state.extendedOpcodeSet)

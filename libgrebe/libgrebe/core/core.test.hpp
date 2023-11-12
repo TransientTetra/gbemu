@@ -5,20 +5,17 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wconstant-conversion"
-#define private public
 
 #include <libgrebe/core/core.hpp>
 
 class CoreTest : public ::testing::Test
 {
 protected:
-	std::unique_ptr<Core> core;
-	std::unique_ptr<Core> expectedCore;
+	Core core;
+	Core expectedCore;
 
 	void SetUp() override
 	{
-		core = std::make_unique<Core>();
-		expectedCore = std::make_unique<Core>();
 	}
 
 	void TearDown() override
@@ -27,14 +24,10 @@ protected:
 
 	void machineCycle()
 	{
-		core->tick();
-		++core->state.clockCycles;
-		core->tick();
-		++core->state.clockCycles;
-		core->tick();
-		++core->state.clockCycles;
-		core->tick();
-		++core->state.clockCycles;
+		core.tick();
+		core.tick();
+		core.tick();
+		core.tick();
 	}
 };
 

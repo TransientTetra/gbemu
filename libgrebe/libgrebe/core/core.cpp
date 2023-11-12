@@ -88,7 +88,7 @@ void Core::tick()
 {
 	cpu.tick();
 	ppu.tick();
-	// state.tick();
+	++state.clockCycles;
 }
 
 void Core::run(bool& run)
@@ -96,6 +96,10 @@ void Core::run(bool& run)
 	while (run)
 	{
 		tick();
-		++state.clockCycles;
 	}
+}
+
+const State& Core::getState() const
+{
+	return state;
 }

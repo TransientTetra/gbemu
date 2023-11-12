@@ -12,16 +12,18 @@ class Core : public SynchronousComponent
 private:
 	CPU cpu;
 	PPU ppu;
-	State state;
-	void tick() override;
 	void initCommon();
 
 public:
+	State state;
 	// initialize Core without bootrom file
 	Core();
 	// initialize Core with bootrom file
 	Core(const std::string& bootromPath);
+	void tick() override;
 	void run(bool& run);
+
+	const State& getState() const;
 };
 
 #endif // LIBGREBE_CORE_HPP

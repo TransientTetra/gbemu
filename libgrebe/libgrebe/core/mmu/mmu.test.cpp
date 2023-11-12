@@ -6,17 +6,6 @@
 #include <libgrebe/core/mmu/vram.hpp>
 #include <memory>
 
-TEST_F(MMUTest, RegisterAddressableTest)
-{
-	FakeAddressable fakeAddressables[256];
-	EXPECT_EQ(mmu.addressables.size(), 0);
-	for (int i = 0; i < 256; ++i)
-	{
-		EXPECT_EQ(mmu.addressables.size(), i);
-		mmu.registerAddressable(fakeAddressables[i]);
-	}
-}
-
 TEST_F(MMUTest, MMUReadsWritesTest)
 {
 	EXPECT_EQ(mmu.read(0), 0xff);

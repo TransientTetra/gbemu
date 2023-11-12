@@ -3,7 +3,6 @@
 
 #include <gtest/gtest.h>
 
-#define private public
 #include <libgrebe/core/common.test.hpp>
 
 class MMUTest : public ::testing::Test

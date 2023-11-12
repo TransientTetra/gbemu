@@ -9,7 +9,6 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wconstant-conversion"
-#define private public
 
 #include <libgrebe/core/cpu/control_unit.hpp>
 

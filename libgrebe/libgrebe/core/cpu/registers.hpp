@@ -1,48 +1,48 @@
 #ifndef LIBGREBE_REGISTERS_HPP
 #define LIBGREBE_REGISTERS_HPP
 
-#include <libgrebe/types.hpp>
+#include <cstdint>
 
 class Registers
 {
 private:
-	Word af;
-	Word bc;
-	Word de;
-	Word hl;
-	Word sp;
-	Word pc;
+	std::uint16_t af;
+	std::uint16_t bc;
+	std::uint16_t de;
+	std::uint16_t hl;
+	std::uint16_t sp;
+	std::uint16_t pc;
 
 public:
 	// clang-format off
-	inline Byte getA() const { return af >> 8; }
-	inline Byte getF() const { return af & 0x00ff; }
-	inline Byte getB() const { return bc >> 8; }
-	inline Byte getC() const { return bc & 0x00ff; }
-	inline Byte getD() const { return de >> 8; }
-	inline Byte getE() const { return de & 0x00ff; }
-	inline Byte getH() const { return hl >> 8; }
-	inline Byte getL() const { return hl & 0x00ff; }
-	inline Word getAF() const { return af; }
-	inline Word getBC() const { return bc; }
-	inline Word getDE() const { return de; }
-	inline Word getHL() const { return hl; }
-	inline Word getSP() const { return sp; }
-	inline Word getPC() const { return pc; }
-	inline void setA(Byte val) { af = af & 0x00ff | (val << 8); }
-	inline void setF(Byte val) { af = af & 0xff00 | val; }
-	inline void setB(Byte val) { bc = bc & 0x00ff | (val << 8); }
-	inline void setC(Byte val) { bc = bc & 0xff00 | val; }
-	inline void setD(Byte val) { de = de & 0x00ff | (val << 8); }
-	inline void setE(Byte val) { de = de & 0xff00 | val; }
-	inline void setH(Byte val) { hl = hl & 0x00ff | (val << 8); }
-	inline void setL(Byte val) { hl = hl & 0xff00 | val; }
-	inline void setAF(Word val) { af = val; }
-	inline void setBC(Word val) { bc = val; }
-	inline void setDE(Word val) { de = val; }
-	inline void setHL(Word val) { hl = val; }
-	inline void setSP(Word val) { sp = val; }
-	inline void setPC(Word val) { pc = val; }
+	inline std::uint8_t getA() const { return af >> 8; }
+	inline std::uint8_t getF() const { return af & 0x00ff; }
+	inline std::uint8_t getB() const { return bc >> 8; }
+	inline std::uint8_t getC() const { return bc & 0x00ff; }
+	inline std::uint8_t getD() const { return de >> 8; }
+	inline std::uint8_t getE() const { return de & 0x00ff; }
+	inline std::uint8_t getH() const { return hl >> 8; }
+	inline std::uint8_t getL() const { return hl & 0x00ff; }
+	inline std::uint16_t getAF() const { return af; }
+	inline std::uint16_t getBC() const { return bc; }
+	inline std::uint16_t getDE() const { return de; }
+	inline std::uint16_t getHL() const { return hl; }
+	inline std::uint16_t getSP() const { return sp; }
+	inline std::uint16_t getPC() const { return pc; }
+	inline void setA(std::uint8_t val) { af = af & 0x00ff | (val << 8); }
+	inline void setF(std::uint8_t val) { af = af & 0xff00 | val; }
+	inline void setB(std::uint8_t val) { bc = bc & 0x00ff | (val << 8); }
+	inline void setC(std::uint8_t val) { bc = bc & 0xff00 | val; }
+	inline void setD(std::uint8_t val) { de = de & 0x00ff | (val << 8); }
+	inline void setE(std::uint8_t val) { de = de & 0xff00 | val; }
+	inline void setH(std::uint8_t val) { hl = hl & 0x00ff | (val << 8); }
+	inline void setL(std::uint8_t val) { hl = hl & 0xff00 | val; }
+	inline void setAF(std::uint16_t val) { af = val; }
+	inline void setBC(std::uint16_t val) { bc = val; }
+	inline void setDE(std::uint16_t val) { de = val; }
+	inline void setHL(std::uint16_t val) { hl = val; }
+	inline void setSP(std::uint16_t val) { sp = val; }
+	inline void setPC(std::uint16_t val) { pc = val; }
 	inline void incA() { af = (af & 0x00ff) | ((getA() + 1) << 8); }
 	inline void incF() { af = (af & 0xff00) | (getF() + 1) & 0xff; }
 	inline void incB() { bc = (bc & 0x00ff) | ((getB() + 1) << 8); }

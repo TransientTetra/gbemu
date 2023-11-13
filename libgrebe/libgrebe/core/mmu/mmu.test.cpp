@@ -12,13 +12,13 @@ TEST_F(MMUTest, MMUReadsWritesTest)
 	EXPECT_EQ(mmu.read(16), 0xff);
 	FakeAddressable fakeAddressable(16);
 	mmu.registerAddressable(fakeAddressable);
-	Word rangeStart = 0;
-	Word rangeEnd = 16;
-	for (Word i = rangeStart; i < rangeEnd; ++i)
+	std::uint16_t rangeStart = 0;
+	std::uint16_t rangeEnd = 16;
+	for (std::uint16_t i = rangeStart; i < rangeEnd; ++i)
 	{
 		mmu.write(i, 0x69);
 	}
-	for (Word i = 0; i < LIBGREBE_MEMORY_SIZE - 1; ++i)
+	for (std::uint16_t i = 0; i < LIBGREBE_MEMORY_SIZE - 1; ++i)
 	{
 		if (i >= rangeStart && i < rangeEnd)
 			EXPECT_EQ(mmu.read(i), 0x69);
@@ -36,7 +36,7 @@ TEST_F(MMUTest, BootromTest)
 	EXPECT_EQ(addressable->contains(0xff50), true);
 	EXPECT_EQ(addressable->read(0xff50), 0);
 	addressable->write(0xff50, 1);
-	for (Word i = 0; i < LIBGREBE_MEMORY_SIZE - 1; ++i)
+	for (std::uint16_t i = 0; i < LIBGREBE_MEMORY_SIZE - 1; ++i)
 	{
 		EXPECT_EQ(addressable->contains(i), false);
 	}

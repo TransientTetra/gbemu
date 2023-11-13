@@ -42,7 +42,7 @@ protected:
 		++state.clockCycles;
 	}
 
-	void testOpcode(Byte opcode)
+	void testOpcode(std::uint8_t opcode)
 	{
 		// injecting opcode at pc
 		state.mmu.write(state.registers.getPC(), opcode);
@@ -74,7 +74,7 @@ class OpcodesAluTest : public ControlUnitTest
 class OpcodesBitOperationsTest : public ControlUnitTest
 {
 protected:
-	void testOpcodeCB(Byte opcode)
+	void testOpcodeCB(std::uint8_t opcode)
 	{
 		// injecting opcode at pc
 		state.mmu.write(state.registers.getPC(), 0xCB);

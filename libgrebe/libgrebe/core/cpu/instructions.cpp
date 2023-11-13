@@ -118,16 +118,16 @@ void Instructions::LD_MEM_AT_a16_SP(State& state)
 	});
 
 	state.cpuQueue.push([](State& state) {
-		Byte tmp2 = state.tmp.top();
+		std::uint8_t tmp2 = state.tmp.top();
 		state.tmp.pop();
-		Byte tmp1 = state.tmp.top();
+		std::uint8_t tmp1 = state.tmp.top();
 		state.tmp.push(tmp2);
 		state.mmu.write(toWord(tmp1, tmp2), lsb(state.registers.getSP()));
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte tmp2 = state.tmp.top();
+		std::uint8_t tmp2 = state.tmp.top();
 		state.tmp.pop();
-		Byte tmp1 = state.tmp.top();
+		std::uint8_t tmp1 = state.tmp.top();
 		state.tmp.pop();
 		state.mmu.write(toWord(tmp1, tmp2) + 1, msb(state.registers.getSP()));
 	});
@@ -146,7 +146,7 @@ void Instructions::ADD_HL_BC(State& state)
 		state.registers.setL(state.registers.getL() + state.registers.getC());
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.resetSubtractFlag();
 		state.registers.resetHalfCarryFlag();
 		state.registers.resetCarryFlag();
@@ -336,7 +336,7 @@ void Instructions::JR_r8(State& state)
 	});
 	state.cpuQueue.push([](State& state) {
 		state.registers.setPC(state.registers.getPC() +
-							  static_cast<SignedByte>(state.mmu.read(state.registers.getPC())));
+							  static_cast<std::int8_t>(state.mmu.read(state.registers.getPC())));
 		state.registers.incPC();
 	});
 
@@ -358,7 +358,7 @@ void Instructions::ADD_HL_DE(State& state)
 		state.registers.setL(state.registers.getL() + state.registers.getE());
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.resetSubtractFlag();
 		state.registers.resetHalfCarryFlag();
 		state.registers.resetCarryFlag();
@@ -450,7 +450,7 @@ void Instructions::JR_NZ_r8(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		SignedByte e = static_cast<SignedByte>(state.mmu.read(state.registers.getPC()));
+		std::int8_t e = static_cast<std::int8_t>(state.mmu.read(state.registers.getPC()));
 		state.registers.incPC();
 		if (!state.registers.getZeroFlag())
 		{
@@ -578,7 +578,7 @@ void Instructions::JR_Z_r8(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		SignedByte e = static_cast<SignedByte>(state.mmu.read(state.registers.getPC()));
+		std::int8_t e = static_cast<std::int8_t>(state.mmu.read(state.registers.getPC()));
 		state.registers.incPC();
 		if (state.registers.getZeroFlag())
 		{
@@ -603,7 +603,7 @@ void Instructions::ADD_HL_HL(State& state)
 		state.registers.setL(state.registers.getL() + state.registers.getL());
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.resetSubtractFlag();
 		state.registers.resetHalfCarryFlag();
 		state.registers.resetCarryFlag();
@@ -696,7 +696,7 @@ void Instructions::JR_NC_r8(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		SignedByte e = static_cast<SignedByte>(state.mmu.read(state.registers.getPC()));
+		std::int8_t e = static_cast<std::int8_t>(state.mmu.read(state.registers.getPC()));
 		state.registers.incPC();
 		if (!state.registers.getCarryFlag())
 		{
@@ -740,8 +740,8 @@ void Instructions::INC_SP(State& state)
 {
 	state.cpuQueue.push([](State& state) {
 		// fetch
-		Byte s = msb(state.registers.getSP());
-		Byte p = lsb(state.registers.getSP());
+		std::uint8_t s = msb(state.registers.getSP());
+		std::uint8_t p = lsb(state.registers.getSP());
 		if (((p + 1) & 0xff) < p)
 			state.tmp.push(1);
 		else
@@ -750,8 +750,8 @@ void Instructions::INC_SP(State& state)
 		state.registers.setSP(toWord(p, s));
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte s = msb(state.registers.getSP());
-		Byte p = lsb(state.registers.getSP());
+		std::uint8_t s = msb(state.registers.getSP());
+		std::uint8_t p = lsb(state.registers.getSP());
 		s += state.tmp.top();
 		state.tmp.pop();
 		state.registers.setSP(toWord(p, s));
@@ -827,7 +827,7 @@ void Instructions::JR_C_r8(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		SignedByte e = static_cast<SignedByte>(state.mmu.read(state.registers.getPC()));
+		std::int8_t e = static_cast<std::int8_t>(state.mmu.read(state.registers.getPC()));
 		state.registers.incPC();
 		if (state.registers.getCarryFlag())
 		{
@@ -842,7 +842,7 @@ void Instructions::JR_C_r8(State& state)
 void Instructions::ADD_HL_SP(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte p = lsb(state.registers.getSP());
+		std::uint8_t p = lsb(state.registers.getSP());
 		state.registers.resetSubtractFlag();
 		state.registers.resetHalfCarryFlag();
 		state.registers.resetCarryFlag();
@@ -853,8 +853,8 @@ void Instructions::ADD_HL_SP(State& state)
 		state.registers.setL(state.registers.getL() + p);
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte s = msb(state.registers.getSP());
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t s = msb(state.registers.getSP());
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.resetSubtractFlag();
 		state.registers.resetHalfCarryFlag();
 		state.registers.resetCarryFlag();
@@ -881,8 +881,8 @@ void Instructions::DEC_SP(State& state)
 {
 	state.cpuQueue.push([](State& state) {
 		// fetch
-		Byte s = msb(state.registers.getSP());
-		Byte p = lsb(state.registers.getSP());
+		std::uint8_t s = msb(state.registers.getSP());
+		std::uint8_t p = lsb(state.registers.getSP());
 		if (((p - 1) & 0xff) >= p)
 			state.tmp.push(1);
 		else
@@ -891,8 +891,8 @@ void Instructions::DEC_SP(State& state)
 		state.registers.setSP(toWord(p, s));
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte s = msb(state.registers.getSP());
-		Byte p = lsb(state.registers.getSP());
+		std::uint8_t s = msb(state.registers.getSP());
+		std::uint8_t p = lsb(state.registers.getSP());
 		s -= state.tmp.top();
 		state.tmp.pop();
 		state.registers.setSP(toWord(p, s));
@@ -1259,8 +1259,8 @@ void Instructions::LD_MEM_AT_HL_L(State& state)
 void Instructions::HALT(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		const Byte& IE = state.mmu.read(LIBGREBE_REG_IE);
-		const Byte& IF = state.mmu.read(LIBGREBE_REG_IF);
+		const std::uint8_t& IE = state.mmu.read(LIBGREBE_REG_IE);
+		const std::uint8_t& IF = state.mmu.read(LIBGREBE_REG_IF);
 		if (state.ime)
 		{
 			state.controlUnitState = ControlUnitState::LIBGREBE_CONTROL_UNIT_STATE_HALT;
@@ -1444,7 +1444,7 @@ void Instructions::ADD_A_A(State& state)
 void Instructions::ADC_A_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (((state.registers.getA() & 0xf) + (state.registers.getB() & 0xf) + (carry & 0xf)) & 0x10)
 			state.registers.setHalfCarryFlag();
@@ -1459,7 +1459,7 @@ void Instructions::ADC_A_B(State& state)
 void Instructions::ADC_A_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (((state.registers.getA() & 0xf) + (state.registers.getC() & 0xf) + (carry & 0xf)) & 0x10)
 			state.registers.setHalfCarryFlag();
@@ -1474,7 +1474,7 @@ void Instructions::ADC_A_C(State& state)
 void Instructions::ADC_A_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (((state.registers.getA() & 0xf) + (state.registers.getD() & 0xf) + (carry & 0xf)) & 0x10)
 			state.registers.setHalfCarryFlag();
@@ -1489,7 +1489,7 @@ void Instructions::ADC_A_D(State& state)
 void Instructions::ADC_A_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (((state.registers.getA() & 0xf) + (state.registers.getE() & 0xf) + (carry & 0xf)) & 0x10)
 			state.registers.setHalfCarryFlag();
@@ -1504,7 +1504,7 @@ void Instructions::ADC_A_E(State& state)
 void Instructions::ADC_A_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (((state.registers.getA() & 0xf) + (state.registers.getH() & 0xf) + (carry & 0xf)) & 0x10)
 			state.registers.setHalfCarryFlag();
@@ -1519,7 +1519,7 @@ void Instructions::ADC_A_H(State& state)
 void Instructions::ADC_A_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (((state.registers.getA() & 0xf) + (state.registers.getL() & 0xf) + (carry & 0xf)) & 0x10)
 			state.registers.setHalfCarryFlag();
@@ -1537,7 +1537,7 @@ void Instructions::ADC_A_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (((state.registers.getA() & 0xf) + (state.mmu.read(state.registers.getHL()) & 0xf) + (carry & 0xf)) & 0x10)
 			state.registers.setHalfCarryFlag();
@@ -1553,7 +1553,7 @@ void Instructions::ADC_A_MEM_AT_HL(State& state)
 void Instructions::ADC_A_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (((state.registers.getA() & 0xf) + (state.registers.getA() & 0xf) + (carry & 0xf)) & 0x10)
 			state.registers.setHalfCarryFlag();
@@ -1691,8 +1691,8 @@ void Instructions::SUB_A(State& state)
 void Instructions::SBC_A_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t operand = state.registers.getB();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf) - (carry & 0xf)) & 0x10)
@@ -1708,8 +1708,8 @@ void Instructions::SBC_A_B(State& state)
 void Instructions::SBC_A_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t operand = state.registers.getC();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf) - (carry & 0xf)) & 0x10)
@@ -1725,8 +1725,8 @@ void Instructions::SBC_A_C(State& state)
 void Instructions::SBC_A_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t operand = state.registers.getD();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf) - (carry & 0xf)) & 0x10)
@@ -1742,8 +1742,8 @@ void Instructions::SBC_A_D(State& state)
 void Instructions::SBC_A_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t operand = state.registers.getE();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf) - (carry & 0xf)) & 0x10)
@@ -1759,8 +1759,8 @@ void Instructions::SBC_A_E(State& state)
 void Instructions::SBC_A_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t operand = state.registers.getH();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf) - (carry & 0xf)) & 0x10)
@@ -1776,8 +1776,8 @@ void Instructions::SBC_A_H(State& state)
 void Instructions::SBC_A_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t operand = state.registers.getL();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf) - (carry & 0xf)) & 0x10)
@@ -1796,8 +1796,8 @@ void Instructions::SBC_A_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getHL());
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t operand = state.mmu.read(state.registers.getHL());
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf) - (carry & 0xf)) & 0x10)
@@ -1813,8 +1813,8 @@ void Instructions::SBC_A_MEM_AT_HL(State& state)
 void Instructions::SBC_A_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t operand = state.registers.getA();
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf) - (carry & 0xf)) & 0x10)
@@ -1830,7 +1830,7 @@ void Instructions::SBC_A_A(State& state)
 void Instructions::AND_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.setA(state.registers.getA() & operand);
 		state.registers.clearFlags();
 		state.registers.setHalfCarryFlag();
@@ -1842,7 +1842,7 @@ void Instructions::AND_B(State& state)
 void Instructions::AND_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.setA(state.registers.getA() & operand);
 		state.registers.clearFlags();
 		state.registers.setHalfCarryFlag();
@@ -1854,7 +1854,7 @@ void Instructions::AND_C(State& state)
 void Instructions::AND_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.setA(state.registers.getA() & operand);
 		state.registers.clearFlags();
 		state.registers.setHalfCarryFlag();
@@ -1866,7 +1866,7 @@ void Instructions::AND_D(State& state)
 void Instructions::AND_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.setA(state.registers.getA() & operand);
 		state.registers.clearFlags();
 		state.registers.setHalfCarryFlag();
@@ -1878,7 +1878,7 @@ void Instructions::AND_E(State& state)
 void Instructions::AND_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.setA(state.registers.getA() & operand);
 		state.registers.clearFlags();
 		state.registers.setHalfCarryFlag();
@@ -1890,7 +1890,7 @@ void Instructions::AND_H(State& state)
 void Instructions::AND_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.setA(state.registers.getA() & operand);
 		state.registers.clearFlags();
 		state.registers.setHalfCarryFlag();
@@ -1905,7 +1905,7 @@ void Instructions::AND_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getHL());
+		std::uint8_t operand = state.mmu.read(state.registers.getHL());
 		state.registers.setA(state.registers.getA() & operand);
 		state.registers.clearFlags();
 		state.registers.setHalfCarryFlag();
@@ -1917,7 +1917,7 @@ void Instructions::AND_MEM_AT_HL(State& state)
 void Instructions::AND_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.setA(state.registers.getA() & operand);
 		state.registers.clearFlags();
 		state.registers.setHalfCarryFlag();
@@ -1929,7 +1929,7 @@ void Instructions::AND_A(State& state)
 void Instructions::XOR_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.setA(state.registers.getA() ^ operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -1940,7 +1940,7 @@ void Instructions::XOR_B(State& state)
 void Instructions::XOR_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.setA(state.registers.getA() ^ operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -1951,7 +1951,7 @@ void Instructions::XOR_C(State& state)
 void Instructions::XOR_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.setA(state.registers.getA() ^ operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -1962,7 +1962,7 @@ void Instructions::XOR_D(State& state)
 void Instructions::XOR_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.setA(state.registers.getA() ^ operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -1973,7 +1973,7 @@ void Instructions::XOR_E(State& state)
 void Instructions::XOR_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.setA(state.registers.getA() ^ operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -1984,7 +1984,7 @@ void Instructions::XOR_H(State& state)
 void Instructions::XOR_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.setA(state.registers.getA() ^ operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -1998,7 +1998,7 @@ void Instructions::XOR_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getHL());
+		std::uint8_t operand = state.mmu.read(state.registers.getHL());
 		state.registers.setA(state.registers.getA() ^ operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -2009,7 +2009,7 @@ void Instructions::XOR_MEM_AT_HL(State& state)
 void Instructions::XOR_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.setA(state.registers.getA() ^ operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -2020,7 +2020,7 @@ void Instructions::XOR_A(State& state)
 void Instructions::OR_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.setA(state.registers.getA() | operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -2031,7 +2031,7 @@ void Instructions::OR_B(State& state)
 void Instructions::OR_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.setA(state.registers.getA() | operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -2042,7 +2042,7 @@ void Instructions::OR_C(State& state)
 void Instructions::OR_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.setA(state.registers.getA() | operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -2053,7 +2053,7 @@ void Instructions::OR_D(State& state)
 void Instructions::OR_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.setA(state.registers.getA() | operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -2064,7 +2064,7 @@ void Instructions::OR_E(State& state)
 void Instructions::OR_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.setA(state.registers.getA() | operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -2075,7 +2075,7 @@ void Instructions::OR_H(State& state)
 void Instructions::OR_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.setA(state.registers.getA() | operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -2089,7 +2089,7 @@ void Instructions::OR_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getHL());
+		std::uint8_t operand = state.mmu.read(state.registers.getHL());
 		state.registers.setA(state.registers.getA() | operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -2100,7 +2100,7 @@ void Instructions::OR_MEM_AT_HL(State& state)
 void Instructions::OR_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.setA(state.registers.getA() | operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -2111,7 +2111,7 @@ void Instructions::OR_A(State& state)
 void Instructions::CP_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf)) & 0x10)
@@ -2126,7 +2126,7 @@ void Instructions::CP_B(State& state)
 void Instructions::CP_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf)) & 0x10)
@@ -2141,7 +2141,7 @@ void Instructions::CP_C(State& state)
 void Instructions::CP_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf)) & 0x10)
@@ -2156,7 +2156,7 @@ void Instructions::CP_D(State& state)
 void Instructions::CP_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf)) & 0x10)
@@ -2171,7 +2171,7 @@ void Instructions::CP_E(State& state)
 void Instructions::CP_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf)) & 0x10)
@@ -2186,7 +2186,7 @@ void Instructions::CP_H(State& state)
 void Instructions::CP_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf)) & 0x10)
@@ -2204,7 +2204,7 @@ void Instructions::CP_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getHL());
+		std::uint8_t operand = state.mmu.read(state.registers.getHL());
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf)) & 0x10)
@@ -2219,7 +2219,7 @@ void Instructions::CP_MEM_AT_HL(State& state)
 void Instructions::CP_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf)) & 0x10)
@@ -2283,7 +2283,7 @@ void Instructions::JP_NZ_a16(State& state)
 	});
 
 	state.cpuQueue.push([](State& state) {
-		Byte d = state.mmu.read(state.registers.getPC());
+		std::uint8_t d = state.mmu.read(state.registers.getPC());
 		state.registers.incPC();
 		if (!state.registers.getZeroFlag())
 		{
@@ -2343,9 +2343,9 @@ void Instructions::CALL_NZ_a16(State& state)
 			state.cpuQueue.push([](State& state) {
 				state.registers.decSP();
 				state.mmu.write(state.registers.getSP(), lsb(state.registers.getPC()));
-				Byte tmp2 = state.tmp.top();
+				std::uint8_t tmp2 = state.tmp.top();
 				state.tmp.pop();
-				Byte tmp1 = state.tmp.top();
+				std::uint8_t tmp1 = state.tmp.top();
 				state.tmp.pop();
 				state.registers.setPC(toWord(tmp1, tmp2));
 			});
@@ -2382,7 +2382,7 @@ void Instructions::ADD_A_d8(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getPC());
+		std::uint8_t operand = state.mmu.read(state.registers.getPC());
 		state.registers.clearFlags();
 		if (((state.registers.getA() & 0xf) + (operand & 0xf)) & 0x10)
 			state.registers.setHalfCarryFlag();
@@ -2469,7 +2469,7 @@ void Instructions::JP_Z_a16(State& state)
 	});
 
 	state.cpuQueue.push([](State& state) {
-		Byte d = state.mmu.read(state.registers.getPC());
+		std::uint8_t d = state.mmu.read(state.registers.getPC());
 		state.registers.incPC();
 		if (state.registers.getZeroFlag())
 		{
@@ -2515,9 +2515,9 @@ void Instructions::CALL_Z_a16(State& state)
 				state.registers.decSP();
 				state.mmu.write(state.registers.getSP(), lsb(state.registers.getPC()));
 
-				Byte tmp2 = state.tmp.top();
+				std::uint8_t tmp2 = state.tmp.top();
 				state.tmp.pop();
-				Byte tmp1 = state.tmp.top();
+				std::uint8_t tmp1 = state.tmp.top();
 				state.tmp.pop();
 				state.registers.setPC(toWord(tmp1, tmp2));
 			});
@@ -2556,9 +2556,9 @@ void Instructions::CALL_a16(State& state)
 		state.registers.decSP();
 		state.mmu.write(state.registers.getSP(), lsb(state.registers.getPC()));
 
-		Byte tmp2 = state.tmp.top();
+		std::uint8_t tmp2 = state.tmp.top();
 		state.tmp.pop();
-		Byte tmp1 = state.tmp.top();
+		std::uint8_t tmp1 = state.tmp.top();
 		state.tmp.pop();
 		state.registers.setPC(toWord(tmp1, tmp2));
 	});
@@ -2570,8 +2570,8 @@ void Instructions::ADC_A_d8(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte carry = state.registers.getCarryFlag();
-		Byte operand = state.mmu.read(state.registers.getPC());
+		std::uint8_t carry = state.registers.getCarryFlag();
+		std::uint8_t operand = state.mmu.read(state.registers.getPC());
 		state.registers.clearFlags();
 		if (((state.registers.getA() & 0xf) + (operand & 0xf) + (carry & 0xf)) & 0x10)
 			state.registers.setHalfCarryFlag();
@@ -2655,7 +2655,7 @@ void Instructions::JP_NC_a16(State& state)
 	});
 
 	state.cpuQueue.push([](State& state) {
-		Byte d = state.mmu.read(state.registers.getPC());
+		std::uint8_t d = state.mmu.read(state.registers.getPC());
 		state.registers.incPC();
 		if (!state.registers.getCarryFlag())
 		{
@@ -2696,9 +2696,9 @@ void Instructions::CALL_NC_a16(State& state)
 				state.registers.decSP();
 				state.mmu.write(state.registers.getSP(), lsb(state.registers.getPC()));
 
-				Byte tmp2 = state.tmp.top();
+				std::uint8_t tmp2 = state.tmp.top();
 				state.tmp.pop();
-				Byte tmp1 = state.tmp.top();
+				std::uint8_t tmp1 = state.tmp.top();
 				state.tmp.pop();
 				state.registers.setPC(toWord(tmp1, tmp2));
 			});
@@ -2737,7 +2737,7 @@ void Instructions::SUB_d8(State& state)
 	state.cpuQueue.push([](State& state) {
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
-		Byte operand = state.mmu.read(state.registers.getPC());
+		std::uint8_t operand = state.mmu.read(state.registers.getPC());
 		if (((state.registers.getA() & 0xf) - (operand & 0xf)) & 0x10)
 			state.registers.setHalfCarryFlag();
 		if (((state.registers.getA() & 0xff) - (operand & 0xff)) & 0x100)
@@ -2824,7 +2824,7 @@ void Instructions::JP_C_a16(State& state)
 	});
 
 	state.cpuQueue.push([](State& state) {
-		Byte d = state.mmu.read(state.registers.getPC());
+		std::uint8_t d = state.mmu.read(state.registers.getPC());
 		state.registers.incPC();
 		if (state.registers.getCarryFlag())
 		{
@@ -2865,9 +2865,9 @@ void Instructions::CALL_C_a16(State& state)
 				state.registers.decSP();
 				state.mmu.write(state.registers.getSP(), lsb(state.registers.getPC()));
 
-				Byte tmp2 = state.tmp.top();
+				std::uint8_t tmp2 = state.tmp.top();
 				state.tmp.pop();
-				Byte tmp1 = state.tmp.top();
+				std::uint8_t tmp1 = state.tmp.top();
 				state.tmp.pop();
 				state.registers.setPC(toWord(tmp1, tmp2));
 			});
@@ -2886,8 +2886,8 @@ void Instructions::SBC_A_d8(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getPC());
-		Byte carry = state.registers.getCarryFlag();
+		std::uint8_t operand = state.mmu.read(state.registers.getPC());
+		std::uint8_t carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf) - (carry & 0xf)) & 0x10)
@@ -2984,7 +2984,7 @@ void Instructions::AND_d8(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getPC());
+		std::uint8_t operand = state.mmu.read(state.registers.getPC());
 		state.registers.setA(state.registers.getA() & operand);
 		state.registers.clearFlags();
 		state.registers.setHalfCarryFlag();
@@ -3020,12 +3020,12 @@ void Instructions::ADD_SP_r8(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		state.tmp.push(static_cast<SignedByte>(state.mmu.read(state.registers.getPC())));
+		state.tmp.push(static_cast<std::int8_t>(state.mmu.read(state.registers.getPC())));
 		state.registers.incPC();
 	});
 	state.cpuQueue.push([](State& state) {
 		state.registers.clearFlags();
-		const SignedByte& e = static_cast<SignedByte>(state.tmp.top());
+		const std::int8_t& e = static_cast<std::int8_t>(state.tmp.top());
 		if (e >= 0)
 		{
 			if (((state.registers.getSP() & 0xf) + (e & 0xf)) > 0xf)
@@ -3069,9 +3069,9 @@ void Instructions::LD_MEM_AT_a16_A(State& state)
 	});
 
 	state.cpuQueue.push([](State& state) {
-		Byte tmp2 = state.tmp.top();
+		std::uint8_t tmp2 = state.tmp.top();
 		state.tmp.pop();
-		Byte tmp1 = state.tmp.top();
+		std::uint8_t tmp1 = state.tmp.top();
 		state.tmp.pop();
 		state.mmu.write(toWord(tmp1, tmp2), state.registers.getA());
 	});
@@ -3083,7 +3083,7 @@ void Instructions::XOR_d8(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getPC());
+		std::uint8_t operand = state.mmu.read(state.registers.getPC());
 		state.registers.setA(state.registers.getA() ^ operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -3183,7 +3183,7 @@ void Instructions::OR_d8(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getPC());
+		std::uint8_t operand = state.mmu.read(state.registers.getPC());
 		state.registers.setA(state.registers.getA() | operand);
 		state.registers.clearFlags();
 		if (state.registers.getA() == 0)
@@ -3218,13 +3218,13 @@ void Instructions::LD_HL_SP_r8(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		state.tmp.push(static_cast<SignedByte>(state.mmu.read(state.registers.getPC())));
+		state.tmp.push(static_cast<std::int8_t>(state.mmu.read(state.registers.getPC())));
 		state.registers.incPC();
 	});
 
 	state.cpuQueue.push([](State& state) {
 		state.registers.clearFlags();
-		const SignedByte& e = static_cast<SignedByte>(state.tmp.top());
+		const std::int8_t& e = static_cast<std::int8_t>(state.tmp.top());
 		if (e >= 0)
 		{
 			if (((state.registers.getSP() & 0xf) + (e & 0xf)) > 0xf)
@@ -3270,9 +3270,9 @@ void Instructions::LD_A_MEM_AT_a16(State& state)
 	});
 
 	state.cpuQueue.push([](State& state) {
-		Byte tmp2 = state.tmp.top();
+		std::uint8_t tmp2 = state.tmp.top();
 		state.tmp.pop();
-		Byte tmp1 = state.tmp.top();
+		std::uint8_t tmp1 = state.tmp.top();
 		state.tmp.pop();
 		state.registers.setA(state.mmu.read(toWord(tmp1, tmp2)));
 	});
@@ -3289,7 +3289,7 @@ void Instructions::CP_d8(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getPC());
+		std::uint8_t operand = state.mmu.read(state.registers.getPC());
 		state.registers.clearFlags();
 		state.registers.setSubtractFlag();
 		if (((state.registers.getA() & 0xf) - (operand & 0xf)) & 0x10)
@@ -3325,7 +3325,7 @@ void Instructions::RST_38H(State& state)
 void Instructions::RLC_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3338,7 +3338,7 @@ void Instructions::RLC_B(State& state)
 void Instructions::RLC_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3351,7 +3351,7 @@ void Instructions::RLC_C(State& state)
 void Instructions::RLC_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3364,7 +3364,7 @@ void Instructions::RLC_D(State& state)
 void Instructions::RLC_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3377,7 +3377,7 @@ void Instructions::RLC_E(State& state)
 void Instructions::RLC_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3390,7 +3390,7 @@ void Instructions::RLC_H(State& state)
 void Instructions::RLC_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3408,7 +3408,7 @@ void Instructions::RLC_MEM_AT_HL(State& state)
 	state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.getHL())); });
 	state.cpuQueue.push([](State& state) {
 		state.registers.clearFlags();
-		Byte& operand = state.tmp.top();
+		std::uint8_t& operand = state.tmp.top();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
 		operand = operand << 1 | (operand >> 7);
@@ -3422,7 +3422,7 @@ void Instructions::RLC_MEM_AT_HL(State& state)
 void Instructions::RLC_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3435,7 +3435,7 @@ void Instructions::RLC_A(State& state)
 void Instructions::RRC_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3448,7 +3448,7 @@ void Instructions::RRC_B(State& state)
 void Instructions::RRC_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3461,7 +3461,7 @@ void Instructions::RRC_C(State& state)
 void Instructions::RRC_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3474,7 +3474,7 @@ void Instructions::RRC_D(State& state)
 void Instructions::RRC_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3487,7 +3487,7 @@ void Instructions::RRC_E(State& state)
 void Instructions::RRC_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3500,7 +3500,7 @@ void Instructions::RRC_H(State& state)
 void Instructions::RRC_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3518,7 +3518,7 @@ void Instructions::RRC_MEM_AT_HL(State& state)
 	state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.getHL())); });
 	state.cpuQueue.push([](State& state) {
 		state.registers.clearFlags();
-		Byte& operand = state.tmp.top();
+		std::uint8_t& operand = state.tmp.top();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3533,7 +3533,7 @@ void Instructions::RRC_MEM_AT_HL(State& state)
 void Instructions::RRC_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3546,7 +3546,7 @@ void Instructions::RRC_A(State& state)
 void Instructions::RL_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
@@ -3560,7 +3560,7 @@ void Instructions::RL_B(State& state)
 void Instructions::RL_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
@@ -3574,7 +3574,7 @@ void Instructions::RL_C(State& state)
 void Instructions::RL_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
@@ -3588,7 +3588,7 @@ void Instructions::RL_D(State& state)
 void Instructions::RL_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
@@ -3602,7 +3602,7 @@ void Instructions::RL_E(State& state)
 void Instructions::RL_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
@@ -3616,7 +3616,7 @@ void Instructions::RL_H(State& state)
 void Instructions::RL_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
@@ -3635,7 +3635,7 @@ void Instructions::RL_MEM_AT_HL(State& state)
 	state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.getHL())); });
 	state.cpuQueue.push([](State& state) {
 		bool carry = state.registers.getCarryFlag();
-		Byte& operand = state.tmp.top();
+		std::uint8_t& operand = state.tmp.top();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3650,7 +3650,7 @@ void Instructions::RL_MEM_AT_HL(State& state)
 void Instructions::RL_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
@@ -3664,7 +3664,7 @@ void Instructions::RL_A(State& state)
 void Instructions::RR_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 1)
@@ -3678,7 +3678,7 @@ void Instructions::RR_B(State& state)
 void Instructions::RR_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 1)
@@ -3692,7 +3692,7 @@ void Instructions::RR_C(State& state)
 void Instructions::RR_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 1)
@@ -3706,7 +3706,7 @@ void Instructions::RR_D(State& state)
 void Instructions::RR_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 1)
@@ -3720,7 +3720,7 @@ void Instructions::RR_E(State& state)
 void Instructions::RR_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 1)
@@ -3734,7 +3734,7 @@ void Instructions::RR_H(State& state)
 void Instructions::RR_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 1)
@@ -3753,7 +3753,7 @@ void Instructions::RR_MEM_AT_HL(State& state)
 	state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.getHL())); });
 	state.cpuQueue.push([](State& state) {
 		bool carry = state.registers.getCarryFlag();
-		Byte& operand = state.tmp.top();
+		std::uint8_t& operand = state.tmp.top();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3768,7 +3768,7 @@ void Instructions::RR_MEM_AT_HL(State& state)
 void Instructions::RR_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		bool carry = state.registers.getCarryFlag();
 		state.registers.clearFlags();
 		if (operand & 1)
@@ -3782,7 +3782,7 @@ void Instructions::RR_A(State& state)
 void Instructions::SLA_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3795,7 +3795,7 @@ void Instructions::SLA_B(State& state)
 void Instructions::SLA_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3808,7 +3808,7 @@ void Instructions::SLA_C(State& state)
 void Instructions::SLA_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3821,7 +3821,7 @@ void Instructions::SLA_D(State& state)
 void Instructions::SLA_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3834,7 +3834,7 @@ void Instructions::SLA_E(State& state)
 void Instructions::SLA_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3847,7 +3847,7 @@ void Instructions::SLA_H(State& state)
 void Instructions::SLA_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3864,7 +3864,7 @@ void Instructions::SLA_MEM_AT_HL(State& state)
 	});
 	state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.getHL())); });
 	state.cpuQueue.push([](State& state) {
-		Byte& operand = state.tmp.top();
+		std::uint8_t& operand = state.tmp.top();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3879,7 +3879,7 @@ void Instructions::SLA_MEM_AT_HL(State& state)
 void Instructions::SLA_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.clearFlags();
 		if (operand & 0b10000000)
 			state.registers.setCarryFlag();
@@ -3892,7 +3892,7 @@ void Instructions::SLA_A(State& state)
 void Instructions::SRA_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3905,7 +3905,7 @@ void Instructions::SRA_B(State& state)
 void Instructions::SRA_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3918,7 +3918,7 @@ void Instructions::SRA_C(State& state)
 void Instructions::SRA_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3931,7 +3931,7 @@ void Instructions::SRA_D(State& state)
 void Instructions::SRA_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3944,7 +3944,7 @@ void Instructions::SRA_E(State& state)
 void Instructions::SRA_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3957,7 +3957,7 @@ void Instructions::SRA_H(State& state)
 void Instructions::SRA_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3974,7 +3974,7 @@ void Instructions::SRA_MEM_AT_HL(State& state)
 	});
 	state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.getHL())); });
 	state.cpuQueue.push([](State& state) {
-		Byte& operand = state.tmp.top();
+		std::uint8_t& operand = state.tmp.top();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -3989,7 +3989,7 @@ void Instructions::SRA_MEM_AT_HL(State& state)
 void Instructions::SRA_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -4002,7 +4002,7 @@ void Instructions::SRA_A(State& state)
 void Instructions::SWAP_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.clearFlags();
 		state.registers.setB(operand >> 4 | operand << 4);
 		if (state.registers.getB() == 0)
@@ -4013,7 +4013,7 @@ void Instructions::SWAP_B(State& state)
 void Instructions::SWAP_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.clearFlags();
 		state.registers.setC(operand >> 4 | operand << 4);
 		if (state.registers.getC() == 0)
@@ -4024,7 +4024,7 @@ void Instructions::SWAP_C(State& state)
 void Instructions::SWAP_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.clearFlags();
 		state.registers.setD(operand >> 4 | operand << 4);
 		if (state.registers.getD() == 0)
@@ -4035,7 +4035,7 @@ void Instructions::SWAP_D(State& state)
 void Instructions::SWAP_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.clearFlags();
 		state.registers.setE(operand >> 4 | operand << 4);
 		if (state.registers.getE() == 0)
@@ -4046,7 +4046,7 @@ void Instructions::SWAP_E(State& state)
 void Instructions::SWAP_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.clearFlags();
 		state.registers.setH(operand >> 4 | operand << 4);
 		if (state.registers.getH() == 0)
@@ -4057,7 +4057,7 @@ void Instructions::SWAP_H(State& state)
 void Instructions::SWAP_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.clearFlags();
 		state.registers.setL(operand >> 4 | operand << 4);
 		if (state.registers.getL() == 0)
@@ -4072,7 +4072,7 @@ void Instructions::SWAP_MEM_AT_HL(State& state)
 	});
 	state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.getHL())); });
 	state.cpuQueue.push([](State& state) {
-		Byte& operand = state.tmp.top();
+		std::uint8_t& operand = state.tmp.top();
 		operand = operand >> 4 | operand << 4;
 		state.registers.clearFlags();
 		state.mmu.write(state.registers.getHL(), operand);
@@ -4085,7 +4085,7 @@ void Instructions::SWAP_MEM_AT_HL(State& state)
 void Instructions::SWAP_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.clearFlags();
 		state.registers.setA(operand >> 4 | operand << 4);
 		if (state.registers.getA() == 0)
@@ -4096,7 +4096,7 @@ void Instructions::SWAP_A(State& state)
 void Instructions::SRL_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -4109,7 +4109,7 @@ void Instructions::SRL_B(State& state)
 void Instructions::SRL_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -4122,7 +4122,7 @@ void Instructions::SRL_C(State& state)
 void Instructions::SRL_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -4135,7 +4135,7 @@ void Instructions::SRL_D(State& state)
 void Instructions::SRL_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -4148,7 +4148,7 @@ void Instructions::SRL_E(State& state)
 void Instructions::SRL_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -4161,7 +4161,7 @@ void Instructions::SRL_H(State& state)
 void Instructions::SRL_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -4178,7 +4178,7 @@ void Instructions::SRL_MEM_AT_HL(State& state)
 	});
 	state.cpuQueue.push([](State& state) { state.tmp.push(state.mmu.read(state.registers.getHL())); });
 	state.cpuQueue.push([](State& state) {
-		Byte& operand = state.tmp.top();
+		std::uint8_t& operand = state.tmp.top();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -4193,7 +4193,7 @@ void Instructions::SRL_MEM_AT_HL(State& state)
 void Instructions::SRL_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.clearFlags();
 		if (operand & 1)
 			state.registers.setCarryFlag();
@@ -4206,7 +4206,7 @@ void Instructions::SRL_A(State& state)
 void Instructions::BIT_0_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4218,7 +4218,7 @@ void Instructions::BIT_0_B(State& state)
 void Instructions::BIT_0_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4230,7 +4230,7 @@ void Instructions::BIT_0_C(State& state)
 void Instructions::BIT_0_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4242,7 +4242,7 @@ void Instructions::BIT_0_D(State& state)
 void Instructions::BIT_0_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4254,7 +4254,7 @@ void Instructions::BIT_0_E(State& state)
 void Instructions::BIT_0_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4266,7 +4266,7 @@ void Instructions::BIT_0_H(State& state)
 void Instructions::BIT_0_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4281,7 +4281,7 @@ void Instructions::BIT_0_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getHL());
+		std::uint8_t operand = state.mmu.read(state.registers.getHL());
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4293,7 +4293,7 @@ void Instructions::BIT_0_MEM_AT_HL(State& state)
 void Instructions::BIT_0_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4305,7 +4305,7 @@ void Instructions::BIT_0_A(State& state)
 void Instructions::BIT_1_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4317,7 +4317,7 @@ void Instructions::BIT_1_B(State& state)
 void Instructions::BIT_1_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4329,7 +4329,7 @@ void Instructions::BIT_1_C(State& state)
 void Instructions::BIT_1_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4341,7 +4341,7 @@ void Instructions::BIT_1_D(State& state)
 void Instructions::BIT_1_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4353,7 +4353,7 @@ void Instructions::BIT_1_E(State& state)
 void Instructions::BIT_1_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4365,7 +4365,7 @@ void Instructions::BIT_1_H(State& state)
 void Instructions::BIT_1_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4380,7 +4380,7 @@ void Instructions::BIT_1_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getHL());
+		std::uint8_t operand = state.mmu.read(state.registers.getHL());
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4392,7 +4392,7 @@ void Instructions::BIT_1_MEM_AT_HL(State& state)
 void Instructions::BIT_1_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4404,7 +4404,7 @@ void Instructions::BIT_1_A(State& state)
 void Instructions::BIT_2_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4416,7 +4416,7 @@ void Instructions::BIT_2_B(State& state)
 void Instructions::BIT_2_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4428,7 +4428,7 @@ void Instructions::BIT_2_C(State& state)
 void Instructions::BIT_2_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4440,7 +4440,7 @@ void Instructions::BIT_2_D(State& state)
 void Instructions::BIT_2_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4452,7 +4452,7 @@ void Instructions::BIT_2_E(State& state)
 void Instructions::BIT_2_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4464,7 +4464,7 @@ void Instructions::BIT_2_H(State& state)
 void Instructions::BIT_2_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4479,7 +4479,7 @@ void Instructions::BIT_2_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getHL());
+		std::uint8_t operand = state.mmu.read(state.registers.getHL());
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4491,7 +4491,7 @@ void Instructions::BIT_2_MEM_AT_HL(State& state)
 void Instructions::BIT_2_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4503,7 +4503,7 @@ void Instructions::BIT_2_A(State& state)
 void Instructions::BIT_3_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4515,7 +4515,7 @@ void Instructions::BIT_3_B(State& state)
 void Instructions::BIT_3_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4527,7 +4527,7 @@ void Instructions::BIT_3_C(State& state)
 void Instructions::BIT_3_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4539,7 +4539,7 @@ void Instructions::BIT_3_D(State& state)
 void Instructions::BIT_3_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4551,7 +4551,7 @@ void Instructions::BIT_3_E(State& state)
 void Instructions::BIT_3_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4563,7 +4563,7 @@ void Instructions::BIT_3_H(State& state)
 void Instructions::BIT_3_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4578,7 +4578,7 @@ void Instructions::BIT_3_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getHL());
+		std::uint8_t operand = state.mmu.read(state.registers.getHL());
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4590,7 +4590,7 @@ void Instructions::BIT_3_MEM_AT_HL(State& state)
 void Instructions::BIT_3_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4602,7 +4602,7 @@ void Instructions::BIT_3_A(State& state)
 void Instructions::BIT_4_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4614,7 +4614,7 @@ void Instructions::BIT_4_B(State& state)
 void Instructions::BIT_4_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4626,7 +4626,7 @@ void Instructions::BIT_4_C(State& state)
 void Instructions::BIT_4_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4638,7 +4638,7 @@ void Instructions::BIT_4_D(State& state)
 void Instructions::BIT_4_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4650,7 +4650,7 @@ void Instructions::BIT_4_E(State& state)
 void Instructions::BIT_4_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4662,7 +4662,7 @@ void Instructions::BIT_4_H(State& state)
 void Instructions::BIT_4_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4677,7 +4677,7 @@ void Instructions::BIT_4_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getHL());
+		std::uint8_t operand = state.mmu.read(state.registers.getHL());
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4689,7 +4689,7 @@ void Instructions::BIT_4_MEM_AT_HL(State& state)
 void Instructions::BIT_4_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4701,7 +4701,7 @@ void Instructions::BIT_4_A(State& state)
 void Instructions::BIT_5_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4713,7 +4713,7 @@ void Instructions::BIT_5_B(State& state)
 void Instructions::BIT_5_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4725,7 +4725,7 @@ void Instructions::BIT_5_C(State& state)
 void Instructions::BIT_5_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4737,7 +4737,7 @@ void Instructions::BIT_5_D(State& state)
 void Instructions::BIT_5_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4749,7 +4749,7 @@ void Instructions::BIT_5_E(State& state)
 void Instructions::BIT_5_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4761,7 +4761,7 @@ void Instructions::BIT_5_H(State& state)
 void Instructions::BIT_5_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4776,7 +4776,7 @@ void Instructions::BIT_5_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getHL());
+		std::uint8_t operand = state.mmu.read(state.registers.getHL());
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4788,7 +4788,7 @@ void Instructions::BIT_5_MEM_AT_HL(State& state)
 void Instructions::BIT_5_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4800,7 +4800,7 @@ void Instructions::BIT_5_A(State& state)
 void Instructions::BIT_6_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4812,7 +4812,7 @@ void Instructions::BIT_6_B(State& state)
 void Instructions::BIT_6_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4824,7 +4824,7 @@ void Instructions::BIT_6_C(State& state)
 void Instructions::BIT_6_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4836,7 +4836,7 @@ void Instructions::BIT_6_D(State& state)
 void Instructions::BIT_6_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4848,7 +4848,7 @@ void Instructions::BIT_6_E(State& state)
 void Instructions::BIT_6_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4860,7 +4860,7 @@ void Instructions::BIT_6_H(State& state)
 void Instructions::BIT_6_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4875,7 +4875,7 @@ void Instructions::BIT_6_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getHL());
+		std::uint8_t operand = state.mmu.read(state.registers.getHL());
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4887,7 +4887,7 @@ void Instructions::BIT_6_MEM_AT_HL(State& state)
 void Instructions::BIT_6_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4899,7 +4899,7 @@ void Instructions::BIT_6_A(State& state)
 void Instructions::BIT_7_B(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getB();
+		std::uint8_t operand = state.registers.getB();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4911,7 +4911,7 @@ void Instructions::BIT_7_B(State& state)
 void Instructions::BIT_7_C(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getC();
+		std::uint8_t operand = state.registers.getC();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4923,7 +4923,7 @@ void Instructions::BIT_7_C(State& state)
 void Instructions::BIT_7_D(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getD();
+		std::uint8_t operand = state.registers.getD();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4935,7 +4935,7 @@ void Instructions::BIT_7_D(State& state)
 void Instructions::BIT_7_E(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getE();
+		std::uint8_t operand = state.registers.getE();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4947,7 +4947,7 @@ void Instructions::BIT_7_E(State& state)
 void Instructions::BIT_7_H(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getH();
+		std::uint8_t operand = state.registers.getH();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4959,7 +4959,7 @@ void Instructions::BIT_7_H(State& state)
 void Instructions::BIT_7_L(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getL();
+		std::uint8_t operand = state.registers.getL();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4974,7 +4974,7 @@ void Instructions::BIT_7_MEM_AT_HL(State& state)
 		// fetch
 	});
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.mmu.read(state.registers.getHL());
+		std::uint8_t operand = state.mmu.read(state.registers.getHL());
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();
@@ -4986,7 +4986,7 @@ void Instructions::BIT_7_MEM_AT_HL(State& state)
 void Instructions::BIT_7_A(State& state)
 {
 	state.cpuQueue.push([](State& state) {
-		Byte operand = state.registers.getA();
+		std::uint8_t operand = state.registers.getA();
 		state.registers.resetSubtractFlag();
 		state.registers.setHalfCarryFlag();
 		state.registers.setZeroFlag();

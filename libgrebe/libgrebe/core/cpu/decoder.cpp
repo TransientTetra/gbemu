@@ -1,7 +1,7 @@
 #include <libgrebe/core/cpu/decoder.hpp>
 #include <libgrebe/core/cpu/opcodes.hpp>
 
-std::function<void(State&)> Decoder::decode(const Byte& opcode)
+std::function<void(State&)> Decoder::decode(const std::uint8_t& opcode)
 {
 	switch (opcode)
 	{
@@ -500,7 +500,7 @@ std::function<void(State&)> Decoder::decode(const Byte& opcode)
 	}
 }
 
-std::function<void(State&)> Decoder::decodeCB(const Byte& opcode)
+std::function<void(State&)> Decoder::decodeCB(const std::uint8_t& opcode)
 {
 	switch (opcode)
 	{

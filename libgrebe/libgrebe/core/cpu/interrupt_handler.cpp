@@ -56,9 +56,9 @@ void InterruptHandler::cycle4()
 void InterruptHandler::cycle5()
 {
 	state.ime = false;
-	Byte jumpVector;
-	const Byte& IE = state.mmu.read(LIBGREBE_REG_IE);
-	const Byte& IF = state.mmu.read(LIBGREBE_REG_IF);
+	std::uint8_t jumpVector;
+	const std::uint8_t& IE = state.mmu.read(LIBGREBE_REG_IE);
+	const std::uint8_t& IF = state.mmu.read(LIBGREBE_REG_IF);
 	if (IE >> 0 & 1 && IF >> 0 & 1)
 	{
 		jumpVector = LIBGREBE_INT_VBLANK;

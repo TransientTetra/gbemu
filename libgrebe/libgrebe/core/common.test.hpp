@@ -7,7 +7,7 @@
 class FakeAddressable : public Addressable
 {
 private:
-	std::vector<Byte> mem;
+	std::vector<std::uint8_t> mem;
 	size_t size;
 
 public:
@@ -16,26 +16,26 @@ public:
 		size = LIBGREBE_MEMORY_SIZE;
 		mem.resize(LIBGREBE_MEMORY_SIZE);
 	}
-	FakeAddressable(Word size)
+	FakeAddressable(std::uint16_t size)
 	{
 		this->size = size;
 		mem.resize(size);
 	}
-	virtual bool contains(Word address) const override
+	virtual bool contains(std::uint16_t address) const override
 	{
 		return address < size;
 	}
-	virtual Byte read(Word address) const override
+	virtual std::uint8_t read(std::uint16_t address) const override
 	{
 		return mem[address];
 	}
-	virtual void write(Word address, Byte data) override
+	virtual void write(std::uint16_t address, std::uint8_t data) override
 	{
 		mem[address] = data;
 	}
 };
 
-void writeWord(State& state, const Word& address, const Word& data);
+void writeWord(State& state, const std::uint16_t& address, const std::uint16_t& data);
 
 void copyMem(MMU& dst, MMU& src);
 

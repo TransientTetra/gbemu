@@ -31,7 +31,7 @@ void ControlUnit::tick()
 void ControlUnit::fetch()
 {
 	// fetch
-	const Byte& opcode = state.mmu.read(state.registers.getPC());
+	const std::uint8_t& opcode = state.mmu.read(state.registers.getPC());
 	state.registers.incPC();
 	// decode
 	std::function<void(State&)> loadMicroOps;
@@ -59,7 +59,7 @@ void ControlUnit::execute()
 void ControlUnit::stop()
 {
 	// state.clockCycles -= 4;
-	// const Byte& joypad = state.memory.read(LIBGREBE_REG_P1);
+	// const std::uint8_t& joypad = state.memory.read(LIBGREBE_REG_P1);
 	// if (~joypad & 0b00110000 && ~joypad & 0b1111)
 	// {
 	// 	if (state.cpuQueue.empty())
@@ -71,8 +71,8 @@ void ControlUnit::stop()
 
 void ControlUnit::halt()
 {
-	// const Byte& IE = state.memory.read(LIBGREBE_REG_IE);
-	// const Byte& IF = state.memory.read(LIBGREBE_REG_IF);
+	// const std::uint8_t& IE = state.memory.read(LIBGREBE_REG_IE);
+	// const std::uint8_t& IF = state.memory.read(LIBGREBE_REG_IF);
 	// if (state.ime && (IE & IF & 0x1f))
 	// {
 	// 	state.cpuState = INTERRUPT_HANDLER;

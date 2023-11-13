@@ -10,7 +10,6 @@ set(LIBGREBE_SOURCES
         libgrebe/core/cpu/control_unit.hpp
         libgrebe/core/mmu/mmu.cpp
         libgrebe/core/mmu/mmu.hpp
-        libgrebe/types.hpp
         libgrebe/core/cpu/registers.hpp
         libgrebe/state.hpp
         libgrebe/memory_loader.cpp

@@ -16,21 +16,21 @@ protected:
 	{
 	}
 
-	inline void testContains(const Addressable& addressable, Word rangeStart, Word rangeEnd)
+	inline void testContains(const Addressable& addressable, std::uint16_t rangeStart, std::uint16_t rangeEnd)
 	{
-		for (Word i = rangeStart; i <= rangeEnd; ++i)
+		for (std::uint16_t i = rangeStart; i <= rangeEnd; ++i)
 		{
 			EXPECT_TRUE(addressable.contains(i));
 		}
 	}
-	inline void testReadWrite(Addressable& addressable, Word rangeStart, Word rangeEnd)
+	inline void testReadWrite(Addressable& addressable, std::uint16_t rangeStart, std::uint16_t rangeEnd)
 	{
-		for (Word i = rangeStart; i <= rangeEnd; ++i)
+		for (std::uint16_t i = rangeStart; i <= rangeEnd; ++i)
 		{
 			testReadWrite(addressable, i);
 		}
 	}
-	inline void testReadWrite(Addressable& addressable, Word addr)
+	inline void testReadWrite(Addressable& addressable, std::uint16_t addr)
 	{
 		addressable.write(addr, 0x96);
 		EXPECT_EQ(addressable.read(addr), 0x96);

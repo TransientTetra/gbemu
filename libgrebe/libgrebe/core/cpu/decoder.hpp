@@ -7,8 +7,8 @@
 class Decoder
 {
 public:
-	static std::function<void(State&)> decode(const Byte& opcode);
-	static std::function<void(State&)> decodeCB(const Byte& opcode);
+	static std::function<void(State&)> decode(const std::uint8_t& opcode);
+	static std::function<void(State&)> decodeCB(const std::uint8_t& opcode);
 };
 
 #endif // LIBGREBE_DECODER_HPP

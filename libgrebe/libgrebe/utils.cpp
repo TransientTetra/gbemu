@@ -1,16 +1,16 @@
 #include <libgrebe/utils.hpp>
 
-Word toWord(const Byte& lsb, const Byte& msb)
+std::uint16_t toWord(const std::uint8_t& lsb, const std::uint8_t& msb)
 {
-	return (static_cast<const Word&>(msb) << 8) | lsb;
+	return (static_cast<const std::uint16_t&>(msb) << 8) | lsb;
 }
 
-Byte lsb(const Word& word)
+std::uint8_t lsb(const std::uint16_t& word)
 {
 	return word & 0xff;
 }
 
-Byte msb(const Word& word)
+std::uint8_t msb(const std::uint16_t& word)
 {
 	return word >> 8;
 }

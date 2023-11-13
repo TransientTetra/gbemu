@@ -3,7 +3,7 @@
 
 #include <libgrebe/common/addressable.hpp>
 #include <libgrebe/memory_locations.hpp>
-#include <libgrebe/types.hpp>
+#include <cstdint>
 #include <vector>
 
 #define LIBGREBE_MEMORY_SIZE 0x10000
@@ -12,14 +12,14 @@
 class MMU
 {
 private:
-	static const Byte defaultRead = 0xff;
+	static const std::uint8_t defaultRead = 0xff;
 	// all mapped memory, includes ram and vram and rom
 	std::vector<std::reference_wrapper<Addressable>> addressables;
 
 public:
 	void registerAddressable(Addressable& addressable);
-	Byte read(Word address) const;
-	void write(Word address, Byte data);
+	std::uint8_t read(std::uint16_t address) const;
+	void write(std::uint16_t address, std::uint8_t data);
 
 	MMU();
 	MMU(const MMU&) = delete;

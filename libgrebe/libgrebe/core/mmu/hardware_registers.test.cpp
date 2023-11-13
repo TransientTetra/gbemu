@@ -65,7 +65,7 @@ TEST_F(MMUTest, P1Test)
 {
 	// bits 0-3 are readonly
 	HardwareRegisters hardwareRegisters;
-	Byte p1 = hardwareRegisters.read(LIBGREBE_REG_P1);
+	std::uint8_t p1 = hardwareRegisters.read(LIBGREBE_REG_P1);
 	hardwareRegisters.write(LIBGREBE_REG_P1, ~p1);
 	EXPECT_EQ(hardwareRegisters.read(LIBGREBE_REG_P1), (~p1 & 0xf0) | (p1 & 0x0f));
 }

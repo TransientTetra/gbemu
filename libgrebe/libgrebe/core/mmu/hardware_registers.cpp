@@ -1,7 +1,7 @@
 #include <libgrebe/core/mmu/hardware_registers.hpp>
 #include <libgrebe/memory_locations.hpp>
 
-bool HardwareRegisters::contains(Word address) const
+bool HardwareRegisters::contains(std::uint16_t address) const
 {
 	// only dmg registers
 	return address == LIBGREBE_REG_P1 || address == LIBGREBE_REG_SB || address == LIBGREBE_REG_SC ||
@@ -20,7 +20,7 @@ bool HardwareRegisters::contains(Word address) const
 		   address == LIBGREBE_REG_WY || address == LIBGREBE_REG_WX || address == LIBGREBE_REG_IE;
 }
 
-Byte HardwareRegisters::read(Word address) const
+std::uint8_t HardwareRegisters::read(std::uint16_t address) const
 {
 	// https://gbdev.io/pandocs/Hardware_Reg_List.html
 	switch (address)
@@ -156,7 +156,7 @@ Byte HardwareRegisters::read(Word address) const
 	}
 }
 
-void HardwareRegisters::write(Word address, Byte data)
+void HardwareRegisters::write(std::uint16_t address, std::uint8_t data)
 {
 	switch (address)
 	{

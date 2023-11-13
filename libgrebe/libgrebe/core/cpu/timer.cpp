@@ -40,7 +40,7 @@ void Timer::tick()
 	// https://gbdev.gg8.se/wiki/articles/Timer_Obscure_Behaviour
 
 	++state.hardwareRegisters.DIV_WIDE;
-	Byte preTIMA = state.hardwareRegisters.TIMA;
+	std::uint8_t preTIMA = state.hardwareRegisters.TIMA;
 	switch (state.hardwareRegisters.TAC & 0b00000111)
 	{
 		case 0b00000100:

@@ -1,7 +1,7 @@
 #include <libgrebe/core/mmu/bootrom.hpp>
 #include <libgrebe/memory_locations.hpp>
 
-bool Bootrom::contains(Word address) const
+bool Bootrom::contains(std::uint16_t address) const
 {
 	if (enabled)
 		return (address >= 0 && address <= 0xFF) || address == LIBGREBE_REG_BOOTROM_DISABLE;
@@ -9,14 +9,14 @@ bool Bootrom::contains(Word address) const
 		return false;
 }
 
-Byte Bootrom::read(Word address) const
+std::uint8_t Bootrom::read(std::uint16_t address) const
 {
 	if (address == LIBGREBE_REG_BOOTROM_DISABLE)
 		return defaultRead;
 	return rom.at(address);
 }
 
-void Bootrom::write(Word address, Byte data)
+void Bootrom::write(std::uint16_t address, std::uint8_t data)
 {
 	if (address == 0xFF50)
 		enabled = false;

@@ -1,9 +1,9 @@
 #include <libgrebe/core/common.test.hpp>
 
-void writeWord(State& state, const Word& address, const Word& data)
+void writeWord(State& state, const std::uint16_t& address, const std::uint16_t& data)
 {
-	state.mmu.write(address, static_cast<Byte>(0x00ff & data));
-	state.mmu.write(address + 1, static_cast<Byte>(data >> 8));
+	state.mmu.write(address, static_cast<std::uint8_t>(0x00ff & data));
+	state.mmu.write(address + 1, static_cast<std::uint8_t>(data >> 8));
 }
 
 void copyMem(MMU& dst, MMU& src)

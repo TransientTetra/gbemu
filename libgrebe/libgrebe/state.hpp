@@ -50,7 +50,7 @@ struct State
 	bool extendedOpcodeSet = false;
 	bool imeScheduled = false;
 	bool ime = false;
-	std::stack<Byte> tmp;
+	std::stack<std::uint8_t> tmp;
 	Registers registers;
 
 	HardwareRegisters hardwareRegisters;

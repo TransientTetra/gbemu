@@ -14,9 +14,6 @@ set(LIBGREBE_SOURCES
         libgrebe/state.hpp
         libgrebe/memory_loader.cpp
         libgrebe/memory_loader.hpp
-        libgrebe/core/cpu/decoder.cpp
-        libgrebe/core/cpu/decoder.hpp
-        libgrebe/core/cpu/opcodes.hpp
         libgrebe/core/cpu/instructions.cpp
         libgrebe/core/cpu/instructions.hpp
         libgrebe/memory_locations.hpp

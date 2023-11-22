@@ -1,5 +1,5 @@
 #include <libgrebe/core/cpu/control_unit.hpp>
-#include <libgrebe/core/cpu/decoder.hpp>
+#include <libgrebe/core/cpu/instructions.hpp>
 #include <libgrebe/core/cpu/interrupt_handler.hpp>
 
 void ControlUnit::tick()
@@ -34,14 +34,14 @@ void ControlUnit::fetch()
 	const std::uint8_t& opcode = state.mmu.read(state.registers.getPC());
 	state.registers.incPC();
 	// decode
-	std::function<void(State&)> loadMicroOps;
+	Instruction loadMicroOps;
 	if (state.extendedOpcodeSet)
 	{
-		loadMicroOps = Decoder::decodeCB(opcode);
+		loadMicroOps = Instructions::getInstance().decodeCB(opcode);
 		state.extendedOpcodeSet = false;
 	}
 	else
-		loadMicroOps = Decoder::decode(opcode);
+		loadMicroOps = Instructions::getInstance().decode(opcode);
 	// enqueue microoperations for the decoded instruction
 	loadMicroOps(state);
 	state.controlUnitState = LIBGREBE_CONTROL_UNIT_STATE_EXECUTE;
